@@ -16,7 +16,7 @@ const Navbar = () => {
                         <Text fontSize="lg" fontWeight="bold" color="white">
                             Calendar
                         </Text>
-                    </Link>
+                    </Link>                  
                     <Link as={RouterLink} to="/events" mr={4}>
                         <Text fontSize="lg" fontWeight="bold" color="white">
                             Events
