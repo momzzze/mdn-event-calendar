@@ -20,7 +20,7 @@ function App() {
     <>
       {isAuthenticated ?
         (<>
-          <Navbar />
+          <Navbar isAuthenticated={isAuthenticated}/>
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />

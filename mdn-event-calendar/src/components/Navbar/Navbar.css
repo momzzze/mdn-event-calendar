@@ -1,0 +1,18 @@
+.nav-link {
+    color: purple; /* Change to the desired color */
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+/* Hover styles */
+.nav-link:hover {
+    color: #7E57C2; /* Change to the desired hover color */
+    border-bottom-color: #7E57C2; /* Change to the desired hover color */
+}
+
+/* Active link styles */
+.nav-link.active {
+    color: #9C27B0; /* Change to the desired active color */
+    border-bottom-color: #9C27B0; /* Change to the desired active color */
+}
