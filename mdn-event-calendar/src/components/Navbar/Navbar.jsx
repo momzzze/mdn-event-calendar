@@ -1,36 +1,59 @@
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import './Navbar.css'
-import { Box, Flex, Link, Spacer, Text } from '@chakra-ui/react'
+import { useContext } from 'react';
+import { AuthContext, useAuth } from '../../contexts/AuthContext';
+import { useToast } from '@chakra-ui/toast';
+import { logoutUser } from '../../services/auth.services';
 
 const Navbar = () => {
+    const { setUser } = useAuth();
+    const toast = useToast();
+    const navigate = useNavigate();
+
+    const onLogout = async () => {
+        try {
+            await logoutUser();
+
+            setUser({
+                user: null,
+            });
+            toast({
+                title: "Logged out successfully",
+                status: "success",
+                isClosable: true,
+                position: "top",
+                duration: 5000,
+            });
+            navigate("/landing");
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
     return (
         <>
-            <Box bg="blue.500" p={4}>
-                <Flex align="center">
-                    <Link as={RouterLink} to="/" mr={4}>
-                        <Text fontSize="lg" fontWeight="bold" color="white">
-                            Home
-                        </Text>
-                    </Link>
-                    <Link as={RouterLink} to="/calendar" mr={4}>
-                        <Text fontSize="lg" fontWeight="bold" color="white">
-                            Calendar
-                        </Text>
-                    </Link>                  
-                    <Link as={RouterLink} to="/events" mr={4}>
-                        <Text fontSize="lg" fontWeight="bold" color="white">
-                            Events
-                        </Text>
-                    </Link>
-                    <Link as={RouterLink} to="/contacts">
-                        <Text fontSize="lg" fontWeight="bold" color="white">
-                            Contacts
-                        </Text>
-                    </Link>
-                    <Spacer />
-                    {/* Add any additional elements on the right side */}
-                </Flex>
-            </Box>
+            <div className="bg-blue-500 p-4">
+                <div className="container mx-auto flex items-center">
+                    <RouterLink to="/" className="mr-4 text-white font-bold text-lg">
+                        Home
+                    </RouterLink>
+                    <RouterLink to="/calendar" className="mr-4 text-white font-bold text-lg">
+                        Calendar
+                    </RouterLink>
+                    <RouterLink to="/events" className="mr-4 text-white font-bold text-lg">
+                        Events
+                    </RouterLink>
+                    <RouterLink to="/contacts" className="mr-4 text-white font-bold text-lg">
+                        Contacts
+                    </RouterLink>
+                    <div className="flex-grow"></div>
+                    <button
+                        onClick={onLogout}
+                        className="text-white font-bold text-lg cursor-pointer transition duration-300 hover:text-blue-200"
+                    >
+                        Logout
+                    </button>
+                </div>
+            </div>
         </>
     )
 }
