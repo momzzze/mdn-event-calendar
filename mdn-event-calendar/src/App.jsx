@@ -15,29 +15,26 @@ import { auth } from './config/firebase';
 import SignIn from './components/Auth/Login/Signin';
 
 function App() {
-  const { user, userData,isAuthenticated } = useAuth();
+  const { user, userData, isAuthenticated } = useAuth();
   return (
     <>
-      {isAuthenticated === false ?
-        (
-          <Routes>
-            <Route path="/landing" element={<LandingPage />}/>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-          </Routes>
-        ) :
+      {isAuthenticated ?
         (<>
           <Navbar />
           <Routes>
+            <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Home />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/events" element={<Events />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
-        </>)
-      }
+        </>) :
+        (
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+          </Routes>
+        )}
     </>
   )
 }
