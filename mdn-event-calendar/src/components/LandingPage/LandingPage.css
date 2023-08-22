@@ -1,0 +1,46 @@
+.text-whiteh1{
+    color: white;
+    -webkit-text-stroke: 2px #461959; 
+}
+
+.bg-gradient-iridescent {
+    background: linear-gradient(to top, #461959, white);
+    background-size: 300% 100%;
+    animation: gradient 10s infinite alternate;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.bg-iridescent {    
+    background: linear-gradient(to top, #461959, white);
+    background-size: 100% 100%;
+    animation: gradient 10s infinite alternate;
+
+}
+
+.custom-link-hover {
+    backdrop-filter: blur(8px);
+    transition: backdrop-filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.custom-link-hover:hover {
+    transform: translateY(-2px); 
+    backdrop-filter: blur(10px); 
+}
+
+.custom-link-hover-nav{
+    backdrop-filter: blur(8px);
+    transition: backdrop-filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.custom-link-hover-nav:hover {
+    transform: translateY(-2px); 
+    backdrop-filter: blur(10px); 
+    background: rgb(207, 206, 206);
+}
