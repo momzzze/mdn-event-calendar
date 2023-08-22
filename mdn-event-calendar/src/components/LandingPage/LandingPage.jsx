@@ -4,6 +4,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import SignIn from '../Auth/Login/Signin';
 import SignUp from '../Auth/Register/Signup';
 import { closeSignInModal, closeSignUpModal } from '../../common/auth.helper.functions';
+import Calendar from '../Calendar/Calendar';
 
 
 const LandingPage = () => {
@@ -49,6 +50,7 @@ const LandingPage = () => {
             </div>
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
+            <Calendar />
         </section >
     )
 }
