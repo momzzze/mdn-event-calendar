@@ -45,6 +45,30 @@ export const generateDate = (
 	return arrayOfDate;
 };
 
+export const generateDateWeek = (
+	day = dayjs().day(),
+	month = dayjs().month(),
+	year = dayjs().year()
+) => {
+
+	const firstDateOfWeek = dayjs().year(year).month(month).day(day).startOf("week");
+	const lastDateOfWeek = dayjs().year(year).month(month).day(day).endOf("week");
+
+	const arrayOfDate = [];
+
+	// generate current date
+	for (let i = firstDateOfWeek.date(); i <= lastDateOfWeek.date(); i++) {
+		arrayOfDate.push({
+			date: firstDateOfWeek.date(i),
+			today:
+				firstDateOfWeek.date(i).toDate().toDateString() ===
+				dayjs().toDate().toDateString(),
+		});
+	}
+
+	return arrayOfDate;
+};
+
 export const months = [
 	"January",
 	"February",
