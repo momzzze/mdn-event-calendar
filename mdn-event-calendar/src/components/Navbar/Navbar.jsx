@@ -1,5 +1,5 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import './Navbar.css'
+import './Navbar.css';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext, useAuth } from '../../contexts/AuthContext';
 import { useToast } from '@chakra-ui/toast';
@@ -9,6 +9,7 @@ const Navbar = () => {
     const { setUser } = useAuth();
     const toast = useToast();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const onLogout = async () => {
         try {
@@ -24,36 +25,53 @@ const Navbar = () => {
                 position: "top",
                 duration: 5000,
             });
-            navigate("/landing");
+            navigate("/");
         } catch (error) {
             console.error('Logout error:', error);
         }
     };
     return (
         <>
-            <div className="bg-blue-500 p-4">
-                <div className="container mx-auto flex items-center">
-                    <RouterLink to="/" className="mr-4 text-white font-bold text-lg">
-                        Home
-                    </RouterLink>
-                    <RouterLink to="/calendar" className="mr-4 text-white font-bold text-lg">
-                        Calendar
-                    </RouterLink>
-                    <RouterLink to="/events" className="mr-4 text-white font-bold text-lg">
-                        Events
-                    </RouterLink>
-                    <RouterLink to="/contacts" className="mr-4 text-white font-bold text-lg">
-                        Contacts
-                    </RouterLink>
-                    <div className="flex-grow"></div>
+            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-start">
+                <div className="flex w-full flex-wrap items-center justify-between px-6">
+                    <div className="flex items-center">
+                        <RouterLink
+                            to="/"
+                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/' ? 'active' : ''}`}
+                        >
+                            Home
+                        </RouterLink>
+                        <RouterLink
+                            to="/calendar"
+                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/calendar' ? 'active' : ''}`}
+                        >
+                            Calendar
+                        </RouterLink>
+                        <RouterLink
+                            to="/events"
+                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/events' ? 'active' : ''}`}
+                        >
+                            Events
+                        </RouterLink>
+                        <RouterLink
+                            to="/contacts"
+                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
+                        >
+                            Contacts
+                        </RouterLink>
+                    </div>
+                    <span className="[&>svg]:ml-2 [&>svg]:mr-3 [&>svg]:h-6 [&>svg]:w-6 [&>svg]:lg:ml-0">
+                        LOGO HERE
+                    </span>
                     <button
                         onClick={onLogout}
-                        className="text-white font-bold text-lg cursor-pointer transition duration-300 hover:text-blue-200"
+                        data-te-ripple-init data-te-ripple-color="light"
+                        className="p-4 text-purple-800 font-bold text-lg border-b-2 hover:text-purple-300 border-transparent hover:border-purple-300 duration-200 active"
                     >
                         Logout
                     </button>
                 </div>
-            </div>
+            </nav>
         </>
     )
 }
