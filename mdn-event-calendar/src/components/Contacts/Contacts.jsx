@@ -33,9 +33,17 @@ const Contacts = () => {
                     <option value="list1">Contact List 1</option>
                     <option value="list2">Contact List 2</option>
                 </select>
-                <button className="w-full px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
-                    Add Contact
-                </button>
+                <div className="flex flex-col">
+                    <button className="mx-auto mb-2 w-4/5 px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
+                        Add List
+                    </button>
+                    <button className="mx-auto mb-2 w-4/5 px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
+                        Add Contact
+                    </button>
+                    <button className="mx-auto mb-2 w-4/5 px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
+                        Invites
+                    </button>
+                </div>
             </div>
         </div>
     );
