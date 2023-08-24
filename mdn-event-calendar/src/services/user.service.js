@@ -22,3 +22,7 @@ export const getUserData = (uid) => {
     const userDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(uid));
     return get(userDataQuery);
 };
+
+export const editUserHandle = async (data) => {
+    return set(ref(db, `users/${data.username}`), data);
+}

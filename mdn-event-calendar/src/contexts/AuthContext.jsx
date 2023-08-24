@@ -23,6 +23,8 @@ export const AuthProvider = ({ children }) => {
         userData: null,
     });
 
+    
+
     useEffect(() => {
         if (user !== appState.user) {
             setAppState({ ...appState, user });

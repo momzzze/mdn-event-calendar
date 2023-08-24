@@ -43,7 +43,7 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
                 position: "top",
                 duration: 5000,
             });
-        }
+        }        
     };
 
     return (
