@@ -5,6 +5,7 @@ import SignIn from '../Auth/Login/Signin';
 import SignUp from '../Auth/Register/Signup';
 import { closeSignInModal, closeSignUpModal } from '../../common/auth.helper.functions';
 import Calendar from '../Calendar/Calendar';
+import MonthCalendarLandingPage from '../Calendar/Month/MonthCalendarLandingPage';
 
 
 const LandingPage = () => {
@@ -50,7 +51,7 @@ const LandingPage = () => {
             </div>
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
-            <Calendar />
+            <MonthCalendarLandingPage />
         </section >
     )
 }
