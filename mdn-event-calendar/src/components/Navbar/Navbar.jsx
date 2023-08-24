@@ -13,7 +13,7 @@ import EditUser from '../Users/EditUser';
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
     const [isEditUserModalOpen, setEditUserModalOpen] = useState(false);
-    const { setUser, userData } = useAuth();
+    const { setUser, userData, isAdmin } = useAuth();
     const toast = useToast();
     const navigate = useNavigate();
     const location = useLocation();
@@ -50,7 +50,7 @@ const Navbar = () => {
         } catch (error) {
             console.error('Logout error:', error);
         }
-    };    
+    };
 
     useEffect(() => {
         const closeDropdownOnOutsideClick = (e) => {
@@ -95,10 +95,16 @@ const Navbar = () => {
                         >
                             Contacts
                         </RouterLink>
+                        {isAdmin && <RouterLink
+                            to="/admin"
+                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/admin' ? 'active' : ''}`}
+                        >
+                            Admin Board
+                        </RouterLink>}
                     </div>
-                    <span className="[&>svg]:ml-2 [&>svg]:mr-3 [&>svg]:h-6 [&>svg]:w-6 [&>svg]:lg:ml-0">
+                    <div className="logo">
                         LOGO HERE
-                    </span>
+                    </div>
 
                     <div className="relative ml-auto">
                         <button
@@ -117,7 +123,7 @@ const Navbar = () => {
                         </button>
                         <div ref={dropdownRef} className={`absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
 
-                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={toggleEditUserModal}>Edit Profile</a>
+                            <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={toggleEditUserModal}>Edit Profile</a>
 
                             <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={openUserDetailsModal}>Profile</a>
                         </div>
@@ -133,7 +139,7 @@ const Navbar = () => {
             </nav >
 
             <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
-            <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData}/>
+            <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} />
         </>
     )
 }

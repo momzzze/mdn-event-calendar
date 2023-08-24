@@ -1,18 +1,40 @@
 .nav-link {
-    color: purple; /* Change to the desired color */
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
+  color: purple; 
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
 }
 
-/* Hover styles */
+
 .nav-link:hover {
-    color: #7E57C2; /* Change to the desired hover color */
-    border-bottom-color: #7E57C2; /* Change to the desired hover color */
+  color: #7e57c2; 
+  border-bottom-color: #7e57c2; 
 }
 
-/* Active link styles */
 .nav-link.active {
-    color: #9C27B0; /* Change to the desired active color */
-    border-bottom-color: #9C27B0; /* Change to the desired active color */
+  color: #9c27b0; 
+  border-bottom-color: #9c27b0; 
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .logo {
+    margin-top: 10px;
+  }
 }
