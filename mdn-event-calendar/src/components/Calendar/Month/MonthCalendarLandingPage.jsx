@@ -2,6 +2,8 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { generateDate, months, days, cn } from "../../../utils/calendarUtils";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import { FiUser } from 'react-icons/fi';
+
 
 const MonthCalendarLandingPage = () => {
 	const currentDate = dayjs();
