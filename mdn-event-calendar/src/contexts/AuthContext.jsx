@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
         userData: null,
     });
 
-    
+    const isAdmin = () => {       
+        return userData?.role === 'admin';
+    };
 
     useEffect(() => {
         if (user !== appState.user) {
@@ -47,9 +49,9 @@ export const AuthProvider = ({ children }) => {
             setUserData(null);
         }
     }, [user]);
-
+    
     return (
-        <AuthContext.Provider value={{ user, userData,setUser: setUserData, appState, isAuthenticated: !!user }}>
+        <AuthContext.Provider value={{ user, userData,setUser: setUserData, appState, isAuthenticated: !!user,isAdmin:!!isAdmin() }}>
             {children}
         </AuthContext.Provider>
     );
