@@ -21,7 +21,6 @@ function App() {
   const { users } = useData()
   return (
     <>
-    {console.log(userData)}
       {isAuthenticated ?
         (<>
           <Navbar isAuthenticated={isAuthenticated} />

@@ -8,23 +8,25 @@ const Contacts = () => {
     ];
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-100  border-2 ">
             <div className="w-2/3 bg-white p-4 shadow-md">
                 <input type="text" placeholder="Search users" className="w-full px-3 py-2 mb-4 border rounded" />
                 <h2 className="text-xl font-semibold mb-2">Users</h2>
-                <ul>
-                    {dummyUsers.map(user => (
-                        <li key={user.id} className="bg-white rounded-lg p-4 flex items-center justify-between mb-4">
-                            <div className="flex items-center space-x-2">
-                                <img src={user.avatar} alt={`${user.name} Avatar`} className="w-10 h-10 rounded-full mr-10" />
-                                <span className="text-lg font-semibold">{user.name}</span>
-                            </div>
-                            <button className="px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
-                                Add to Contacts
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <div className="grid place-items-center w-70% max-h-96 overflow-y-auto"> 
+                    <ul className="w-3/4">
+                        {dummyUsers.map(user => (
+                            <li key={user.id} className="bg-white rounded-lg p-4 flex items-center justify-between mb-4">
+                                <div className="flex items-center space-x-2">
+                                    <img src={user.avatar} alt={`${user.name} Avatar`} className="w-10 h-10 rounded-full mr-10" />
+                                    <span className="text-lg font-semibold">{user.name}</span>
+                                </div>
+                                <button className="px-4 py-2 bg-purple-800 hover:bg-purple-300 text-white rounded">
+                                    Add to Contacts
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
             <div className="w-1/3 bg-white p-4 shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Contact Lists</h2>
