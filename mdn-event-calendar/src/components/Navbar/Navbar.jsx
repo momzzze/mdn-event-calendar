@@ -103,7 +103,7 @@ const Navbar = () => {
                     </RouterLink>}
                 </div>
                 <Link to='/home' className="logo">
-                <img src={logoNav} alt="logo here" style={{ height: '200px', width: 'auto' }} /> {/* Updated logo size */}
+                <img src={logoNav} alt="logo here" style={{ height: '200px', width: 'auto' }} /> 
                 </Link>
                 <div className="relative ml-auto">
                     <button
