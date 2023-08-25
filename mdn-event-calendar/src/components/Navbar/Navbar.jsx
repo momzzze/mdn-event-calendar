@@ -9,6 +9,7 @@ import UserDetails from '../Users/UserDetails';
 import { userProfileStyles } from '../../common/modal.helper.functions';
 import EditUser from '../Users/EditUser';
 import logoNav from '../../assets/logoNav.png';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
@@ -101,9 +102,9 @@ const Navbar = () => {
                         Admin Board
                     </RouterLink>}
                 </div>
-                <div className="logo">
+                <Link to='/home' className="logo">
                 <img src={logoNav} alt="logo here" style={{ height: '200px', width: 'auto' }} /> {/* Updated logo size */}
-                </div>
+                </Link>
                 <div className="relative ml-auto">
                     <button
                         onClick={toggleDropdown}
