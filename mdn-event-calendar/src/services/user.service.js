@@ -26,3 +26,36 @@ export const getUserData = (uid) => {
 export const editUserHandle = async (data) => {
     return set(ref(db, `users/${data.username}`), data);
 }
+
+export const getAllUsersData = () => {
+    const usersRef = ref(db, 'users');
+    return get(query(usersRef))
+        .then(snapshot => {
+            if (snapshot.exists()) {
+                const usersData = snapshot.val();
+                const usersArray = Object.keys(usersData).map(userId => ({
+                    id: userId,
+                    ...usersData[userId]
+                }));
+                return usersArray;
+            }
+            return [];
+        });
+};
+
+export const handleToggleRole = async (userId, currentRole) => {
+    const userRef = ref(db, `users/${userId}`);
+    const newRole = currentRole;
+    try {
+        const snapshot = await get(userRef);
+        const userData = snapshot.val();
+        if (userData) {
+            userData.role = newRole;
+            await set(userRef, userData);
+        } else {
+            console.log('User data not found');
+        }
+    } catch (error) {
+        console.error('Error updating user role:', error);
+    }
+};

@@ -131,6 +131,7 @@ const EditUser = ({ isOpen, onClose, data }) => {
                             <input
                                 type="tel"
                                 name="phone"
+                                defaultValue={data?.phone}
                                 className={`border p-2 w-full ${errors.phone ? 'border-red-500' : ''}`}
                                 {...register('phone', {
                                     required: 'Phone number is required',

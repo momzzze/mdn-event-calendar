@@ -3,8 +3,7 @@ import { userProfileStyles } from "../../common/modal.helper.functions";
 import { useEffect } from "react";
 
 const UserDetails = ({ isOpen, onClose,data }) => {
-    useEffect(() => {        
-        {console.log(data)}
+    useEffect(() => {
     }, [data]);
     return (
         <>

@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import { loginUser } from "../../../services/auth.services";
 import Modal from "react-modal";
 import { customStylesSignIn } from '../../../common/modal.helper.functions'
+import { useData } from "../../../contexts/DataContext";
 
 const SignIn = ({ isOpen, onClose, switchModals }) => {
-    // const { setUser } = useContext(AuthContext);
+    const { refreshData } = useData();
     const { appState, setUser } = useAuth();
     const navigate = useNavigate();
     const toast = useToast();
@@ -43,7 +44,12 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
                 position: "top",
                 duration: 5000,
             });
-        }        
+        } 
+        try {
+           await refreshData();
+        } catch (error) {
+            console.log(error.message);
+        }       
     };
 
     return (
