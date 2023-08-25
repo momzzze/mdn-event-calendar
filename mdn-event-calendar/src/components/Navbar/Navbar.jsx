@@ -8,7 +8,7 @@ import { FiUser } from 'react-icons/fi';
 import UserDetails from '../Users/UserDetails';
 import { userProfileStyles } from '../../common/modal.helper.functions';
 import EditUser from '../Users/EditUser';
-
+import logoNav from '../../assets/logoNav.png';
 
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
@@ -68,75 +68,70 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-start">
-                <div className="flex w-full flex-wrap items-center justify-between px-6">
-                    <div className="flex items-center">
-                        <RouterLink
-                            to="/"
-                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/' ? 'active' : ''}`}
-                        >
-                            Home
-                        </RouterLink>
-                        <RouterLink
-                            to="/calendar"
-                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/calendar' ? 'active' : ''}`}
-                        >
-                            Calendar
-                        </RouterLink>
-                        <RouterLink
-                            to="/events"
-                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/events' ? 'active' : ''}`}
-                        >
-                            Events
-                        </RouterLink>
-                        <RouterLink
-                            to="/contacts"
-                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
-                        >
-                            Contacts
-                        </RouterLink>
-                        {isAdmin && <RouterLink
-                            to="/admin"
-                            className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/admin' ? 'active' : ''}`}
-                        >
-                            Admin Board
-                        </RouterLink>}
-                    </div>
-                    <div className="logo">
-                        LOGO HERE
-                    </div>
-
-                    <div className="relative ml-auto">
-                        <button
-                            onClick={toggleDropdown}
-                            className="p-1 rounded-full focus:outline-none mr-4"
-                        >
-                            {userData?.photo ? (
-                                <img
-                                    src={userData?.photo}
-                                    alt="Avatar"
-                                    className="h-8 w-8 rounded-full"
-                                />
-                            ) : (
-                                <FiUser className="h-8 w-8 text-purple-800 hover:text-purple-300" />
-                            )}
-                        </button>
-                        <div ref={dropdownRef} className={`absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-
-                            <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={toggleEditUserModal}>Edit Profile</a>
-
-                            <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={openUserDetailsModal}>Profile</a>
-                        </div>
-                    </div>
-                    <button
-                        onClick={onLogout}
-                        data-te-ripple-init data-te-ripple-color="light"
-                        className="p-4 text-purple-800 font-bold text-lg border-b-2 hover:text-purple-300 border-transparent hover:border-purple-300 duration-200 active"
+            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-center"> {/* Updated justify-center */}
+                <div className="flex items-center">
+                    <RouterLink
+                        to="/"
+                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/' ? 'active' : ''}`}
                     >
-                        Logout
-                    </button>
+                        Home
+                    </RouterLink>
+                    <RouterLink
+                        to="/calendar"
+                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/calendar' ? 'active' : ''}`}
+                    >
+                        Calendar
+                    </RouterLink>
+                    <RouterLink
+                        to="/events"
+                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/events' ? 'active' : ''}`}
+                    >
+                        Events
+                    </RouterLink>
+                    <RouterLink
+                        to="/contacts"
+                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
+                    >
+                        Contacts
+                    </RouterLink>
+                    {isAdmin && <RouterLink
+                        to="/admin"
+                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/admin' ? 'active' : ''}`}
+                    >
+                        Admin Board
+                    </RouterLink>}
                 </div>
-            </nav >
+                <div className="logo">
+                <img src={logoNav} alt="logo here" style={{ height: '200px', width: 'auto' }} /> {/* Updated logo size */}
+                </div>
+                <div className="relative ml-auto">
+                    <button
+                        onClick={toggleDropdown}
+                        className="p-1 rounded-full focus:outline-none mr-4"
+                    >
+                        {userData?.photo ? (
+                            <img
+                                src={userData?.photo}
+                                alt="Avatar"
+                                className="h-8 w-8 rounded-full"
+                            />
+                        ) : (
+                            <FiUser className="h-8 w-8 text-purple-800 hover:text-purple-300" />
+                        )}
+                    </button>
+                    <div ref={dropdownRef} className={`absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
+                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={toggleEditUserModal}>Edit Profile</a>
+                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={openUserDetailsModal}>Profile</a>
+                    </div>
+                </div>
+                <button
+                    onClick={onLogout}
+                    data-te-ripple-init data-te-ripple-color="light"
+                    className="p-4 text-purple-800 font-bold text-lg border-b-2 hover:text-purple-300 border-transparent hover:border-purple-300 duration-200 active"
+                >
+                    Logout
+                </button>
+            </nav>
 
             <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
             <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} />
@@ -144,4 +139,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
