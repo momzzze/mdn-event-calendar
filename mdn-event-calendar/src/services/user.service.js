@@ -23,6 +23,18 @@ export const getUserData = (uid) => {
     return get(userDataQuery);
 };
 
+export const getUserDataByUserId = async (userId) => {
+    const userQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(userId));
+    const userSnapshot = await get(userQuery);
+    const userDatas = userSnapshot.val();    
+    if (userDatas) {
+        const userData = Object.values(userDatas)[0];
+        return userData;
+    } else {
+        return null;
+    }
+};
+
 export const editUserHandle = async (data) => {
     return set(ref(db, `users/${data.username}`), data);
 }
@@ -57,5 +69,22 @@ export const handleToggleRole = async (userId, currentRole) => {
         }
     } catch (error) {
         console.error('Error updating user role:', error);
+    }
+};
+
+export const getUserContacts = async (userId) => {
+    try {
+        const user=await getUserDataByUserId(userId);
+        const userContactsRef =await ref(db, `users/${user.username}/contacts`);
+        const userContactsSnapshot = await get(userContactsRef);
+        const userContactsData = userContactsSnapshot.val();
+        if (userContactsData) {
+            return Object.keys(userContactsData).map(contactId => contactId);
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error('Error getting user contacts:', error);
+        return [];
     }
 };
