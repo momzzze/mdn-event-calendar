@@ -1,4 +1,4 @@
-import { get, set, push, ref, query, orderByChild, equalTo } from "firebase/database";
+import { get, set, push, ref, query, orderByChild, equalTo, remove, update } from "firebase/database";
 import { auth, db } from '../config/firebase'
 import { getUserData } from "./user.service";
 
@@ -38,7 +38,46 @@ export const getAllContactListsForUser = async (userId) => {
         return error.message;
     }
 }
+export const addContactToList = async (listId, contactId) => {
+    try {
+        const contactListRef = ref(db, `contactLists/${listId}`);
+        const contactListSnapshot = await get(contactListRef);
+        if (contactListSnapshot.exists()) {
+            const contactListData = contactListSnapshot.val();
+            const updatedContacts = {
+                ...contactListData.contacts,
+                [contactId]: true,
+            };
+            await set(ref(db, `contactLists/${listId}/contacts`), updatedContacts);
+            return true;
+        } else {
+            console.error('Contact list not found');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error adding contact to list:', error);
+        return error
+    }
+};
+export const updateContactList = async (listId, updatedContactList) => {
+    try {
+        const contactListRef = ref(db, `contactLists/${listId}`);
+        await set(contactListRef, updatedContactList);
+    } catch (error) {
+        console.error('Error updating contact list:', error);
+    }
+};
 
+export const deleteContactList = async (listId) => {
+    try {
+        const contactListRef = ref(db, `contactLists/${listId}`);
+        await remove(contactListRef);
+        return true;
+    } catch (error) {
+        console.error('Error deleting contact list:', error);
+        return false;
+    }
+};
 
 export const sendContactRequest = async (senderId, receiverId) => {
     const contactsRef = ref(db, 'contacts');
@@ -175,6 +214,31 @@ export const addContact = async (senderId, receiverId) => {
         return true;
     } catch (error) {
         console.error('Error adding contact:', error);
+        return false;
+    }
+};
+
+export const removeContact = async (user1Id, user2Id) => {
+    try {
+        const senderUserDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(user1Id));
+        const receiverUserDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(user2Id));
+        const [senderUserDataSnapshot, receiverUserDataSnapshot] = await Promise.all([
+            get(senderUserDataQuery),
+            get(receiverUserDataQuery)
+        ]);
+        const senderUser = Object.values(senderUserDataSnapshot.val())[0];
+        const receiverUser = Object.values(receiverUserDataSnapshot.val())[0];
+        if (!senderUser || !receiverUser) {
+            console.error('One or both users not found');
+            return false;
+        }
+        const senderContactsRef = ref(db, `users/${senderUser.username}/contacts/${receiverUser.uid}`);
+        const receiverContactsRef = ref(db, `users/${receiverUser.username}/contacts/${senderUser.uid}`);
+        await set(senderContactsRef, null);
+        await set(receiverContactsRef, null);
+        return true;
+    } catch (error) {
+        console.error("Error removing contact:", error);
         return false;
     }
 };
