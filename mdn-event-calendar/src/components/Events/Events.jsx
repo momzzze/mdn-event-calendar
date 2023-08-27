@@ -2,7 +2,7 @@ import EventsList from "./Components/eventsList";
 const Events=()=>{
     const listOfEvents = ['first','second','third'];
     return(
-        <div class="container mx-auto bg-indigo-500 h-screen">
+        <div className="container mx-auto bg-indigo-500 h-screen">
             <h1>Events</h1>
 
             <div class='container mx-auto px-4 m-20 bg-[#50d71e]'>

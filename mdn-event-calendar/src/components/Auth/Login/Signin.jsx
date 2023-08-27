@@ -19,7 +19,6 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
         try {
             await loginUser(data.email, data.password)
                 .then(credential => {
-                    console.log(credential);
                     setUser({
                         ...appState,
                         user: credential.user,
