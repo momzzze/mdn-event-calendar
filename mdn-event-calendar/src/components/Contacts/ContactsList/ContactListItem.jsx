@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addContactToList, deleteContactList, updateContactList } from "../../../services/contacts.service";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { useData } from "../../../contexts/DataContext";
@@ -7,7 +7,7 @@ const ContactListItem = ({ contactList,index }) => {
     const [selectedContactList, setSelectedContactList] = useState(null);
     const [activeAccordion, setActiveAccordion] = useState(null);
     const {users,userContacts,contactLists,setContactListsData} = useData();
-
+    
     const toggleContactListDropdown = (listId) => {
         setSelectedContactList(listId === selectedContactList ? null : listId);
     };
@@ -25,6 +25,10 @@ const ContactListItem = ({ contactList,index }) => {
         } else {
             setActiveAccordion(index);
         }
+    };
+    const handleSelectContact = (listId, contactId) => {
+        handleAddContact(listId, contactId);
+        setSelectedContactList(null); 
     };
     const handleAddContact = async (listId, contactId) => {
         const success = await addContactToList(listId, contactId);
@@ -97,8 +101,8 @@ const ContactListItem = ({ contactList,index }) => {
                                                 <button
                                                     key={contactId}
                                                     className="block text-purple-800 hover:bg-purple-300 hover:text-white px-2 py-1 rounded mb-1"
-                                                    onClick={() => handleAddContact(contactList.id, contactId)}
-                                                >
+                                                    onClick={() => handleSelectContact(contactList.id, contactId)} 
+                                                    >
                                                     {contactData?.username}
                                                 </button>
                                             );

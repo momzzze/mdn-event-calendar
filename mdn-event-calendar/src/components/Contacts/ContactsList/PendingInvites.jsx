@@ -68,7 +68,7 @@ const PendingInvites = () => {
                                     )}
                                     <span className="text-lg font-semibold">{senderUser ? senderUser.username : 'Unknown User'}</span>
                                 </div>
-                                <div>
+                                <div>    
                                     <button className="text-green-500 mr-2" onClick={() => acceptInvite(invite)}>Accept</button>
                                     <button className="text-red-500" onClick={() => rejectInvite(invite)}>Reject</button>
                                 </div>

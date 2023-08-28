@@ -103,32 +103,14 @@ export const DataProvider = ({ children }) => {
         const userContactsListener = onValue(userContactsRef, (snapshot) => {
             const contactsData = snapshot.val();
             if (contactsData !== undefined && contactsData !== null) {
-                const userContactsArray = Object.keys(contactsData);    
+                const userContactsArray = Object.keys(contactsData);
                 setUserContacts(userContactsArray);
             }
-        });    
+        });
         return () => {
             off(userContactsRef, 'value', userContactsListener);
         };
     }, [userData?.uid]);
-    
-    useEffect(() => {
-        if (userContacts && userContacts.length > 0) {
-            const updateUserContacts = async () => {
-                const updatedUserContacts = [];
-                for (const contactId of userContacts) {
-                    try {
-                        const contactData = await getUserContacts(contactId);
-                        updatedUserContacts.push(contactData);
-                    } catch (error) {
-                        console.error('Error fetching contact data:', error);
-                    }
-                }
-                setUserContactsData(updatedUserContacts);
-            };
-            updateUserContacts();
-        }
-    }, [userContacts]);
 
 
     useEffect(() => {
