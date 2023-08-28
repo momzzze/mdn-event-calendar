@@ -59,7 +59,7 @@ const Calendar = () => {
             )}
           </div>
         </div>
-        <EventList />
+        <EventList selectDate={selectDate} />
       </div>
     </>
   );
