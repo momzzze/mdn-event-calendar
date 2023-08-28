@@ -43,6 +43,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [imageUrl, setImageUrl] = useState(""); // Добавена image URL опция
 
   const handleDateTimeChange = (event) => {
     const [dateString, timeString] = event.target.value.split("T");
@@ -65,9 +66,12 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
     return formattedDate;
   };
 
+  const onImageUrlChange = (event) => {
+    setImageUrl(event.target.value);
+  };
+
   const onSubmit = async (data) => {
     try {
-
       // must be implement
       // get user data and add event to current user
 
@@ -81,8 +85,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       //   location: data.location,
       //   description: data.description,
       //   weather: data.weather,
+      //   imageUrl: imageUrl, // Добавете това поле в обекта
       // };
-        
 
       toast({
         title: "Event is created successfully!",
@@ -111,8 +115,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
             New Event
           </h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-
-            {/*Title*/}
+            {/* Title */}
             <div className="mb-4">
               <label className="block font-bold mb-1">Title</label>
               <input
@@ -137,8 +140,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 <span className="text-red-500">{errors.title.message}</span>
               )}
             </div>
-
-                {/*Publicity*/}
+            
+            {/* Publicity */}
             <div className="flex gap-4 mb-4">
               <label className="block font-bold mb-1">Event is:</label>
               <div>
@@ -164,8 +167,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 <label htmlFor="dewey">Public</label>
               </div>
             </div>
-
-                {/*Date and Time*/}
+            
+            {/* Date and Time */}
             <div className="flex gap-3 mb-3">
               <div>
                 <label className="block font-bold mb-1">
@@ -205,6 +208,18 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
             <label className="block mb-4">
               * Time will be rounded to the nearest half-hour
             </label>
+
+            {/* Image URL */}
+            <div className="mb-4">
+              <label className="block font-bold mb-1">Image URL</label>
+              <input
+                type="text"
+                name="imageUrl"
+                value={imageUrl}
+                onChange={onImageUrlChange}
+                className="border p-1 w-full"
+              />
+            </div>
 
             <div className="flex gap-3 mb-4">
               <div>
