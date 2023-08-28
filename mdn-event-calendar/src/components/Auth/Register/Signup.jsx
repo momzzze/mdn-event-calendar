@@ -10,7 +10,7 @@ import { customStylesSignUp } from '../../../common/modal.helper.functions';
 
 
 const SignUp = ({ isOpen, onClose, switchModals }) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
     const toast = useToast();
     const navigate = useNavigate();
     const isPasswordValid = (password) => {
