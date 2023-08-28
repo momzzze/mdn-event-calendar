@@ -1,3 +1,5 @@
+import SingleComponent from "./SingleComponent";
+
 const dummyEvents = [{
         title: "Sample Event 1",
         startDate: "2023-08-25T10:00",
@@ -47,7 +49,7 @@ const EventsList = ({events}) => {
     console.log(events, "This are the events from events list!!")
     return ( 
         events.map((event)=>{
-            return(<h1>{event.title}</h1>)
+            return(<SingleComponent event = {event}/>)
         })
     )
 }
