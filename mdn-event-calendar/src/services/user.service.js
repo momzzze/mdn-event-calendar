@@ -73,18 +73,20 @@ export const handleToggleRole = async (userId, currentRole) => {
 };
 
 export const getUserContacts = async (userId) => {
-    try {
-        const user=await getUserDataByUserId(userId);
-        const userContactsRef =await ref(db, `users/${user.username}/contacts`);
-        const userContactsSnapshot = await get(userContactsRef);
-        const userContactsData = userContactsSnapshot.val();
-        if (userContactsData) {
-            return Object.keys(userContactsData).map(contactId => contactId);
-        } else {
+    if(userId){
+        try {
+            const user=await getUserDataByUserId(userId);
+            const userContactsRef =await ref(db, `users/${user.username}/contacts`);
+            const userContactsSnapshot = await get(userContactsRef);
+            const userContactsData = userContactsSnapshot.val();
+            if (userContactsData) {
+                return Object.keys(userContactsData).map(contactId => contactId);
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error('Error getting user contacts:', error);
             return [];
         }
-    } catch (error) {
-        console.error('Error getting user contacts:', error);
-        return [];
     }
 };

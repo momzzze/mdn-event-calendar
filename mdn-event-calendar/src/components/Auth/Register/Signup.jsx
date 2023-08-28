@@ -7,11 +7,13 @@ import { createUserHandle, getUserByHandle, getUserByPhone } from '../../../serv
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from "react-modal";
 import { customStylesSignUp } from '../../../common/modal.helper.functions';
+import { useData } from '../../../contexts/DataContext';
 
 
 const SignUp = ({ isOpen, onClose, switchModals }) => {
     const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
     const toast = useToast();
+    const { setUsersData } = useData();
     const navigate = useNavigate();
     const isPasswordValid = (password) => {
         const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/;
@@ -59,7 +61,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
             };
 
             await createUserHandle(userData);
-
+            await setUsersData();
             toast({
                 title: "Registration Successful",
                 description: "You have successfully registered.",

@@ -20,22 +20,24 @@ export const createContactList = async (name, owner) => {
     }
 }
 
-export const getAllContactListsForUser = async (userId) => {
-    const contactListsRef = ref(db, 'contactLists');
-    const contactListsQuery = query(contactListsRef, orderByChild('owner'), equalTo(userId));
+export const getAllContactListsForUser = async (userId) => {    
+    if (userId) {
+        try {
+        const contactListsRef = ref(db, 'contactLists');
+        const contactListsQuery = query(contactListsRef, orderByChild('owner'), equalTo(userId));
 
-    try {
-        const contactListsSnapshot = await get(contactListsQuery); // Use contactListsQuery
-        const contactListsData = [];
+        
+            const contactListsSnapshot = await get(contactListsQuery); 
+            const contactListsData = [];
 
-        contactListsSnapshot.forEach((childSnapshot) => {
-            const contactList = childSnapshot.val();
-            contactListsData.push(contactList);
-        });
-
-        return contactListsData;
-    } catch (error) {
-        return error.message;
+            contactListsSnapshot.forEach((childSnapshot) => {
+                const contactList = childSnapshot.val();
+                contactListsData.push(contactList);
+            });
+            return contactListsData;
+        } catch (error) {
+            return error.message;
+        }
     }
 }
 export const addContactToList = async (listId, contactId) => {
@@ -146,51 +148,54 @@ export const getContactsForUser = async (userId) => {
 };
 
 export const getPendingInvitesForUser = async (userId) => {
-    try {
-        const contactsRef = ref(db, 'contacts');
-        const contactsQuery = query(contactsRef, orderByChild('receiverId'), equalTo(userId));
+    if (userId) {
+        try {
+            const contactsRef = ref(db, 'contacts');
+            const contactsQuery = query(contactsRef, orderByChild('receiverId'), equalTo(userId));
 
-        const invitesSnapshot = await get(contactsQuery);
-
-        const pendingInvites = [];
-        invitesSnapshot.forEach((childSnapshot) => {
-            const invite = childSnapshot.val();
-            if (invite.status === 'pending' && invite.senderId !== userId) {
-                pendingInvites.push({
-                    id: childSnapshot.key,
-                    sender: invite.senderId,
-                    receiver: invite.receiverId,
-                    status: invite.status,
-                });
-            }
-        });
-        return pendingInvites;
-    } catch (error) {
-        console.error('Error getting pending invites:', error);
+            const invitesSnapshot = await get(contactsQuery);
+            const pendingInvites = [];
+            invitesSnapshot.forEach((childSnapshot) => {
+                const invite = childSnapshot.val();
+                if (invite.status === 'pending' && invite.senderId !== userId) {
+                    pendingInvites.push({
+                        id: childSnapshot.key,
+                        sender: invite.senderId,
+                        receiver: invite.receiverId,
+                        status: invite.status,
+                    });
+                }
+            });
+            return pendingInvites;
+        } catch (error) {
+            console.error('Error getting pending invites:', error);
+        }
     }
 };
 export const getSendingInvitesFromUser = async (userId) => {
-    try {
-        const contactsRef = ref(db, 'contacts');
-        const contactsQuery = query(contactsRef, orderByChild('senderId'), equalTo(userId));
+    if (userId) {
+        try {
+            const contactsRef = ref(db, 'contacts');
+            const contactsQuery = query(contactsRef, orderByChild('senderId'), equalTo(userId));
 
-        const invitesSnapshot = await get(contactsQuery);
+            const invitesSnapshot = await get(contactsQuery);
 
-        const sendingInvites = [];
-        invitesSnapshot.forEach((childSnapshot) => {
-            const invite = childSnapshot.val();
-            if (invite.status === 'pending' && invite.receiverId !== userId) {
-                sendingInvites.push({
-                    id: childSnapshot.key,
-                    sender: invite.senderId,
-                    receiver: invite.receiverId,
-                    status: invite.status,
-                });
-            }
-        });
-        return sendingInvites;
-    } catch (error) {
-        console.error('Error getting pending invites:', error);
+            const sendingInvites = [];
+            invitesSnapshot.forEach((childSnapshot) => {
+                const invite = childSnapshot.val();
+                if (invite.status === 'pending' && invite.receiverId !== userId) {
+                    sendingInvites.push({
+                        id: childSnapshot.key,
+                        sender: invite.senderId,
+                        receiver: invite.receiverId,
+                        status: invite.status,
+                    });
+                }
+            });
+            return sendingInvites;
+        } catch (error) {
+            console.error('Error getting pending invites:', error);
+        }
     }
 };
 
