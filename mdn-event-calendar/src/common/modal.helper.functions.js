@@ -1,6 +1,6 @@
 export const customStylesSignUp = {
     content: {
-        width: '50%',	
+        width: '33%',	
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -20,13 +20,15 @@ export const customStylesSignUp = {
 
 export const customStylesSignIn = {
     content: {
-        width: "33%",
-        height: "50%",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        padding: "2rem",
-        transition: "transform 0.3s ease-in-out",
+        width: '33%',	
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        position: 'fixed',
+        transform: 'translate(-50%, -50%)',
+        padding: "1rem 0",
         backdropFilter: "blur(3px)",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: '20px'
