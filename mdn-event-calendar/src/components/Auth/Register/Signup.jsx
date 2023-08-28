@@ -83,8 +83,8 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
             <div className="h-full flex justify-center items-center">
                 <div className="p-4 w-4/5">
                     <h1 className="text-3xl font-bold mb-4 text-white border-b-2 border-purple-800">Sign up</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="mb-4">
+                    <form onSubmit={handleSubmit(onSubmit)}>                        
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">First name</label>
                             <input
                                 type="text"
@@ -105,7 +105,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.firstName && <span className="text-red-500">{errors.firstName.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Last name</label>
                             <input
                                 type="text"
@@ -126,7 +126,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.lastName && <span className="text-red-500">{errors.lastName.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Username</label>
                             <input
                                 type="text"
@@ -147,7 +147,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.username && <span className="text-red-500">{errors.username.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Email</label>
                             <input
                                 type="email"
@@ -164,7 +164,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.email && <span className="text-red-500">{errors.email.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Phone Number</label>
                             <input
                                 type="tel"
@@ -189,7 +189,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.phone && <span className="text-red-500">{errors.phone.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Password</label>
                             <input
                                 type="password"
@@ -213,7 +213,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             {errors.password && <span className="text-red-500">{errors.password.message}</span>}
                         </div>
 
-                        <div className="mb-4">
+                        <div className="flex-grow">
                             <label className="block font-bold mb-1">Confirm Password</label>
                             <input
                                 type="password"

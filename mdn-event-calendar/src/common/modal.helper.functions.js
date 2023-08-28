@@ -1,12 +1,15 @@
 export const customStylesSignUp = {
     content: {
-        width: "33%",
-        height: "95%",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        padding: "2rem",
-        transition: "transform 0.3s ease-in-out",
+        width: '50%',	
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        position: 'fixed',
+        transform: 'translate(-50%, -50%)',
+        padding: "1rem 0",
+        backdropFilter: "blur(3px)",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: '20px'
     },
@@ -24,6 +27,7 @@ export const customStylesSignIn = {
         transform: "translate(-50%, -50%)",
         padding: "2rem",
         transition: "transform 0.3s ease-in-out",
+        backdropFilter: "blur(3px)",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: '20px'
     },
@@ -44,7 +48,7 @@ export const userProfileStyles = {
         transform: 'translate(-50%, -50%)',
         maxWidth: '90%',
         width: '50%',
-        height: '50%',        
+        height: '50%',
         padding: '20px',
     },
 };
