@@ -46,7 +46,7 @@ export const DataProvider = ({ children }) => {
         }
         fetchData();
     }, [refresh, userData,pendingInvites,setPendingInvites]);
-
+   
     return (
         <DataContext.Provider value={{ users, setUsers, contactLists,pendingInvites,setPendingInvites,userContacts,setUserContacts,sendingInvites,setSendingInvites,setContactLists, loading, error, refreshData }}>
             {children}
