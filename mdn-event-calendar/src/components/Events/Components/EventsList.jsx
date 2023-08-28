@@ -43,9 +43,12 @@ const dummyEvents = [{
         weather: "Clear",
     },
 ];
-const EventsList = () => {
-    return ( <
-        h1 > This is the event list! </h1>
+const EventsList = ({events}) => {
+    console.log(events, "This are the events from events list!!")
+    return ( 
+        events.map((event)=>{
+            return(<h1>{event.title}</h1>)
+        })
     )
 }
 export default EventsList
