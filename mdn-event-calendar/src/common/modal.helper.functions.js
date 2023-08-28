@@ -7,7 +7,6 @@ export const customStylesSignUp = {
         transform: "translate(-50%, -50%)",
         padding: "2rem",
         transition: "transform 0.3s ease-in-out",
-        backdropFilter: "blur(8px)",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: '20px'
     },
@@ -25,7 +24,6 @@ export const customStylesSignIn = {
         transform: "translate(-50%, -50%)",
         padding: "2rem",
         transition: "transform 0.3s ease-in-out",
-        backdropFilter: "blur(8px)",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         borderRadius: '20px'
     },
