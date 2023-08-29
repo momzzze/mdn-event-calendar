@@ -9,7 +9,7 @@ import { customStylesSignIn } from '../../../common/modal.helper.functions'
 import { useData } from "../../../contexts/DataContext";
 
 const SignIn = ({ isOpen, onClose, switchModals }) => {
-    const { refreshData } = useData();
+    const { setUsersData,setUserContactsData,setSendingInvitesData,setContactListsData,setPendingInvitesData } = useData();
     const { appState, setUser } = useAuth();
     const navigate = useNavigate();
     const toast = useToast();
@@ -45,7 +45,11 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
             });
         } 
         try {
-           await refreshData();
+           await setUsersData();
+           await setUserContactsData();
+           await setSendingInvitesData();
+           await setContactListsData();
+           await setPendingInvitesData();
         } catch (error) {
             console.log(error.message);
         }       
