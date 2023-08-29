@@ -4,7 +4,7 @@ import { calendarViews } from "../../common/enums/calendar.enums";
 import ViewControl from "./ViewControl";
 import MonthCalendar from "./Month/MonthCalendar";
 import WeekCalendar from "./Week/WeekCalendar";
-import EventList from "./EventList";
+import EventsList from "./EventsList/EventsList";
 import Hours from "./Week/HoursAndDays";
 import NewEvent from "../Events/NewEvent/NewEvent";
 
@@ -59,7 +59,7 @@ const Calendar = () => {
             )}
           </div>
         </div>
-        <EventList selectDate={selectDate} />
+        <EventsList selectDate={selectDate} />
       </div>
     </>
   );
