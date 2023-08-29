@@ -183,8 +183,16 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                       const date = handleDateTimeChange(e);
                       setStartDate(date);
                     }}
-                    className="border p-1 w-full"
+                    className={`border p-1 w-full ${
+                      errors.startDate ? "border-red-500" : ""
+                    }`}
+                    {...register("startDate", {
+                      required: "Start date and time is required",
+                    })}
                   />
+                  {errors.startDate && (
+                    <span className="text-red-500">{errors.startDate.message}</span>
+                  )}
                 </div>
               </div>
               <div>
@@ -195,13 +203,21 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   <input
                     type="datetime-local"
                     name="endDate"
-                    min={currentDate.format("YYYY-MM-DDTHH:mm")}
+                    min={startDate}
                     onChange={(e) => {
                       const date = handleDateTimeChange(e);
                       setEndDate(date);
                     }}
-                    className="border p-1 w-full"
+                    className={`border p-1 w-full ${
+                      errors.endDate ? "border-red-500" : ""
+                    }`}
+                    {...register("endDate", {
+                      required: "End date and time is required",
+                    })}
                   />
+                  {errors.endDate && (
+                    <span className="text-red-500">{errors.endDate.message}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -232,6 +248,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   ))}
                 </select>
               </div>
+              {}
               <div>
                 <label className="block font-bold mb-1">End repeat on:</label>
                 <div className="flex gap-2">
@@ -273,8 +290,20 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
               <textarea
                 type="text"
                 name="description"
-                className="border p-1 w-full"
+                className={`border p-1 w-full${
+                  errors.description ? "border-red-500" : ""
+                }`}
+                {...register("description", {
+                  required: "Description is required",
+                  maxLength: {
+                    value: 500,
+                    message: "Description must not exceed 500 characters",
+                  },
+                })}
               />
+              {errors.description && (
+                <span className="text-red-500">{errors.description.message}</span>
+              )}
             </div>
             <div className="flex justify-end gap-3">
               <div>
