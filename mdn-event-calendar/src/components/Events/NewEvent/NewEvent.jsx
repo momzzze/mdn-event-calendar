@@ -166,8 +166,16 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                       setStartDate(date);
                       setEndDate("");
                     }}
-                    className="border p-1 w-full"
+                    className={`border p-1 w-full ${
+                      errors.startDate ? "border-red-500" : ""
+                    }`}
+                    {...register("startDate", {
+                      required: "Start date and time is required",
+                    })}
                   />
+                  {errors.startDate && (
+                    <span className="text-red-500">{errors.startDate.message}</span>
+                  )}
                 </div>
               </div>
               <div>
@@ -183,8 +191,16 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                       const date = handleDateTimeChange(e);
                       setEndDate(date);
                     }}
-                    className="border p-1 w-full"
+                    className={`border p-1 w-full ${
+                      errors.endDate ? "border-red-500" : ""
+                    }`}
+                    {...register("endDate", {
+                      required: "End date and time is required",
+                    })}
                   />
+                  {errors.endDate && (
+                    <span className="text-red-500">{errors.endDate.message}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -244,7 +260,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   },
                   maxLength: {
                     value: 500,
-                    message: "The description must be at most 500 characters",
+                    message: "Description must not exceed 500 characters",
                   },
                 })}
               />
