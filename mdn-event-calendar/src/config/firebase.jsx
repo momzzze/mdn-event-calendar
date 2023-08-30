@@ -11,6 +11,7 @@ import { getDatabase } from 'firebase/database';
 //     appId: "1:849420215787:web:c1db4aeedb85f7ea9ce5ae",
 //     databaseURL: "https://mdn-event-calendar-default-rtdb.europe-west1.firebasedatabase.app/"
 // };
+
 const firebaseConfig = {
     apiKey: "AIzaSyAguE5JirUaexmUvIugozzAr-uC55RRH_k",
     authDomain: "mdn-event-calendar-2.firebaseapp.com",
@@ -20,7 +21,6 @@ const firebaseConfig = {
     messagingSenderId: "793824516774",
     appId: "1:793824516774:web:75b776736fe59dbc64b267"
   };
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);   

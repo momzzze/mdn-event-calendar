@@ -15,6 +15,7 @@ import { auth } from './config/firebase';
 import SignIn from './components/Auth/Login/Signin';
 import { useData } from './contexts/DataContext';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import ListEvents from './components/Events/ListEvents/ListEvents';
 
 function App() {
   const { user, userData, isAuthenticated,isAdmin } = useAuth();
@@ -28,7 +29,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/contacts" element={<Contacts />} />
-            <Route path="/events" element={<Events />} />
+            <Route path="/events" element={<ListEvents />} />
             <Route path="/calendar" element={<Calendar />} />
             {isAdmin && <Route path="/admin" element={<AdminDashboard />} />}
           </Routes>

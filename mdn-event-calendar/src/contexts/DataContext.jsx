@@ -23,7 +23,6 @@ export const DataProvider = ({ children }) => {
     const refreshData = () => {
         setRefresh(!refresh);
     }
-
     const setUsersData = async () => {
         try {
             const usersData = await getAllUsersData();
@@ -90,7 +89,6 @@ export const DataProvider = ({ children }) => {
                     }
                 });
             }
-
             setPendingInvites(pendingInvitesData);
         });
         return () => {

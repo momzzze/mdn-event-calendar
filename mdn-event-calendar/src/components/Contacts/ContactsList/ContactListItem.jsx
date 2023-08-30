@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
 import { addContactToList, deleteContactList, updateContactList } from "../../../services/contacts.service";
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { useData } from "../../../contexts/DataContext";

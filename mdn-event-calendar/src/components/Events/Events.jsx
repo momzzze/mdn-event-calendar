@@ -1,4 +1,5 @@
 import EventsList from "./Components/eventsList";
+import ListEvents from "./ListEvents/ListEvents";
 const dummyEvents = [{
     title: "Sample Event 1",
     startDate: "2023-08-25T10:00",
@@ -47,15 +48,16 @@ const dummyEvents = [{
 const Events=()=>{
     const listOfEvents = ['first','second','third'];
     return(
-        <div className="container mx-auto bg-indigo-500 h-screen">
-            <h1>Events</h1>
+        // <div className="container mx-auto bg-indigo-500 h-screen">
+        //     <h1>Events</h1>
 
-            <div className='container mx-auto px-4 m-20 bg-[#50d71e]'>
-                <h2>This is the list of events!</h2>
-                <EventsList events = {dummyEvents}/>
-            </div>
+        //     <div className='container mx-auto px-4 m-20 bg-[#50d71e]'>
+        //         <h2>This is the list of events!</h2>
+        //         <EventsList events = {dummyEvents}/>
+        //     </div>
 
-        </div>
+        // </div>
+        <ListEvents/>
     )
 }
 

@@ -14,6 +14,8 @@ import { customStylesSignUp } from "../../../common/modal.helper.functions";
 import MonthCalendarLandingPage from "../../Calendar/Month/MonthCalendarLandingPage";
 import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
+import { useAuth } from "../../../contexts/AuthContext";
+import { createEventHandle } from "../../../services/event.service";
 
 const customStyles = {
   content: {
@@ -29,12 +31,15 @@ const customStyles = {
 };
 
 const NewEvent = ({ isOpen, onRequestClose }) => {
+  const { userData } = useAuth();
   const currentDate = dayjs();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
   const toast = useToast();
   const navigate = useNavigate();
   const [publicity, setPublicity] = useState("private");
@@ -43,7 +48,6 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const [imageUrl, setImageUrl] = useState(""); // Добавена image URL опция
 
   const handleDateTimeChange = (event) => {
     const [dateString, timeString] = event.target.value.split("T");
@@ -66,27 +70,10 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
     return formattedDate;
   };
 
-  const onImageUrlChange = (event) => {
-    setImageUrl(event.target.value);
-  };
 
   const onSubmit = async (data) => {
     try {
-      // must be implement
-      // get user data and add event to current user
-
-      // const eventData = {
-      //   title: data.title,
-      //   startDate: startDate,
-      //   endDate: endDate,
-      //   participants: data.participants,
-      //   reoccurrence: reoccurrence,
-      //   publicity: publicity,
-      //   location: data.location,
-      //   description: data.description,
-      //   weather: data.weather,
-      //   imageUrl: imageUrl, // Добавете това поле в обекта
-      // };
+      const newEvent = await createEventHandle(data, startDate, endDate, userData?.uid, userData?.username);
 
       toast({
         title: "Event is created successfully!",
@@ -121,9 +108,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
               <input
                 type="text"
                 name="title"
-                className={`border p-2 w-full ${
-                  errors.title ? "border-red-500" : ""
-                }`}
+                className={`border p-2 w-full ${errors.title ? "border-red-500" : ""
+                  }`}
                 {...register("title", {
                   required: "Title is required",
                   minLength: {
@@ -140,34 +126,30 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 <span className="text-red-500">{errors.title.message}</span>
               )}
             </div>
-            
+
             {/* Publicity */}
             <div className="flex gap-4 mb-4">
               <label className="block font-bold mb-1">Event is:</label>
-              <div>
-                <input
-                  type="radio"
-                  id="huey"
-                  name="drone"
-                  value="huey"
-                  checked
-                  onClick={() => setPublicity("private")}
-                />
-                <label htmlFor="huey">Private</label>
-              </div>
+              <input
+                type="radio"
+                id="huey"
+                name="publicity"
+                value="private"
+                defaultChecked
+                {...register("publicity")}
+              />
+              <label htmlFor="huey">Private</label>
 
-              <div>
-                <input
-                  type="radio"
-                  id="dewey"
-                  name="drone"
-                  value="dewey"
-                  onClick={() => setPublicity("public")}
-                />
-                <label htmlFor="dewey">Public</label>
-              </div>
+              <input
+                type="radio"
+                id="dewey"
+                name="publicity"
+                value="public"
+                {...register("publicity")}
+              />
+              <label htmlFor="dewey">Public</label>
             </div>
-            
+
             {/* Date and Time */}
             <div className="flex gap-3 mb-3">
               <div>
@@ -182,6 +164,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                     onChange={(e) => {
                       const date = handleDateTimeChange(e);
                       setStartDate(date);
+                      setEndDate("");
                     }}
                     className="border p-1 w-full"
                   />
@@ -195,7 +178,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   <input
                     type="datetime-local"
                     name="endDate"
-                    min={currentDate.format("YYYY-MM-DDTHH:mm")}
+                    min={startDate}
                     onChange={(e) => {
                       const date = handleDateTimeChange(e);
                       setEndDate(date);
@@ -209,43 +192,30 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
               * Time will be rounded to the nearest half-hour
             </label>
 
-            {/* Image URL */}
             <div className="mb-4">
               <label className="block font-bold mb-1">Image URL</label>
               <input
                 type="text"
                 name="imageUrl"
-                value={imageUrl}
-                onChange={onImageUrlChange}
                 className="border p-1 w-full"
+                {...register("imageUrl")}
               />
             </div>
 
             <div className="flex gap-3 mb-4">
               <div>
                 <label className="block font-bold mb-1">Repeat:</label>
-                <select placeholder="Choose..." className="border p-1 w-full">
+                <select
+                  placeholder="Choose..."
+                  className="border p-1 w-full"
+                  {...register("repeat")}
+                >
                   {repeatEvent.map((reoccurrence) => (
                     <option key={reoccurrence} value={reoccurrence}>
                       {reoccurrence}
                     </option>
                   ))}
                 </select>
-              </div>
-              <div>
-                <label className="block font-bold mb-1">End repeat on:</label>
-                <div className="flex gap-2">
-                  <input
-                    type="date"
-                    name="endDateRepeat"
-                    min={currentDate.format("YYYY-MM-DD")}
-                    // onChange={(e) => {
-                    //   const date = handleDateTimeChange(e);
-                    //   setEndDate(date);
-                    // }}
-                    className="border p-1 w-full"
-                  />
-                </div>
               </div>
             </div>
 
@@ -254,16 +224,9 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 <label className="block font-bold mb-1">Location:</label>
                 <input
                   type="text"
-                  name="participants"
+                  name="location"
                   className="border p-1 w-full"
-                />
-              </div>
-              <div>
-                <label className="block font-bold mb-1">Participants:</label>
-                <input
-                  type="text"
-                  name="participants"
-                  className="border p-1 w-full"
+                  {...register("location")}
                 />
               </div>
             </div>
@@ -274,7 +237,20 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 type="text"
                 name="description"
                 className="border p-1 w-full"
+                {...register("description", {
+                  minLength: {
+                    value: 20,
+                    message: "Description must be at least 20 characters",
+                  },
+                  maxLength: {
+                    value: 500,
+                    message: "The description must be at most 500 characters",
+                  },
+                })}
               />
+              {errors.description && (
+                <span className="text-red-500">{errors.description.message}</span>
+              )}
             </div>
             <div className="flex justify-end gap-3">
               <div>

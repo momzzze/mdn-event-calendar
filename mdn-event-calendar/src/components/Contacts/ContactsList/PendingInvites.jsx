@@ -55,7 +55,7 @@ const PendingInvites = () => {
                     <h3 className="text-lg font-semibold mb-2">Pending Invites</h3>
                     {pendingInvitesForCurrentUser.map(invite => {
                         const senderUser = users.find(user => user.uid === invite.senderId);
-
+                        console.log(invite);
                         return (
                             <div key={invite.id} className="flex items-center justify-between bg-gray-200 p-2 rounded mb-2">
                                 <div className="flex items-center space-x-2">
