@@ -1,29 +1,91 @@
-import React from "react";
+import { useLocation } from "react-router-dom";
+import { FaEdit, FaTrash, FaUsers, FaMapMarkerAlt, FaLock, FaUser } from 'react-icons/fa';
+import ParticipantsSection from "./ParticipantsSection";
+import { useAuth } from "../../../contexts/AuthContext";
 
-const SingleComponent = ({ event }) => {
+const SingleComponent = () => {
+    const location = useLocation();
+    const { userData } = useAuth();
+    const { eventData, username } = location.state || {};
+    const startDate = new Date(eventData?.startDate);
+    const endDate = new Date(eventData?.endDate);
+    const month = startDate.toLocaleString('en-US', { month: 'short' });
+    const day = startDate.getDate();
+    const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+    const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+
+    const deleteHandler = () => {
+        console.log("Delete");
+    }
+    const editHandler = () => {
+        console.log("Edit");
+    }
+    
+    const joinToEventHandler=()=>{
+        console.log("Join");
+    }
+
     return (
-        <div className="max-w-sm w-full lg:max-w-full lg:flex">
-            <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{ backgroundImage: "url('/img/card-left.jpg')" }} title="Woman holding a mug">
-            </div>
-            <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                <div className="mb-8">
-                    <p className="text-sm text-gray-600 flex items-center">
-                        <svg className="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            {/* <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" /> */}
-                        </svg>
-                        Members only
-                    </p>
-                    <div className="text-gray-900 font-bold text-xl mb-2">{event.title}</div>
-                    <p className="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+        <div className="mx-auto h-10/12 flex flex-col items-center justify-center px-8 mt-10">
+            <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
+                <div className="w-full h-64 bg-top rounded-t overflow-hidden">
+                    <img
+                        src={eventData?.imageUrl}
+                        alt="event image"
+                        className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105"
+                    />
                 </div>
-                <div className="flex items-center">
-                    <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg" alt="Avatar of Jonathan Reinink"/>
-                    <div className="text-sm">
-                        <p className="text-gray-900 leading-none">MDN EUROPE SOUND EVENTS</p>
-                        <p className="text-gray-600">{event.startDate}</p>
+                <div className="flex flex-col w-full md:flex-row">
+                    <div className="flex flex-row justify-around p-4 font-bold leading-none text-white uppercase bg-purple-800 rounded md:flex-col md:items-center md:justify-center md:w-1/4 transition-transform duration-300 transform hover:scale-105">
+                        <div className="md:text-3xl">{month}</div>
+                        <div className="md:text-6xl">{day}</div>
+                        <div className="md:text-xl">{startHour}</div>
+                    </div>
+                    <div className="p-4 font-normal md:w-3/4">
+                        <h1 className="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{eventData?.title}</h1>
+                        <p className="leading-normal">{eventData?.description}</p>
+                        <div className="w-full flex justify-between mb-3 mt-3">
+                            <div className="flex items-center ml-6">
+                                <FaLock className='mr-6' /> {eventData?.publicity}
+                            </div>
+                            <div className="flex items-center ml-6">
+                                <FaMapMarkerAlt className="mr-2" />{eventData?.location}
+                            </div>
+                        </div>
+                        <div className="w-full flex justify-between mb-3 mt-3">
+                            <div className="flex items-center ml-6">
+                               <FaUser className="mr-4"/> {username}
+                            </div>
+                            <div className="flex items-center mr-6">
+                                <FaUsers className="mr-2" />
+                                {eventData?.participants.length}
+                            </div>
+                        </div>
+                        <div className="flex flex-row items-center mt-4 text-gray-700">
+                            <div className="flex w-5/6 flex-row items-center mt-4 text-gray-700">
+                                <div className="w-50% mr-6">
+                                    Start Date: {month} {day}, {startHour}
+                                </div>
+                                <div className="w-50%">
+                                    End Date: {endDate.toLocaleString('en-US', { month: 'short', day: 'numeric' })}, {endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })}
+                                </div>
+                            </div>
+                            {!eventData.participants.includes(userData?.uid) && <button onClick={joinToEventHandler} className="w-2/12 bg-purple-800 text-white rounded-lg p-2">Join</button>}
+
+
+                            {(eventData?.creatorId === userData?.uid) && (<div className="w-2/12 flex justify-end">
+                                <button className="mr-3" onClick={editHandler}>
+                                    <FaEdit />
+                                </button>
+                                <button className="mr-3" onClick={deleteHandler}>
+                                    <FaTrash />
+                                </button>
+                            </div>)}
+                        </div>
                     </div>
                 </div>
             </div>
+            {(eventData?.creatorId === userData?.uid) && <ParticipantsSection />}
         </div>
     );
 };

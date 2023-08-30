@@ -39,3 +39,11 @@
     margin-top: 10px;
   }
 }
+
+
+.custom-font {
+  font-family: YourCustomFont;
+  font-size: 24px;
+  font-weight: bold;
+  color: #600760;
+}

@@ -9,6 +9,6 @@
 .tab-content.active {
     opacity: 1;
     visibility: visible;
-    transition-delay: 0.2s; /* Add a small delay for smoother transition */
-    z-index: 1; /* Ensure active tab content is on top */
+    transition-delay: 0.3s; 
+    z-index: 1; 
 }

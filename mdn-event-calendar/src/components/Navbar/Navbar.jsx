@@ -6,6 +6,7 @@ import { useToast } from '@chakra-ui/toast';
 import { logoutUser } from '../../services/auth.services';
 import { FiUser } from 'react-icons/fi';
 import UserDetails from '../Users/UserDetails';
+import { HiCalendar } from "react-icons/hi2";
 import { userProfileStyles } from '../../common/modal.helper.functions';
 import EditUser from '../Users/EditUser';
 import logoNav from '../../assets/logoNav.png';
@@ -69,7 +70,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-center"> {/* Updated justify-center */}
+            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-center mb-11">
                 <div className="flex items-center">
                     <RouterLink
                         to="/"
@@ -102,9 +103,10 @@ const Navbar = () => {
                         Admin Board
                     </RouterLink>}
                 </div>
-                <Link to='/home' className="logo">
-                <img src={logoNav} alt="logo here" style={{ height: '200px', width: 'auto' }} /> 
-                </Link>
+                <img src={logoNav} className='absolute top-0 left-1/2 transform -translate-x-1/2 -top-6' alt="logo here" style={{ height: '150px', width: 'auto' }} />
+                {/* <div className="text-purple-800 text-lg ml-auto">
+                   <span className='custom-font'> MDN<HiCalendar style={{ display: "inline" }} />E.S.E</span>
+                </div> */}
                 <div className="relative ml-auto">
                     <button
                         onClick={toggleDropdown}
@@ -121,8 +123,8 @@ const Navbar = () => {
                         )}
                     </button>
                     <div ref={dropdownRef} className={`absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={toggleEditUserModal}>Edit Profile</a>
-                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={openUserDetailsModal}>Profile</a>
+                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); toggleEditUserModal(); }}>Edit Profile</a>
+                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); openUserDetailsModal(); }}>Profile</a>
                     </div>
                 </div>
                 <button

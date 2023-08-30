@@ -16,6 +16,7 @@ import SignIn from './components/Auth/Login/Signin';
 import { useData } from './contexts/DataContext';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ListEvents from './components/Events/ListEvents/ListEvents';
+import SingleComponent from './components/Events/Components/SingleComponent';
 
 function App() {
   const { user, userData, isAuthenticated,isAdmin } = useAuth();
@@ -30,6 +31,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/events" element={<ListEvents />} />
+            <Route path="/event/:eventId" element={<SingleComponent />} />
             <Route path="/calendar" element={<Calendar />} />
             {isAdmin && <Route path="/admin" element={<AdminDashboard />} />}
           </Routes>

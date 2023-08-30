@@ -17,7 +17,6 @@ const ListEvents = () => {
             if (userData?.uid) {
                 const userEvents = await getEventsCreatedByUser(userData?.username, userData?.uid);
                 setEvents(userEvents);
-                console.log(userEvents);
             }
         };
         if (userData?.uid) {
@@ -124,47 +123,3 @@ const ListEvents = () => {
 }
 
 export default ListEvents;
-
-
-
-// {activeTab === "myEvents" && (
-//     <div className={`tab-content ${activeTab === "myEvents" ? "active" : ""}`}>
-//         <div className="bg-white shadow-xl rounded-lg border mt-2">
-//             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
-//                 {events.map((event) => (
-//                     <div key={event.id} className="w-full p-4">
-//                         <EventCard eventData={event} username={userData?.username} />
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     </div>
-// )}
-
-// {activeTab === "public" && (
-//     <div className={`tab-content ${activeTab === "public" ? "active" : ""}`}>
-//         <div className="bg-white shadow-xl rounded-lg border mt-2">
-//             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
-//                 {publicEvents.map((event) => (
-//                     <div key={event.id} className="w-full p-4">
-//                         <EventCard eventData={event} username={userData?.username} />
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     </div>
-// )}
-
-// {activeTab === "private" && (
-//     <div className={`tab-content ${activeTab === "private" ? "active" : ""}`}>
-//         <div className="bg-white shadow-xl rounded-lg border mt-2">
-//             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
-//                 {privateEvents.map((event) => (
-//                     <div key={event.id} className="w-full p-4">
-//                         <EventCard eventData={event} username={userData?.username} />
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     </div>
-// )}

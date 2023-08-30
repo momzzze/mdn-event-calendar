@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ eventData, username }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
     const startDate = new Date(eventData.startDate);
     const dayOfMonth = startDate.getDate();
     const endDate = new Date(eventData.endDate);
@@ -15,12 +17,20 @@ const EventCard = ({ eventData, username }) => {
     const formattedMonth = startDate.toLocaleString('default', { month: 'short' });
 
     const handleCardClick = () => {
-        console.log("Card clicked:", eventData.title);
+        navigate(`/event/${eventData?.id}`,
+        {
+            state: {
+                eventData: eventData,
+                username: username
+            }
+        });
     };
 
     return (
-        <div className={`flex h-32 bg-purple-800 hover:cursor-pointer border transform transition duration-300 ${isHovered ? 'bg-purple-400 scale-105 rounded-xl' : ''}`} onClick={handleCardClick} onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}>
+
+        <div
+            className={`flex h-32 bg-purple-800 hover:cursor-pointer border transform transition duration-300 ${isHovered ? 'bg-purple-400 scale-105 rounded-xl' : ''}`} onClick={handleCardClick} onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}>
             <div className="w-1/3 flex items-center justify-center">
                 <div className="text-center tracking-wide">
                     <div className="text-white font-bold text-4xl">{dayOfMonth}</div>
