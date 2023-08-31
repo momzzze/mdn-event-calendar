@@ -4,6 +4,7 @@ import { calendarViews } from "../../common/enums/calendar.enums";
 import ViewControl from "./ViewControl";
 import MonthCalendar from "./Month/MonthCalendar";
 import WeekCalendar from "./Week/WeekCalendar";
+import DayCalendar from "./Day/DayCalendar";
 import EventsList from "./EventsList/EventsList";
 import Hours from "./Week/HoursAndDays";
 import NewEvent from "../Events/NewEvent/NewEvent";
@@ -50,6 +51,15 @@ const Calendar = () => {
             )}
             {view === calendarViews.WEEK.view && (
               <WeekCalendar
+                currentDate={currentDate}
+                today={today}
+                setToday={setToday}
+                selectDate={selectDate}
+                setSelectDate={setSelectDate}
+              />
+            )}
+            {view === calendarViews.DAY.view && (
+              <DayCalendar
                 currentDate={currentDate}
                 today={today}
                 setToday={setToday}

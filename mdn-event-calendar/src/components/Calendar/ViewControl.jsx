@@ -39,7 +39,7 @@ const ViewControl = ({ view, setView }) => {
               {Object.values(calendarViews).map((view) => (
                 <Menu.Item
                   key={view.view}
-                  className="flex gap-2 items-center justify-center pr-10"
+                  className="flex gap-2 items-center justify-start pr-10"
                 >
                   {({ active }) => (
                     <a
@@ -50,7 +50,7 @@ const ViewControl = ({ view, setView }) => {
                         "px-4 py-2 text-sm"
                       )}
                     >
-                      {view.icon && <view.icon />}
+                      {view.icon && <view.icon className="flex-1"/>}
                       {view.view}
                     </a>
                   )}
