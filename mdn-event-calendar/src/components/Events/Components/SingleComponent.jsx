@@ -1,28 +1,54 @@
-import { useLocation } from "react-router-dom";
+import {  useLocation, useNavigate, } from "react-router-dom";
 import { FaEdit, FaTrash, FaUsers, FaMapMarkerAlt, FaLock, FaUser } from 'react-icons/fa';
 import ParticipantsSection from "./ParticipantsSection";
 import { useAuth } from "../../../contexts/AuthContext";
+import { useData } from "../../../contexts/DataContext";
+import { useState } from "react";
+import { addParticipantToEvent, removeParticipantFromEvent } from "../../../services/event.service";
 
 const SingleComponent = () => {
     const location = useLocation();
     const { userData } = useAuth();
-    const { eventData, username } = location.state || {};
+    const { users } = useData();
+    const { eventId, eventData, username } = location.state || {};
     const startDate = new Date(eventData?.startDate);
     const endDate = new Date(eventData?.endDate);
     const month = startDate.toLocaleString('en-US', { month: 'short' });
     const day = startDate.getDate();
     const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
     const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
-
+    const [participants, setParticipants] = useState(eventData?.participants || []);
+    const redirect=useNavigate();
+    const updateParticipants = (data) => {
+        setParticipants(data)
+    }
     const deleteHandler = () => {
         console.log("Delete");
     }
     const editHandler = () => {
         console.log("Edit");
     }
-    
-    const joinToEventHandler=()=>{
-        console.log("Join");
+
+    const removeParticipantHandle = async (eventId, participantId, publicity) => { 
+        if (participants.includes(participantId)) {
+            const success = await removeParticipantFromEvent(eventId, participantId);
+            if (success) {
+                const updatedParticipants = participants.filter(id => id !== participantId);
+                updateParticipants(updatedParticipants);
+            }
+        }
+        console.log(eventData?.creatorId, userData?.uid);
+        if (publicity === 'private' && userData?.uid !== eventData?.creatorId) {
+            redirect('/events');
+        }
+    }
+    const addParticipantHandle = async (eventId, participantId) => {
+        if (!participants.includes(participantId)) {
+            const success = await addParticipantToEvent(eventId, participantId);
+            if (success) {
+                updateParticipants([...participants, participantId]);
+            }
+        }
     }
 
     return (
@@ -54,11 +80,11 @@ const SingleComponent = () => {
                         </div>
                         <div className="w-full flex justify-between mb-3 mt-3">
                             <div className="flex items-center ml-6">
-                               <FaUser className="mr-4"/> {username}
+                                <FaUser className="mr-4" />{users?.find(user => user.uid === eventData?.creatorId)?.username || "Unknown User"}
                             </div>
                             <div className="flex items-center mr-6">
                                 <FaUsers className="mr-2" />
-                                {eventData?.participants.length}
+                                {participants.length}
                             </div>
                         </div>
                         <div className="flex flex-row items-center mt-4 text-gray-700">
@@ -70,7 +96,19 @@ const SingleComponent = () => {
                                     End Date: {endDate.toLocaleString('en-US', { month: 'short', day: 'numeric' })}, {endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true })}
                                 </div>
                             </div>
-                            {!eventData.participants.includes(userData?.uid) && <button onClick={joinToEventHandler} className="w-2/12 bg-purple-800 text-white rounded-lg p-2">Join</button>}
+                            {userData?.uid !== eventData?.creatorId && (
+                                <>
+                                    {participants?.includes(userData?.uid) ? (
+                                        <button onClick={() => removeParticipantHandle(eventData.id, userData?.uid, eventData.publicity)} className="w-2/12 bg-red-800 text-white rounded-lg p-2">
+                                            Leave
+                                        </button>
+                                    ) : (
+                                        <button onClick={() => addParticipantHandle(eventData.id, userData?.uid)} className="w-2/12 bg-purple-800 text-white rounded-lg p-2">
+                                            Join
+                                        </button>
+                                    )}
+                                </>
+                            )}
 
 
                             {(eventData?.creatorId === userData?.uid) && (<div className="w-2/12 flex justify-end">
@@ -85,7 +123,7 @@ const SingleComponent = () => {
                     </div>
                 </div>
             </div>
-            {(eventData?.creatorId === userData?.uid) && <ParticipantsSection />}
+            {(eventData?.creatorId === userData?.uid) && <ParticipantsSection eventData={eventData} eventId={eventData.id} eventParticipants={participants} addParticipantHandle={addParticipantHandle} removeParticipantHandle={removeParticipantHandle} />}
         </div>
     );
 };
