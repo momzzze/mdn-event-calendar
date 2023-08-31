@@ -71,6 +71,7 @@ export const DataProvider = ({ children }) => {
         setPendingInvitesData();
         setContactListsData();
     }, [userData?.uid]);
+      
 
     useEffect(() => {
         const contactsRef = ref(db, 'contacts');

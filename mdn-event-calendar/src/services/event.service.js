@@ -5,6 +5,7 @@ import { getUserData } from "./user.service";
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
     try {
+        
         const participants = [creatorId]
         const dataObj = { ...data, startDate, endDate, participants, creatorId };
         const eventsRef = ref(db, 'events');
@@ -87,18 +88,18 @@ export const getPrivateEvents = async (userId) => {
 
             if (publicEventsSnapshot.exists()) {
                 const events = [];
-                
+
                 publicEventsSnapshot.forEach((childSnapshot) => {
                     const eventId = childSnapshot.key;
-                    const eventData=childSnapshot.val();
-    
-                    if(eventData.participants.includes(userId)){
+                    const eventData = childSnapshot.val();
+
+                    if (eventData.participants.includes(userId)) {
                         const event = { id: eventId, ...childSnapshot.val() };
                         events.push(event);
-                    }                    
+                    }
                 });
                 return events;
-            }else{
+            } else {
                 return [];
             }
         } catch (error) {
@@ -106,5 +107,35 @@ export const getPrivateEvents = async (userId) => {
             return [];
         }
 
+    }
+}
+
+export const addParticipantToEvent = async (eventId, userId) => {
+    try {
+        const eventParticipantsRef = ref(db, `/events/${eventId}/participants`);
+        const participantsSnapshot = await get(eventParticipantsRef);
+        const currentParticipants = participantsSnapshot.val();
+        currentParticipants.push(userId);
+        await set(eventParticipantsRef, currentParticipants);
+        return true;
+    } catch (error) {
+        console.error('Error adding participant to event:', error);
+        return false;
+    }
+}
+
+export const removeParticipantFromEvent = async (eventId, userId) => {
+    if (eventId && userId) {
+        try {
+            const eventParticipantsRef = ref(db, `/events/${eventId}/participants`);
+            const participantsSnapshot = await get(eventParticipantsRef);
+            const currentParticipants = participantsSnapshot.val();
+            const updatedParticipants = currentParticipants.filter(id => id !== userId);
+            await set(eventParticipantsRef, updatedParticipants);
+            return true
+        } catch (error) {
+            console.error('Error removing participant from event:', error);
+            return false;
+        }
     }
 }

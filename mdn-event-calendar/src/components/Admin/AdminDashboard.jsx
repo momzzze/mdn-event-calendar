@@ -5,7 +5,7 @@ import { FaUser } from 'react-icons/fa';
 
 
 const AdminDashboard = () => {
-    const { users, setUsers } = useData();
+    const { users, setUsersData } = useData();
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearchChange = (event) => {
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
             }
             return user;
         });
-        setUsers(updatedUsers);
+        setUsersData(updatedUsers);
     };
     const bannedUsers = users ? users.filter(user => user.role === 'banned') : [];
 

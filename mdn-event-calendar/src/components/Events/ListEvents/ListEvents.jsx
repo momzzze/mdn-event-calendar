@@ -51,7 +51,7 @@ const ListEvents = () => {
         if (activeTab === "public") {
             return publicEvents.map((event) => (
                 <div key={event.id} className="w-full p-4">
-                    <EventCard eventData={event} username={userData?.username} />
+                    <EventCard eventId={event.id} eventData={event} username={userData?.username} />
                 </div>
             ));
         }

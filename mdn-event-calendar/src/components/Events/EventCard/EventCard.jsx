@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventCard = ({ eventData, username }) => {
+const EventCard = ({eventId, eventData, username }) => {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const startDate = new Date(eventData.startDate);
@@ -20,6 +20,7 @@ const EventCard = ({ eventData, username }) => {
         navigate(`/event/${eventData?.id}`,
         {
             state: {
+                eventId: eventId,
                 eventData: eventData,
                 username: username
             }
