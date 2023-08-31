@@ -25,6 +25,7 @@ const WeekCalendar = ({
             currentDate={currentDate}
             today={today}
             setToday={setToday}
+            setSelectDate={setSelectDate}
           />
           <WeedDays
             today={today}

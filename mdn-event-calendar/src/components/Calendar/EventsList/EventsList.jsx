@@ -4,7 +4,9 @@ const EventsList = ({ selectDate }) => {
   return (
     <div className="h-96 w-96 sm:px-5">
       <h1 className=" font-semibold">
-        Schedule for {selectDate.toDate().toDateString()}
+        Schedule for
+        <br />
+        {selectDate.format("dddd, MMMM DD, YYYY")}
       </h1>
       {/* {events.length ? (<div className="event-list">
         {events.map((event) => (
