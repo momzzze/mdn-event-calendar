@@ -1,52 +1,82 @@
 import Modal from "react-modal";
-import { userProfileStyles } from "../../common/modal.helper.functions";
-import { useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
-const UserDetails = ({ isOpen, onClose,data }) => {
-    useEffect(() => {
-    }, [data]);
+const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "40rem",
+      height: "37rem",
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+    },
+  };
+
+const UserDetails = ({ isOpen, onClose, username }) => {
+    const { userData } = useAuth();
+    
+    if (!isOpen || userData === null) {
+        return null;
+    }
+    
+    const contacts = Object.keys(userData?.contacts).length;
+   
     return (
         <>
-            <Modal
-                isOpen={isOpen} onRequestClose={onClose}
-                style={userProfileStyles}
-                contentLabel="User Details Modal"
-            >
-                <div className="flex flex-col items-center justify-center h-full">
-                    <img
-                        src="https://source.unsplash.com/100x100/?portrait?1"
-                        alt=""
-                        className="object-cover object-center w-32 h-32 rounded dark:bg-gray-500"
-                    />
-                    <div className="text-center mt-4">
-                        <h2 className="text-2xl font-semibold">Leroy Jenkins</h2>
-                        <span className="text-sm dark:text-gray-400">General manager</span>
-                    </div>
-                    <div className="text-center mt-4 space-y-1">
-                        <span className="flex items-center justify-center space-x-2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                                aria-label="Email address"
-                                className="w-4 h-4"
-                            >
-                            </svg>
-                            <span className="dark:text-gray-400">leroy.jenkins@company.com</span>
-                        </span>
-                        <span className="flex items-center justify-center space-x-2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                                aria-label="Phonenumber"
-                                className="w-4 h-4"
-                            >
-                            </svg>
-                            <span className="dark:text-gray-400">+25 381 77 983</span>
-                        </span>
-                    </div>
-                </div>
-            </Modal>
-        </>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onClose}
+        style={customStyles}
+        contentLabel="User Details Modal"
+      >
+        <div className="my-4 justify-center">
+          <h1 className="text-3xl text-center font-semibold">
+            {userData?.username}
+          </h1>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="flex flex-row items-center justify-around border rounded-sm w-full py-4 px-4 mb-2">
+            <img
+              src={userData?.photo}
+              alt="avatar"
+              className="object-cover object-center w-32 h-32 rounded dark:bg-gray-500"
+            />
+            <div className="flex flex-col items-center justify-around h-full">
+              <h2 className="mt-4 text-2xl font-semibold">
+                {userData?.firstName + " " + userData?.lastName}
+              </h2>
+              <h3 className="text-xl font-semibold">{userData?.role}</h3>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center border rounded-sm w-full py-4 px-20 mb-2">
+            <div className="flex flex-row justify-around w-full mb-2 border-b">
+              <span className="flex-1">email:</span>
+              <span className="dark:text-gray-400">{userData?.email}</span>
+            </div>
+            <div className="flex flex-row justify-around w-full mb-2 border-b">
+              <span className="flex-1">phone:</span>
+              <span className="dark:text-gray-400">{userData?.phone}</span>
+            </div>
+            <div className="flex flex-row justify-around w-full mb-2 border-b">
+              <span className="flex-1">country:</span>
+              <span className="dark:text-gray-400">{userData?.country}</span>
+            </div>
+            <div className="flex flex-row justify-around w-full mb-2 border-b">
+              <span className="flex-1">city:</span>
+              <span className="dark:text-gray-400">{userData?.city}</span>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center border rounded-sm w-full py-4 px-20 mb-4">
+            <div className="flex flex-row justify-around w-full mb-2 border-b">
+              <span className="flex-1">contacts:</span>
+              <span className="dark:text-gray-400">{contacts}</span>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    </>
     )
 }
 export default UserDetails;
