@@ -17,6 +17,7 @@
               currentDate={currentDate}
               today={today}
               setToday={setToday}
+              setSelectDate={setSelectDate}
             />
           </div>
         </div>
