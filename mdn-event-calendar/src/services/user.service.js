@@ -1,6 +1,5 @@
 import { get, set, ref, query, orderByChild, equalTo } from "firebase/database";
-import { auth, db } from '../config/firebase'
-// import { sendPasswordResetEmail } from "firebase/auth";
+import { db } from '../config/firebase'
 
 export const createUserHandle = (userData) => {
     return set(ref(db, `users/${userData.username}`), {
@@ -26,7 +25,7 @@ export const getUserData = (uid) => {
 export const getUserDataByUserId = async (userId) => {
     const userQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(userId));
     const userSnapshot = await get(userQuery);
-    const userDatas = userSnapshot.val();    
+    const userDatas = userSnapshot.val();
     if (userDatas) {
         const userData = Object.values(userDatas)[0];
         return userData;
@@ -73,10 +72,10 @@ export const handleToggleRole = async (userId, currentRole) => {
 };
 
 export const getUserContacts = async (userId) => {
-    if(userId){
+    if (userId) {
         try {
-            const user=await getUserDataByUserId(userId);
-            const userContactsRef =await ref(db, `users/${user.username}/contacts`);
+            const user = await getUserDataByUserId(userId);
+            const userContactsRef = await ref(db, `users/${user.username}/contacts`);
             const userContactsSnapshot = await get(userContactsRef);
             const userContactsData = userContactsSnapshot.val();
             if (userContactsData) {
@@ -90,3 +89,25 @@ export const getUserContacts = async (userId) => {
         }
     }
 };
+
+export const getUserByEmail = async (email) => {
+    try {
+        const emailQuery = query(ref(db, "users"), orderByChild("email"), equalTo(email));
+        const snapshot = await get(emailQuery);
+        if (snapshot.exists()) {
+            // Convert the user data to an array of user objects (usually there should be only one user with the given email)
+            const userData = snapshot.val();
+            const usersArray = Object.keys(userData).map(userId => ({
+                id: userId,
+                ...userData[userId]
+            }));
+            // Return the user object(s)
+            return usersArray;
+        } else {
+            // No user found with the given email
+            return null;
+        }
+    } catch (error) {
+        console.error('Error getting user by email:', error);
+    }
+}

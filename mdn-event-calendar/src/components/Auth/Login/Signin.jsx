@@ -17,6 +17,17 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
 
     const onSubmit = async (data) => {
         try {
+            await setUsersData();
+            await setUserContactsData();
+            await setSendingInvitesData();
+            await setContactListsData();
+            await setPendingInvitesData();
+         } catch (error) {
+             console.log(error.message);
+         }
+         
+
+        try {
             await loginUser(data.email, data.password)
                 .then(credential => {
                     setUser({
@@ -44,15 +55,7 @@ const SignIn = ({ isOpen, onClose, switchModals }) => {
                 duration: 5000,
             });
         } 
-        try {
-           await setUsersData();
-           await setUserContactsData();
-           await setSendingInvitesData();
-           await setContactListsData();
-           await setPendingInvitesData();
-        } catch (error) {
-            console.log(error.message);
-        }       
+               
     };
 
     return (

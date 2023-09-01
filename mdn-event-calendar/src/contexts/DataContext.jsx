@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getAllUsersData, getUserContacts } from '../services/user.service'; // Import your user service
+import { getAllUsersData, getUserContacts } from '../services/user.service'; 
 import { getAllContactListsForUser, getPendingInvitesForUser, getSendingInvitesFromUser } from '../services/contacts.service';
 import { useAuth } from './AuthContext';
 import { db } from '../config/firebase';

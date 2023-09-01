@@ -1,6 +1,5 @@
-import { get, set, push, ref, query, orderByChild, equalTo, remove, update } from "firebase/database";
-import { auth, db } from '../config/firebase'
-import { getUserData } from "./user.service";
+import { get, set, push, ref, query, orderByChild, equalTo, remove } from "firebase/database";
+import { db } from '../config/firebase'
 
 
 export const createContactList = async (name, owner) => {
@@ -20,14 +19,14 @@ export const createContactList = async (name, owner) => {
     }
 }
 
-export const getAllContactListsForUser = async (userId) => {    
+export const getAllContactListsForUser = async (userId) => {
     if (userId) {
         try {
-        const contactListsRef = ref(db, 'contactLists');
-        const contactListsQuery = query(contactListsRef, orderByChild('owner'), equalTo(userId));
+            const contactListsRef = ref(db, 'contactLists');
+            const contactListsQuery = query(contactListsRef, orderByChild('owner'), equalTo(userId));
 
-        
-            const contactListsSnapshot = await get(contactListsQuery); 
+
+            const contactListsSnapshot = await get(contactListsQuery);
             const contactListsData = [];
 
             contactListsSnapshot.forEach((childSnapshot) => {

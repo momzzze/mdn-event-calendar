@@ -10,8 +10,6 @@ export const generateDate = (
   const lastDateOfMonth = dayjs().year(year).month(month).endOf("month");
 
   const arrayOfDate = [];
-
-  // create prefix date
   for (let i = 0; i < firstDateOfMonth.day(); i++) {
     const date = firstDateOfMonth.day(i);
 

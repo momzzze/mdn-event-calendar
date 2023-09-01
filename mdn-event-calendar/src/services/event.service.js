@@ -1,11 +1,10 @@
-import { get, set, push, ref, query, orderByChild, equalTo, remove, update } from "firebase/database";
-import { auth, db } from '../config/firebase'
-import { getUserData } from "./user.service";
+import { get, set, push, ref, query, orderByChild, equalTo, update } from "firebase/database";
+import { db } from '../config/firebase'
 
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
     try {
-        
+
         const participants = [creatorId]
         const dataObj = { ...data, startDate, endDate, participants, creatorId };
         const eventsRef = ref(db, 'events');
