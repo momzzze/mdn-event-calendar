@@ -165,3 +165,12 @@ export const deleteEvent = async (eventId, userId) => {
         return false;
     }
 }
+
+export const editEventHandle = async (eventId, data) => {
+    try {
+        await set(ref(db, `events/${eventId}`), data);
+        return true;
+    } catch (error) {
+        return false
+    }
+}

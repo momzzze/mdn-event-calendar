@@ -1,41 +1,53 @@
-import {  useLocation, useNavigate, } from "react-router-dom";
+import { useLocation, useNavigate, } from "react-router-dom";
 import { FaEdit, FaTrash, FaUsers, FaMapMarkerAlt, FaLock, FaUser } from 'react-icons/fa';
 import ParticipantsSection from "./ParticipantsSection";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useData } from "../../../contexts/DataContext";
 import { useState } from "react";
 import { addParticipantToEvent, deleteEvent, removeParticipantFromEvent } from "../../../services/event.service";
+import EditEvent from "../EditEvent/EditEvent";
 
 const SingleComponent = () => {
     const location = useLocation();
     const { userData } = useAuth();
     const { users } = useData();
-    const {  eventData } = location.state || {};
+    const { eventData } = location.state || {};
     const startDate = new Date(eventData?.startDate);
     const endDate = new Date(eventData?.endDate);
-    const month = startDate.toLocaleString('en-US', { month: 'short' });
-    const day = startDate.getDate();
-    const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
-    const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
+    const timeZoneOption = { timeZone: 'Europe/Istanbul' };
+    const month = startDate.toLocaleString('en-US', { month: 'short', ...timeZoneOption });
+    const day = startDate.toLocaleString('en-US', { day: 'numeric', ...timeZoneOption });
+    const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
+    const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
+
     const [participants, setParticipants] = useState(eventData?.participants || []);
-    const redirect=useNavigate();
+    const redirect = useNavigate();
+    const [isOpenEditEventModal, setOpenEditEventModal] = useState(false);
+
+    const openEditEventModal = () => {
+        setOpenEditEventModal(true);
+    }
+    const closeEditEventModal = () => {
+        setOpenEditEventModal(false);
+    }
 
     const updateParticipants = (data) => {
         setParticipants(data)
     }
 
-    const deleteHandler =async () => {
-     const success=  await deleteEvent(eventData.id,eventData.creatorId)
-        if(success){
+    const deleteHandler = async () => {
+        const success = await deleteEvent(eventData.id, eventData.creatorId)
+        if (success) {
             redirect('/events');
         }
     }
 
     const editHandler = () => {
-        console.log("Edit");
+        openEditEventModal();
+
     }
 
-    const removeParticipantHandle = async (eventId, participantId, publicity) => { 
+    const removeParticipantHandle = async (eventId, participantId, publicity) => {
         if (participants.includes(participantId)) {
             const success = await removeParticipantFromEvent(eventId, participantId);
             if (success) {
@@ -129,6 +141,14 @@ const SingleComponent = () => {
                 </div>
             </div>
             {(eventData?.creatorId === userData?.uid) && <ParticipantsSection eventData={eventData} eventId={eventData.id} eventParticipants={participants} addParticipantHandle={addParticipantHandle} removeParticipantHandle={removeParticipantHandle} />}
+            {isOpenEditEventModal && (
+                <EditEvent
+                    eventData={eventData}
+                    isOpen={isOpenEditEventModal}
+                    onRequestClose={closeEditEventModal}
+                />
+            )}
+
         </div>
     );
 };
