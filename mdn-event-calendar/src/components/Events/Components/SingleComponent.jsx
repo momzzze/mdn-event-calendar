@@ -10,7 +10,7 @@ const SingleComponent = () => {
     const location = useLocation();
     const { userData } = useAuth();
     const { users } = useData();
-    const { eventId, eventData, username } = location.state || {};
+    const {  eventData } = location.state || {};
     const startDate = new Date(eventData?.startDate);
     const endDate = new Date(eventData?.endDate);
     const month = startDate.toLocaleString('en-US', { month: 'short' });
@@ -28,7 +28,6 @@ const SingleComponent = () => {
     const editHandler = () => {
         console.log("Edit");
     }
-
     const removeParticipantHandle = async (eventId, participantId, publicity) => { 
         if (participants.includes(participantId)) {
             const success = await removeParticipantFromEvent(eventId, participantId);

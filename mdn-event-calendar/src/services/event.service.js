@@ -4,9 +4,11 @@ import { db } from '../config/firebase'
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
     try {
+        const startTimeStamp = startDate ? new Date(startDate).getTime() : null;
+        const endTimeStamp = endDate ? new Date(endDate).getTime() : null; 
 
         const participants = [creatorId]
-        const dataObj = { ...data, startDate, endDate, participants, creatorId };
+        const dataObj = { ...data,startDate:startTimeStamp,endDate:endTimeStamp, participants, creatorId };
         const eventsRef = ref(db, 'events');
         const newEventRef = push(eventsRef, dataObj);
         const eventId = newEventRef.key;
@@ -20,6 +22,8 @@ export const createEventHandle = async (data, startDate, endDate, creatorId, use
         return false;
     }
 }
+
+
 
 export const getEventsCreatedByUser = async (username, userId) => {
     if (userId) {
