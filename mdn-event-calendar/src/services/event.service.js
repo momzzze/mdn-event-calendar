@@ -1,14 +1,15 @@
-import { get, set, push, ref, query, orderByChild, equalTo, update } from "firebase/database";
+import { get, set, push, ref, query, orderByChild, equalTo, update, remove } from "firebase/database";
 import { db } from '../config/firebase'
+import { getUserData } from "./user.service";
 
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
     try {
         const startTimeStamp = startDate ? new Date(startDate).getTime() : null;
-        const endTimeStamp = endDate ? new Date(endDate).getTime() : null; 
+        const endTimeStamp = endDate ? new Date(endDate).getTime() : null;
 
         const participants = [creatorId]
-        const dataObj = { ...data,startDate:startTimeStamp,endDate:endTimeStamp, participants, creatorId };
+        const dataObj = { ...data, startDate: startTimeStamp, endDate: endTimeStamp, participants, creatorId };
         const eventsRef = ref(db, 'events');
         const newEventRef = push(eventsRef, dataObj);
         const eventId = newEventRef.key;
@@ -140,5 +141,27 @@ export const removeParticipantFromEvent = async (eventId, userId) => {
             console.error('Error removing participant from event:', error);
             return false;
         }
+    }
+}
+
+export const deleteEvent = async (eventId, userId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}`);
+        const userDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(userId));
+        const userDataSnapshot = await get(userDataQuery);
+        if (userDataSnapshot.exists()) {
+            const userData = Object.values(userDataSnapshot.val())[0];
+            if (userData.createdEvents && userData.createdEvents[eventId]) {
+                delete userData.createdEvents[eventId];
+                const userRef = ref(db, `users/${userData.username}`);
+                await set(userRef, userData);
+                await remove(eventRef);
+                return true;
+            }
+        }
+
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        return false;
     }
 }

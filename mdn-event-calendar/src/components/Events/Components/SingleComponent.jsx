@@ -4,7 +4,7 @@ import ParticipantsSection from "./ParticipantsSection";
 import { useAuth } from "../../../contexts/AuthContext";
 import { useData } from "../../../contexts/DataContext";
 import { useState } from "react";
-import { addParticipantToEvent, removeParticipantFromEvent } from "../../../services/event.service";
+import { addParticipantToEvent, deleteEvent, removeParticipantFromEvent } from "../../../services/event.service";
 
 const SingleComponent = () => {
     const location = useLocation();
@@ -19,15 +19,22 @@ const SingleComponent = () => {
     const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true });
     const [participants, setParticipants] = useState(eventData?.participants || []);
     const redirect=useNavigate();
+
     const updateParticipants = (data) => {
         setParticipants(data)
     }
-    const deleteHandler = () => {
-        console.log("Delete");
+
+    const deleteHandler =async () => {
+     const success=  await deleteEvent(eventData.id,eventData.creatorId)
+        if(success){
+            redirect('/events');
+        }
     }
+
     const editHandler = () => {
         console.log("Edit");
     }
+
     const removeParticipantHandle = async (eventId, participantId, publicity) => { 
         if (participants.includes(participantId)) {
             const success = await removeParticipantFromEvent(eventId, participantId);
@@ -36,7 +43,6 @@ const SingleComponent = () => {
                 updateParticipants(updatedParticipants);
             }
         }
-        console.log(eventData?.creatorId, userData?.uid);
         if (publicity === 'private' && userData?.uid !== eventData?.creatorId) {
             redirect('/events');
         }

@@ -95,16 +95,13 @@ export const getUserByEmail = async (email) => {
         const emailQuery = query(ref(db, "users"), orderByChild("email"), equalTo(email));
         const snapshot = await get(emailQuery);
         if (snapshot.exists()) {
-            // Convert the user data to an array of user objects (usually there should be only one user with the given email)
             const userData = snapshot.val();
             const usersArray = Object.keys(userData).map(userId => ({
                 id: userId,
                 ...userData[userId]
             }));
-            // Return the user object(s)
             return usersArray;
         } else {
-            // No user found with the given email
             return null;
         }
     } catch (error) {
