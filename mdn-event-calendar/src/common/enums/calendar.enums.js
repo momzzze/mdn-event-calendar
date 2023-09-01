@@ -9,4 +9,8 @@ export const calendarViews = {
     view: "Week",
     icon: GrPlan,
   },
+  DAY: {
+    view: "Day",
+    icon: GrSchedule,
+  },
 }

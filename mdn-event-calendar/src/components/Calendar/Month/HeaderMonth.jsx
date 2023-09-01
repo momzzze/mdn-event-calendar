@@ -1,10 +1,11 @@
+import { set } from "firebase/database";
 import { months } from "../../../utils/calendarUtils";
 import {
     GrFormDown,
     GrFormUp,
   } from "react-icons/gr";
 
-const HeaderMonth = ({ currentDate, today, setToday }) => {
+const HeaderMonth = ({ currentDate, today, setToday, setSelectDate }) => {
     return (
         <div className="flex justify-between items-center px-1 bg-slate-100">
         <div className="flex gap-2 items-center">
@@ -28,6 +29,7 @@ const HeaderMonth = ({ currentDate, today, setToday }) => {
           className=" cursor-pointer hover:scale-105 transition-all border-gray-200 border-2 rounded-md px-3 py-1 my-1"
           onClick={() => {
             setToday(currentDate);
+            setSelectDate(currentDate);
           }}
         >
           Today
