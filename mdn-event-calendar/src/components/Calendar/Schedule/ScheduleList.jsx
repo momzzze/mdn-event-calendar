@@ -1,14 +1,26 @@
 import ScheduleListItem from "./ScheduleListItem";
 import dayjs from "dayjs";
+import * as isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween);
 
 const ScheduleList = ({ selectDate, publicEvents, privateEvents }) => {
-  const selectDatePrivateEvents = privateEvents?.filter((event) => {
-    return dayjs(event.startDate).isSame(selectDate, "day");
-  });  
-  const selectDatePublicEvents = publicEvents?.filter((event) => {
-    return dayjs(event.startDate).isSame(selectDate, "day");
-  });
-
+  const selectDatePublicEvents = publicEvents?.reduce((result, event) => {
+    if (dayjs(event.startDate).isSame(event.endDate, "day") && dayjs(event.startDate).isSame(selectDate, "day")) {
+      result.push(event);
+    } else if (dayjs(selectDate).isBetween(dayjs(event.startDate).add(-1, "day"), dayjs(event.endDate).add(1, "day"), "day")) {
+      result.push(event);
+    }
+    return result;
+  }, []);
+  const selectDatePrivateEvents = privateEvents?.reduce((result, event) => {
+    if (dayjs(event.startDate).isSame(event.endDate, "day") && dayjs(event.startDate).isSame(selectDate, "day")) {
+      result.push(event);
+    } else if (dayjs(selectDate).isBetween(dayjs(event.startDate).add(-1, "day"), dayjs(event.endDate).add(1, "day"), "day")) {
+      result.push(event);
+    }
+    return result;
+  }, []);
+  
   
   return (
     <div className="h-inherit w-96 sm:px-5 border-2 rounded-lg bg-slate-100">

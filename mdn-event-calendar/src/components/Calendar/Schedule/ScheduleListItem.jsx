@@ -1,11 +1,31 @@
 import dayjs from "dayjs";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ScheduleListItem = ({ event, selectDate }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
   const startDate = dayjs(event?.startDate).format("MMM DD, HH:mm a");
   const endDate = dayjs(event?.endDate).format("MMM DD, HH:mm a");
 
+  const handleCardClick = () => {
+    navigate(`/event/${event?.id}`,
+    {
+        state: {
+            eventDataId: event.id,
+            username: event?.username
+        }
+    });
+};
+
   return (
-    <li className="flex items-center px-4 py-2 space-x-4 group border-2 bg-white rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li
+      className={`flex items-center px-4 py-2 space-x-4 group border-2 bg-white rounded-xl
+      ${isHovered ? "scale-105 cursor-pointer" : ""}`}
+      onClick={handleCardClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="flex flex-col items-center">
         <img
           src={event.imageUrl}
