@@ -29,7 +29,7 @@ const customStyles = {
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
     },
 };
-const EditEvent = ({ eventData, isOpen, onRequestClose }) => {
+const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
     const currentDate = dayjs();
     const {
         register,
@@ -87,6 +87,7 @@ const EditEvent = ({ eventData, isOpen, onRequestClose }) => {
                     isClosable: true,
                 });
                 onRequestClose();
+                refreshEventData();
             }
         
         } catch (error) {

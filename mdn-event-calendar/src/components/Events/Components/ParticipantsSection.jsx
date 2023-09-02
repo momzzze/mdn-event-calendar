@@ -3,7 +3,7 @@ import { FaUser } from 'react-icons/fa';
 import { useData } from '../../../contexts/DataContext';
 import { addParticipantToEvent } from '../../../services/event.service';
 
-const ParticipantsSection = ({ eventData, eventId, eventParticipants, addParticipantHandle, removeParticipantHandle }) => {
+const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandle, removeParticipantHandle,refreshEventData }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const { userContacts, users } = useData();
     const [filteredParticipants, setFilteredParticipants] = useState([]);
