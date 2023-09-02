@@ -76,8 +76,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       const newEvent = await createEventHandle(data, startDate, endDate, userData?.uid, userData?.username);
 
       toast({
-        title: "Event is created successfully!",
-        description: "Your event is added to the calendar.",
+        title: "Event Edited Successfully!",
+        description: "Your event has been updated.",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -85,7 +85,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       navigate("/calendar");
     } catch (error) {
       toast({
-        title: "Error! Event is not created!",
+        title: "Error! Event is not updated!",
         description: error.message,
         status: "error",
         duration: 5000,

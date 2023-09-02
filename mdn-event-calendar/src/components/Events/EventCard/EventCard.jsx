@@ -15,13 +15,12 @@ const EventCard = ({eventId, eventData, username }) => {
         minute: '2-digit'
     }) + " - " + endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const formattedMonth = startDate.toLocaleString('default', { month: 'short' });
-
+    
     const handleCardClick = () => {
         navigate(`/event/${eventData?.id}`,
         {
             state: {
-                eventId: eventId,
-                eventData: eventData,
+                eventDataId: eventData.id,
                 username: username
             }
         });

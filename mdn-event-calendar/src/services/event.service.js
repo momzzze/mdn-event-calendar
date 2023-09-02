@@ -24,7 +24,37 @@ export const createEventHandle = async (data, startDate, endDate, creatorId, use
     }
 }
 
+export const getEventById = async (eventId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}`);
+        const eventSnapshot = await get(eventRef);
 
+        if (eventSnapshot.exists()) {
+            return { id: eventId, ...eventSnapshot.val() };
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error getting event by ID (${eventId}):`, error);
+        return null;
+    }
+};
+
+export const fetchParticipants = async (eventId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}/participants`);
+        const eventSnapshot = await get(eventRef);
+
+        if (eventSnapshot.exists()) {
+            return eventSnapshot.val();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error getting event by ID (${eventId}):`, error);
+        return null;
+    }
+}
 
 export const getEventsCreatedByUser = async (username, userId) => {
     if (userId) {
@@ -163,5 +193,14 @@ export const deleteEvent = async (eventId, userId) => {
     } catch (error) {
         console.error('Error deleting event:', error);
         return false;
+    }
+}
+
+export const editEventHandle = async (eventId, data) => {
+    try {
+        await set(ref(db, `events/${eventId}`), data);
+        return true;
+    } catch (error) {
+        return false
     }
 }
