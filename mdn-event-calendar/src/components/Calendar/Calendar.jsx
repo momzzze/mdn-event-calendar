@@ -5,9 +5,9 @@ import ViewControl from "./ViewControl";
 import MonthCalendar from "./Month/MonthCalendar";
 import WeekCalendar from "./Week/WeekCalendar";
 import DayCalendar from "./Day/DayCalendar";
-import EventsList from "./EventsList/EventsList";
-import Hours from "./Week/HoursAndDays";
+import ScheduleList from "./Schedule/ScheduleList";
 import NewEvent from "../Events/NewEvent/NewEvent";
+import { useData } from "../../contexts/DataContext";
 
 const Calendar = () => {
   const [view, setView] = useState(calendarViews.MONTH.view);
@@ -15,6 +15,7 @@ const Calendar = () => {
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [isOpenNewEventModal, setOpenNewEventModal] = useState(false);
+  const { publicEvents, privateEvents } = useData();
 
   const openNewEventModal = () => {
     setOpenNewEventModal(true);
@@ -25,7 +26,7 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="flex justify-between px-3 py-2">
+      <div className="flex h-4/5 gap-1 justify-between px-3 py-2">
         <div className="flex-1 border-radius">
           <div className="flex justify-between px-2 pb-2">
             <button
@@ -47,6 +48,8 @@ const Calendar = () => {
                 setToday={setToday}
                 selectDate={selectDate}
                 setSelectDate={setSelectDate}
+                publicEvents={publicEvents}
+                privateEvents={privateEvents}
               />
             )}
             {view === calendarViews.WEEK.view && (
@@ -69,7 +72,7 @@ const Calendar = () => {
             )}
           </div>
         </div>
-        <EventsList selectDate={selectDate} />
+        <ScheduleList selectDate={selectDate} publicEvents={publicEvents} privateEvents={privateEvents} />
       </div>
     </>
   );

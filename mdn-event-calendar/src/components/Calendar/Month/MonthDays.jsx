@@ -1,6 +1,7 @@
 import { generateDate, daysFullName, cn } from "../../../utils/calendarUtils";
 
-const MonthDays = ({ today, setToday, selectDate, setSelectDate }) => {
+const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, privateEvents }) => {
+  // console.log(publicEvents, privateEvents);
   return (
     <>
       <div className="grid grid-cols-7 border-t">
