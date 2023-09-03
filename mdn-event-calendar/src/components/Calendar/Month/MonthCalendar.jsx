@@ -19,7 +19,6 @@ const MonthCalendar = ({
         />        
         <MonthDays
           today={today}
-          setToday={setToday}
           selectDate={selectDate}
           setSelectDate={setSelectDate}
         />

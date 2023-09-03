@@ -23,7 +23,7 @@ const customStyles = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "50rem",
-    height: "40rem",
+    height: "45rem",
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
@@ -62,7 +62,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       roundedDate.setUTCMinutes(30);
     } else {
       roundedDate.setUTCMinutes(0);
-      roundedDate.setUTCHours((hours + 1) % 24);
+      roundedDate.setUTCHours(hours % 24);
     }
 
     const localRoundedDate = new Date(roundedDate); // Convert back to local time
@@ -70,22 +70,29 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
     return formattedDate;
   };
 
-
   const onSubmit = async (data) => {
     try {
-      const newEvent = await createEventHandle(data, startDate, endDate, userData?.uid, userData?.username);
+      const newEvent = await createEventHandle(
+        data,
+        startDate,
+        endDate,
+        userData?.uid,
+        userData?.username
+      );
 
       toast({
-        title: "Event is created successfully!",
-        description: "Your event is added to the calendar.",
+        title: "Event Edited Successfully!",
+        description: "Your event has been updated.",
         status: "success",
         duration: 5000,
         isClosable: true,
       });
+      reset();
       navigate("/calendar");
+      onRequestClose();
     } catch (error) {
       toast({
-        title: "Error! Event is not created!",
+        title: "Error! Event is not updated!",
         description: error.message,
         status: "error",
         duration: 5000,
@@ -108,17 +115,18 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
               <input
                 type="text"
                 name="title"
-                className={`border p-2 w-full ${errors.title ? "border-red-500" : ""
-                  }`}
+                className={`border p-2 w-full ${
+                  errors.title ? "border-red-500" : ""
+                }`}
                 {...register("title", {
                   required: "Title is required",
                   minLength: {
                     value: 3,
-                    message: "First name must be at least 3 characters",
+                    message: "Title must be at least 3 characters",
                   },
                   maxLength: {
                     value: 30,
-                    message: "First name must not exceed 30 characters",
+                    message: "Title must not exceed 30 characters",
                   },
                 })}
               />
@@ -187,6 +195,23 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   />
                 </div>
               </div>
+
+              <div className="flex gap-3 mb-4">
+                <div>
+                  <label className="block font-bold mb-1">Repeat:</label>
+                  <select
+                    placeholder="Choose..."
+                    className="border p-1 w-full"
+                    {...register("repeat")}
+                  >
+                    {repeatEvent.map((reoccurrence) => (
+                      <option key={reoccurrence} value={reoccurrence}>
+                        {reoccurrence}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
             <label className="block mb-4">
               * Time will be rounded to the nearest half-hour
@@ -200,23 +225,6 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 className="border p-1 w-full"
                 {...register("imageUrl")}
               />
-            </div>
-
-            <div className="flex gap-3 mb-4">
-              <div>
-                <label className="block font-bold mb-1">Repeat:</label>
-                <select
-                  placeholder="Choose..."
-                  className="border p-1 w-full"
-                  {...register("repeat")}
-                >
-                  {repeatEvent.map((reoccurrence) => (
-                    <option key={reoccurrence} value={reoccurrence}>
-                      {reoccurrence}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
 
             <div className="flex gap-3 mb-4">
@@ -249,7 +257,9 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 })}
               />
               {errors.description && (
-                <span className="text-red-500">{errors.description.message}</span>
+                <span className="text-red-500">
+                  {errors.description.message}
+                </span>
               )}
             </div>
             <div className="flex justify-end gap-3">

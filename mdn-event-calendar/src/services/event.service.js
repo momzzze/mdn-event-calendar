@@ -1,14 +1,15 @@
-import { get, set, push, ref, query, orderByChild, equalTo, update } from "firebase/database";
+import { get, set, push, ref, query, orderByChild, equalTo, update, remove } from "firebase/database";
 import { db } from '../config/firebase'
+import { getUserData } from "./user.service";
 
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
     try {
         const startTimeStamp = startDate ? new Date(startDate).getTime() : null;
-        const endTimeStamp = endDate ? new Date(endDate).getTime() : null; 
+        const endTimeStamp = endDate ? new Date(endDate).getTime() : null;
 
         const participants = [creatorId]
-        const dataObj = { ...data,startDate:startTimeStamp,endDate:endTimeStamp, participants, creatorId };
+        const dataObj = { ...data, startDate: startTimeStamp, endDate: endTimeStamp, participants, creatorId };
         const eventsRef = ref(db, 'events');
         const newEventRef = push(eventsRef, dataObj);
         const eventId = newEventRef.key;
@@ -23,7 +24,37 @@ export const createEventHandle = async (data, startDate, endDate, creatorId, use
     }
 }
 
+export const getEventById = async (eventId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}`);
+        const eventSnapshot = await get(eventRef);
 
+        if (eventSnapshot.exists()) {
+            return { id: eventId, ...eventSnapshot.val() };
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error getting event by ID (${eventId}):`, error);
+        return null;
+    }
+};
+
+export const fetchParticipants = async (eventId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}/participants`);
+        const eventSnapshot = await get(eventRef);
+
+        if (eventSnapshot.exists()) {
+            return eventSnapshot.val();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error getting event by ID (${eventId}):`, error);
+        return null;
+    }
+}
 
 export const getEventsCreatedByUser = async (username, userId) => {
     if (userId) {
@@ -82,6 +113,37 @@ export const getPublicEvents = async () => {
 }
 
 
+export const getPublicEventsCurrentUserParticipate = async (userId) => {
+    if (userId) {
+        try {
+            const eventsRef = ref(db, 'events');
+            const publicEventsQuery = query(eventsRef, orderByChild('publicity'), equalTo('public'));
+            const publicEventsSnapshot = await get(publicEventsQuery);
+
+            if (publicEventsSnapshot.exists()) {
+                const events = [];
+
+                publicEventsSnapshot.forEach((childSnapshot) => {
+                    const eventId = childSnapshot.key;
+                    const eventData = childSnapshot.val();
+
+                    if (eventData.participants.includes(userId)) {
+                        const event = { id: eventId, ...childSnapshot.val() };
+                        events.push(event);
+                    }
+                });
+                return events;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error('Error getting public events:', error);
+            return [];
+        }
+
+    }
+}
+
 export const getPrivateEvents = async (userId) => {
     if (userId) {
         try {
@@ -106,7 +168,7 @@ export const getPrivateEvents = async (userId) => {
                 return [];
             }
         } catch (error) {
-            console.error('Error getting public events:', error);
+            console.error('Error getting private events:', error);
             return [];
         }
 
@@ -140,5 +202,36 @@ export const removeParticipantFromEvent = async (eventId, userId) => {
             console.error('Error removing participant from event:', error);
             return false;
         }
+    }
+}
+
+export const deleteEvent = async (eventId, userId) => {
+    try {
+        const eventRef = ref(db, `events/${eventId}`);
+        const userDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(userId));
+        const userDataSnapshot = await get(userDataQuery);
+        if (userDataSnapshot.exists()) {
+            const userData = Object.values(userDataSnapshot.val())[0];
+            if (userData.createdEvents && userData.createdEvents[eventId]) {
+                delete userData.createdEvents[eventId];
+                const userRef = ref(db, `users/${userData.username}`);
+                await set(userRef, userData);
+                await remove(eventRef);
+                return true;
+            }
+        }
+
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        return false;
+    }
+}
+
+export const editEventHandle = async (eventId, data) => {
+    try {
+        await set(ref(db, `events/${eventId}`), data);
+        return true;
+    } catch (error) {
+        return false
     }
 }

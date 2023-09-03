@@ -26,7 +26,7 @@ const HeaderMonth = ({ currentDate, today, setToday, setSelectDate }) => {
           </h1>
         </div>
         <button
-          className=" cursor-pointer hover:scale-105 transition-all border-gray-200 border-2 rounded-md px-3 py-1 my-1"
+          className="bg-white cursor-pointer hover:scale-105 transition-all border-gray-200 border-2 rounded-md px-3 py-1 my-1"
           onClick={() => {
             setToday(currentDate);
             setSelectDate(currentDate);

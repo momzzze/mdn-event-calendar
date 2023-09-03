@@ -1,9 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getAllUsersData, getUserContacts } from '../services/user.service'; 
 import { getAllContactListsForUser, getPendingInvitesForUser, getSendingInvitesFromUser } from '../services/contacts.service';
+import { getPublicEvents, getPrivateEvents, getPublicEventsCurrentUserParticipate } from '../services/event.service';
 import { useAuth } from './AuthContext';
 import { db } from '../config/firebase';
-import { off, onValue, ref } from 'firebase/database';
+import { off, onValue, ref, set } from 'firebase/database';
 
 const DataContext = createContext();
 
@@ -17,7 +18,9 @@ export const DataProvider = ({ children }) => {
     const [pendingInvites, setPendingInvites] = useState(null);
     const { userData } = useAuth();
     const [error, setError] = useState(null);
-
+    const [publicEvents, setPublicEvents] = useState(null);
+    const [publicEventsCurrentUserParticipate, setPublicEventsCurrentUserParticipate] = useState(null);
+    const [privateEvents, setPrivateEvents] = useState(null);
 
     const [refresh, setRefresh] = useState(false);
     const refreshData = () => {
@@ -64,6 +67,30 @@ export const DataProvider = ({ children }) => {
             setError(error);
         }
     };
+    const setPublicEventsData = async () => {
+        try {
+            const publicEventsData = await getPublicEvents();
+            setPublicEvents(publicEventsData);
+        } catch (error) {
+            setError(error);
+        }
+    }
+    const setPublicEventsCurrentUserParticipateData = async () => {
+        try {
+            const publicEventsCurrentUserParticipateData = await getPublicEventsCurrentUserParticipate(userData?.uid);
+            setPublicEventsCurrentUserParticipate(publicEventsCurrentUserParticipateData);
+        } catch (error) {
+            setError(error);
+        }
+    }
+    const setPrivateEventsData = async () => {
+        try {
+            const privateEventsData = await getPrivateEvents(userData?.uid);
+            setPrivateEvents(privateEventsData);
+        } catch (error) {
+            setError(error);
+        }
+    }
 
     useEffect(() => {
         setUsersData();
@@ -71,6 +98,9 @@ export const DataProvider = ({ children }) => {
         setUserContactsData();
         setPendingInvitesData();
         setContactListsData();
+        setPublicEventsData();
+        setPublicEventsCurrentUserParticipateData();
+        setPrivateEventsData();
     }, [userData?.uid]);
       
 
@@ -129,7 +159,7 @@ export const DataProvider = ({ children }) => {
 
 
     return (
-        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData }}>
+        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData, publicEvents, publicEventsCurrentUserParticipate, privateEvents }}>
             {children}
         </DataContext.Provider>
     )
