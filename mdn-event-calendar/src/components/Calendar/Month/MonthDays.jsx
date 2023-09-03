@@ -13,6 +13,11 @@ const MonthDays = ({
       dayjs(event?.startDate).month() === today.month() ||
       dayjs(event?.endDate).month() === today.month()
   );
+  const privateEventsCurrentMonth = privateEvents?.filter(
+    (event) =>
+      dayjs(event?.startDate).month() === today.month() ||
+      dayjs(event?.endDate).month() === today.month()
+  );
 
   return (
     <>
@@ -53,7 +58,7 @@ const MonthDays = ({
                   {date.date()}
                 </h1>
                 <div className="flex items-center justify-start ml-5">
-                  {privateEvents?.some(
+                  {privateEventsCurrentMonth?.some(
                     (event) =>
                       dayjs(event?.startDate).date() === date.date() ||
                       dayjs(event?.endDate).date() === date.date()
