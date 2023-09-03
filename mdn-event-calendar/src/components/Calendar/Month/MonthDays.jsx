@@ -1,23 +1,55 @@
 import { generateDate, daysFullName, cn } from "../../../utils/calendarUtils";
 import dayjs from "dayjs";
+import * as isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 import { useData } from "../../../contexts/DataContext";
 
-const MonthDays = ({
-  today,
-  selectDate,
-  setSelectDate,
-}) => {
+const MonthDays = ({ today, selectDate, setSelectDate }) => {
   const { publicEventsCurrentUserParticipate, privateEvents } = useData();
-  const publicEventsCurrentMonth = publicEventsCurrentUserParticipate?.filter(
-    (event) =>
-      dayjs(event?.startDate).month() === today.month() ||
-      dayjs(event?.endDate).month() === today.month()
+
+  const publicEventsCurrentMonth = publicEventsCurrentUserParticipate?.reduce(
+    (result, event) => {
+      if (
+        dayjs(event.startDate).month() === today.month() ||
+        dayjs(event.endDate).month() === today.month()
+      ) {
+        result.push(event);
+      }
+      generateDate(today.month(), today.year()).forEach((date) => {
+        if (
+          dayjs(date).isBetween(
+            dayjs(event.startDate).add(-1, "day"),
+            dayjs(event.endDate).add(1, "day"),
+            "day"
+          )
+        )
+          result.push(event);
+        return result;
+      });
+      return result;
+    },
+    []
   );
-  const privateEventsCurrentMonth = privateEvents?.filter(
-    (event) =>
-      dayjs(event?.startDate).month() === today.month() ||
-      dayjs(event?.endDate).month() === today.month()
-  );
+  const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
+    if (
+      dayjs(event.startDate).month() === today.month() ||
+      dayjs(event.endDate).month() === today.month()
+    ) {
+      result.push(event);
+    }
+    generateDate(today.month(), today.year()).forEach((date) => {
+      if (
+        dayjs(date).isBetween(
+          dayjs(event.startDate).add(-1, "day"),
+          dayjs(event.endDate).add(1, "day"),
+          "day"
+        )
+      )
+        result.push(event);
+      return result;
+    });
+    return result;
+  }, []);
 
   return (
     <>
@@ -57,50 +89,74 @@ const MonthDays = ({
                 >
                   {date.date()}
                 </h1>
-                <div className="flex items-center justify-start ml-5">
+                <div className="flex flex-col items-start justify-start ml-5">
                   {privateEventsCurrentMonth?.some(
                     (event) =>
-                      dayjs(event?.startDate).date() === date.date() ||
-                      dayjs(event?.endDate).date() === date.date()
+                      (dayjs(event?.startDate).date() ===
+                        dayjs(event?.endDate).date() &&
+                        dayjs(event?.endDate).date() === date.date()) ||
+                      dayjs(date).isBetween(
+                        dayjs(event.startDate).add(-1, "day"),
+                        dayjs(event.endDate).add(1, "day"),
+                        "day"
+                      )
                   ) &&
-                    privateEvents
+                    privateEventsCurrentMonth
                       ?.filter(
                         (event) =>
-                          dayjs(event?.startDate).date() === date.date() ||
-                          dayjs(event?.endDate).date() === date.date()
+                          (dayjs(event?.startDate).date() ===
+                            dayjs(event?.endDate).date() &&
+                            dayjs(event?.endDate).date() === date.date()) ||
+                          dayjs(date).isBetween(
+                            dayjs(event.startDate).add(-1, "day"),
+                            dayjs(event.endDate).add(1, "day"),
+                            "day"
+                          )
                       )
-                      .map((event, index) => {
+                      .map((event) => {
                         return (
-                          <div key={index} className="flex gap-3">
-                            <time key={index} className="text-xs text-gray-400">
+                          <div key={event?.id} className="flex gap-3">
+                            <time className="text-xs text-gray-400">
                               {dayjs(event?.startDate).format("HH:mm a")}
                             </time>
-                            <h1 key={index} className="text-xs text-gray-400">
+                            <h1 className="text-xs text-gray-400">
                               {event?.title}
                             </h1>
                           </div>
                         );
                       })}
                 </div>
-                <div className="flex items-center justify-start ml-5">
+                <div className="flex flex-col items-start justify-start ml-5">
                   {publicEventsCurrentMonth?.some(
                     (event) =>
-                      dayjs(event?.startDate).date() === date.date() ||
-                      dayjs(event?.endDate).date() === date.date()
+                      (dayjs(event?.startDate).date() ===
+                        dayjs(event?.endDate).date() &&
+                        dayjs(event?.endDate).date() === date.date()) ||
+                      dayjs(date).isBetween(
+                        dayjs(event.startDate).add(-1, "day"),
+                        dayjs(event.endDate).add(1, "day"),
+                        "day"
+                      )
                   ) &&
                     publicEventsCurrentMonth
                       ?.filter(
                         (event) =>
-                          dayjs(event?.startDate).date() === date.date() ||
-                          dayjs(event?.endDate).date() === date.date()
+                          (dayjs(event?.startDate).date() ===
+                            dayjs(event?.endDate).date() &&
+                            dayjs(event?.endDate).date() === date.date()) ||
+                          dayjs(date).isBetween(
+                            dayjs(event.startDate).add(-1, "day"),
+                            dayjs(event.endDate).add(1, "day"),
+                            "day"
+                          )
                       )
-                      .map((event, index) => {
+                      .map((event) => {
                         return (
-                          <div key={index} className="flex gap-3">
-                            <time key={index} className="text-xs text-gray-400">
+                          <div key={event.id} className="flex gap-3">
+                            <time className="text-xs text-gray-400">
                               {dayjs(event?.startDate).format("HH:mm a")}
                             </time>
-                            <h1 key={index} className="text-xs text-gray-400">
+                            <h1 className="text-xs text-gray-400">
                               {event?.title}
                             </h1>
                           </div>

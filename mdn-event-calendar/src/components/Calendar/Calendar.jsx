@@ -1,6 +1,6 @@
 import { useState } from "react";
 import dayjs from "dayjs";
-import * as isBetween from 'dayjs/plugin/isBetween';
+import * as isBetween from "dayjs/plugin/isBetween";
 dayjs.extend(isBetween);
 import { calendarViews } from "../../common/enums/calendar.enums";
 import ViewControl from "./ViewControl";
@@ -25,40 +25,26 @@ const Calendar = () => {
   const closeNewEventModal = () => {
     setOpenNewEventModal(false);
   };
-  const selectDatePublicEvents = publicEventsCurrentUserParticipate?.reduce((result, event) => {
-    if (
-      dayjs(event.startDate).isSame(event.endDate, "day") &&
-      dayjs(event.startDate).isSame(selectDate, "day")
-    ) {
-      result.push(event);
-    } else if (
+  const selectDatePublicEvents = publicEventsCurrentUserParticipate?.filter(
+    (event) =>
+      (dayjs(event.startDate).isSame(event.endDate, "day") &&
+        dayjs(event.startDate).isSame(selectDate, "day")) ||
       dayjs(selectDate).isBetween(
         dayjs(event.startDate).add(-1, "day"),
         dayjs(event.endDate).add(1, "day"),
         "day"
       )
-    ) {
-      result.push(event);
-    }
-    return result;
-  }, []);
-  const selectDatePrivateEvents = privateEvents?.reduce((result, event) => {
-    if (
-      dayjs(event.startDate).isSame(event.endDate, "day") &&
-      dayjs(event.startDate).isSame(selectDate, "day")
-    ) {
-      result.push(event);
-    } else if (
+  );
+  const selectDatePrivateEvents = privateEvents?.filter(
+    (event) =>
+      (dayjs(event.startDate).isSame(event.endDate, "day") &&
+        dayjs(event.startDate).isSame(selectDate, "day")) ||
       dayjs(selectDate).isBetween(
         dayjs(event.startDate).add(-1, "day"),
         dayjs(event.endDate).add(1, "day"),
         "day"
       )
-    ) {
-      result.push(event);
-    }
-    return result;
-  }, []);
+  );
 
   return (
     <>
