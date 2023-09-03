@@ -113,6 +113,37 @@ export const getPublicEvents = async () => {
 }
 
 
+export const getPublicEventsCurrentUserParticipate = async (userId) => {
+    if (userId) {
+        try {
+            const eventsRef = ref(db, 'events');
+            const publicEventsQuery = query(eventsRef, orderByChild('publicity'), equalTo('public'));
+            const publicEventsSnapshot = await get(publicEventsQuery);
+
+            if (publicEventsSnapshot.exists()) {
+                const events = [];
+
+                publicEventsSnapshot.forEach((childSnapshot) => {
+                    const eventId = childSnapshot.key;
+                    const eventData = childSnapshot.val();
+
+                    if (eventData.participants.includes(userId)) {
+                        const event = { id: eventId, ...childSnapshot.val() };
+                        events.push(event);
+                    }
+                });
+                return events;
+            } else {
+                return [];
+            }
+        } catch (error) {
+            console.error('Error getting public events:', error);
+            return [];
+        }
+
+    }
+}
+
 export const getPrivateEvents = async (userId) => {
     if (userId) {
         try {
@@ -137,7 +168,7 @@ export const getPrivateEvents = async (userId) => {
                 return [];
             }
         } catch (error) {
-            console.error('Error getting public events:', error);
+            console.error('Error getting private events:', error);
             return [];
         }
 
