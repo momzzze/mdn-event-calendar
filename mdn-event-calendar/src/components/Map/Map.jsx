@@ -19,8 +19,6 @@ function Map({ address }) {
             if (isValidLocation(location)) {
                 setMapCenter({ lat: location.lat, lng: location.lng, zoom: 15 });
                 setMarkerPosition({ lat: location.lat, lng: location.lng });
-
-                // Calculate directions from event address to user's address
                 const eventLocation = await findLocationByAddress(address);
                 const userLocation = await findLocationByAddress(searchedAddress);
 
@@ -30,7 +28,7 @@ function Map({ address }) {
                     {
                         origin: new window.google.maps.LatLng(eventLocation.lat, eventLocation.lng),
                         destination: new window.google.maps.LatLng(userLocation.lat, userLocation.lng),
-                        travelMode: window.google.maps.TravelMode.DRIVING, // You can change the travel mode as needed
+                        travelMode: window.google.maps.TravelMode.DRIVING, 
                     },
                     (result, status) => {
                         if (status === window.google.maps.DirectionsStatus.OK) {
@@ -64,10 +62,9 @@ function Map({ address }) {
 
     useEffect(() => {
         if (isLoaded) {
-            // Customize map controls by defining control options
             const mapOptions = {
                 zoomControl: true, // Show zoom control
-                mapTypeControl: true, // Show map type control (e.g., satellite view)
+                mapTypeControl: true, // Show map type control 
                 streetViewControl: true, // Show street view control
                 fullscreenControl: true, // Show fullscreen control
                 scaleControl: true, // Show scale control
@@ -109,7 +106,6 @@ function Map({ address }) {
                     )}
                 </GoogleMap>
                 <div className="absolute bottom-4 left-4 z-10">
-                    {/* Input field for event address */}
                     <input
                         type="text"
                         placeholder="Event Address"
@@ -117,7 +113,6 @@ function Map({ address }) {
                         readOnly
                         className="bg-white rounded-md p-2 mb-2"
                     />
-                    {/* Input field for user address */}
                     <input
                         type="text"
                         placeholder="Your Address"
@@ -125,7 +120,6 @@ function Map({ address }) {
                         onChange={(e) => setSearchedAddress(e.target.value)}
                         className="bg-white rounded-md p-2 mb-2"
                     />
-                    {/* Button to search for addresses */}
                     <button onClick={handleAddressSearch} className="bg-purple-800 text-white px-4 py-2 rounded-md">
                         Search
                     </button>
