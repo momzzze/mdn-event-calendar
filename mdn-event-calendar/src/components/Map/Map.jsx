@@ -21,9 +21,7 @@ function Map({ address }) {
                 setMarkerPosition({ lat: location.lat, lng: location.lng });
                 const eventLocation = await findLocationByAddress(address);
                 const userLocation = await findLocationByAddress(searchedAddress);
-
-                const directionsService = new window.google.maps.DirectionsService();
-
+                const directionsService = new window.google.maps.DirectionsService(); 
                 directionsService.route(
                     {
                         origin: new window.google.maps.LatLng(eventLocation.lat, eventLocation.lng),
