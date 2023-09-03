@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EventCard = ({eventId, eventData, username }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const navigate = useNavigate();
-    const startDate = new Date(eventData.startDate);
-    const dayOfMonth = startDate.getDate();
-    const endDate = new Date(eventData.endDate);
-    const formattedStartDate = startDate.toLocaleString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit'
-    }) + " - " + endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const formattedMonth = startDate.toLocaleString('default', { month: 'short' });
+const EventCard = ({ eventId, eventData, username, onDeleteEvent }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const startDate = new Date(eventData.startDate);
+  const dayOfMonth = startDate.getDate();
+  const endDate = new Date(eventData.endDate);
+  const formattedStartDate = startDate.toLocaleString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  }) + " - " + endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const formattedMonth = startDate.toLocaleString('default', { month: 'short' });
 
   const handleCardClick = () => {
     navigate(`/event/${eventData?.id}`,
