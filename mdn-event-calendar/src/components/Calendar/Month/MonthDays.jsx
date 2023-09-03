@@ -1,7 +1,19 @@
 import { generateDate, daysFullName, cn } from "../../../utils/calendarUtils";
+import dayjs from "dayjs";
+import { useData } from "../../../contexts/DataContext";
 
-const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, privateEvents }) => {
-  // console.log(publicEvents, privateEvents);
+const MonthDays = ({
+  today,
+  selectDate,
+  setSelectDate,
+}) => {
+  const { publicEventsCurrentUserParticipate, privateEvents } = useData();
+  const publicEventsCurrentMonth = publicEventsCurrentUserParticipate?.filter(
+    (event) =>
+      dayjs(event?.startDate).month() === today.month() ||
+      dayjs(event?.endDate).month() === today.month()
+  );
+
   return (
     <>
       <div className="grid grid-cols-7 border-t">
@@ -22,7 +34,10 @@ const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, p
             return (
               <div
                 key={index}
-                className="p-2 text-center h-28 grid place-content- text-sm border-t"
+                className="p-2 text-center h-28 grid-col place-content- text-sm border-t cursor-pointer overflow-auto"
+                onClick={() => {
+                  setSelectDate(date);
+                }}
               >
                 <h1
                   className={cn(
@@ -32,14 +47,61 @@ const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, p
                       date.toDate().toDateString()
                       ? "bg-black text-white"
                       : "",
-                    "h-7 w-7 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+                    "h-7 w-7 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none mb-2"
                   )}
-                  onClick={() => {
-                    setSelectDate(date);
-                  }}
                 >
                   {date.date()}
                 </h1>
+                <div className="flex items-center justify-start ml-5">
+                  {privateEvents?.some(
+                    (event) =>
+                      dayjs(event?.startDate).date() === date.date() ||
+                      dayjs(event?.endDate).date() === date.date()
+                  ) &&
+                    privateEvents
+                      ?.filter(
+                        (event) =>
+                          dayjs(event?.startDate).date() === date.date() ||
+                          dayjs(event?.endDate).date() === date.date()
+                      )
+                      .map((event, index) => {
+                        return (
+                          <div key={index} className="flex gap-3">
+                            <time key={index} className="text-xs text-gray-400">
+                              {dayjs(event?.startDate).format("HH:mm a")}
+                            </time>
+                            <h1 key={index} className="text-xs text-gray-400">
+                              {event?.title}
+                            </h1>
+                          </div>
+                        );
+                      })}
+                </div>
+                <div className="flex items-center justify-start ml-5">
+                  {publicEventsCurrentMonth?.some(
+                    (event) =>
+                      dayjs(event?.startDate).date() === date.date() ||
+                      dayjs(event?.endDate).date() === date.date()
+                  ) &&
+                    publicEventsCurrentMonth
+                      ?.filter(
+                        (event) =>
+                          dayjs(event?.startDate).date() === date.date() ||
+                          dayjs(event?.endDate).date() === date.date()
+                      )
+                      .map((event, index) => {
+                        return (
+                          <div key={index} className="flex gap-3">
+                            <time key={index} className="text-xs text-gray-400">
+                              {dayjs(event?.startDate).format("HH:mm a")}
+                            </time>
+                            <h1 key={index} className="text-xs text-gray-400">
+                              {event?.title}
+                            </h1>
+                          </div>
+                        );
+                      })}
+                </div>
               </div>
             );
           }

@@ -7,8 +7,6 @@ const MonthCalendar = ({
   setToday,
   selectDate,
   setSelectDate,
-  publicEvents,
-  privateEvents,
 }) => {
   return (
     <div className="flex gap-10 sm:divide-x justify-center items-center sm:flex-row flex-col">
@@ -21,11 +19,8 @@ const MonthCalendar = ({
         />        
         <MonthDays
           today={today}
-          setToday={setToday}
           selectDate={selectDate}
           setSelectDate={setSelectDate}
-          publicEvents={publicEvents}
-          privateEvents={privateEvents}
         />
       </div>
     </div>
