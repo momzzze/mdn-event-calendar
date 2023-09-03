@@ -2,6 +2,7 @@ import './Home.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import europe2 from '../../assets/europe2.jpg';
+import AnimatedText from "./Animated";
 
 const Home = () => {
   return (
@@ -9,9 +10,9 @@ const Home = () => {
       <div className="background-image">
         <img src={europe2} alt="Europe Background" />
       </div>
-      <div className="content">
-        <h1>Welcome to Europe Sound Events</h1>
-        <p>Your home for music events across Europe</p>
+      <div>
+        <AnimatedText /> 
+        <h1 style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px'}}>Project by M.D.N. Team</h1>
       </div>
     </div>
   );
