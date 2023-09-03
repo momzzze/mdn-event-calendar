@@ -1,5 +1,7 @@
 import { useState } from "react";
 import dayjs from "dayjs";
+import * as isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 import { calendarViews } from "../../common/enums/calendar.enums";
 import ViewControl from "./ViewControl";
 import MonthCalendar from "./Month/MonthCalendar";
@@ -15,14 +17,34 @@ const Calendar = () => {
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [isOpenNewEventModal, setOpenNewEventModal] = useState(false);
-  const { publicEvents, privateEvents } = useData();
+  const { publicEventsCurrentUserParticipate, privateEvents } = useData();
 
   const openNewEventModal = () => {
     setOpenNewEventModal(true);
-  }
+  };
   const closeNewEventModal = () => {
     setOpenNewEventModal(false);
-  }
+  };
+  const selectDatePublicEvents = publicEventsCurrentUserParticipate?.filter(
+    (event) =>
+      (dayjs(event.startDate).isSame(event.endDate, "day") &&
+        dayjs(event.startDate).isSame(selectDate, "day")) ||
+      dayjs(selectDate).isBetween(
+        dayjs(event.startDate).add(-1, "day"),
+        dayjs(event.endDate).add(1, "day"),
+        "day"
+      )
+  );
+  const selectDatePrivateEvents = privateEvents?.filter(
+    (event) =>
+      (dayjs(event.startDate).isSame(event.endDate, "day") &&
+        dayjs(event.startDate).isSame(selectDate, "day")) ||
+      dayjs(selectDate).isBetween(
+        dayjs(event.startDate).add(-1, "day"),
+        dayjs(event.endDate).add(1, "day"),
+        "day"
+      )
+  );
 
   return (
     <>
@@ -31,7 +53,8 @@ const Calendar = () => {
           <div className="flex justify-between px-2 pb-2">
             <button
               onClick={openNewEventModal}
-              className="inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)] dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]">
+              className="inline-block rounded bg-neutral-50 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-800 shadow-[0_4px_9px_-4px_#cbcbcb] transition duration-150 ease-in-out hover:bg-neutral-100 hover:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:bg-neutral-100 focus:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] focus:outline-none focus:ring-0 active:bg-neutral-200 active:shadow-[0_8px_9px_-4px_rgba(203,203,203,0.3),0_4px_18px_0_rgba(203,203,203,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(251,251,251,0.3)] dark:hover:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:focus:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)] dark:active:shadow-[0_8px_9px_-4px_rgba(251,251,251,0.1),0_4px_18px_0_rgba(251,251,251,0.05)]"
+            >
               New Event
             </button>
             <NewEvent
@@ -48,8 +71,6 @@ const Calendar = () => {
                 setToday={setToday}
                 selectDate={selectDate}
                 setSelectDate={setSelectDate}
-                publicEvents={publicEvents}
-                privateEvents={privateEvents}
               />
             )}
             {view === calendarViews.WEEK.view && (
@@ -72,7 +93,11 @@ const Calendar = () => {
             )}
           </div>
         </div>
-        <ScheduleList selectDate={selectDate} publicEvents={publicEvents} privateEvents={privateEvents} />
+        <ScheduleList
+          selectDate={selectDate}
+          selectDatePublicEvents={selectDatePublicEvents}
+          selectDatePrivateEvents={selectDatePrivateEvents}
+        />
       </div>
     </>
   );

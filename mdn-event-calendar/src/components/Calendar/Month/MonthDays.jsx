@@ -1,7 +1,56 @@
 import { generateDate, daysFullName, cn } from "../../../utils/calendarUtils";
+import dayjs from "dayjs";
+import * as isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
+import { useData } from "../../../contexts/DataContext";
 
-const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, privateEvents }) => {
-  // console.log(publicEvents, privateEvents);
+const MonthDays = ({ today, selectDate, setSelectDate }) => {
+  const { publicEventsCurrentUserParticipate, privateEvents } = useData();
+
+  const publicEventsCurrentMonth = publicEventsCurrentUserParticipate?.reduce(
+    (result, event) => {
+      if (
+        dayjs(event.startDate).month() === today.month() ||
+        dayjs(event.endDate).month() === today.month()
+      ) {
+        result.push(event);
+      }
+      generateDate(today.month(), today.year()).forEach((date) => {
+        if (
+          dayjs(date).isBetween(
+            dayjs(event.startDate).add(-1, "day"),
+            dayjs(event.endDate).add(1, "day"),
+            "day"
+          )
+        )
+          result.push(event);
+        return result;
+      });
+      return result;
+    },
+    []
+  );
+  const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
+    if (
+      dayjs(event.startDate).month() === today.month() ||
+      dayjs(event.endDate).month() === today.month()
+    ) {
+      result.push(event);
+    }
+    generateDate(today.month(), today.year()).forEach((date) => {
+      if (
+        dayjs(date).isBetween(
+          dayjs(event.startDate).add(-1, "day"),
+          dayjs(event.endDate).add(1, "day"),
+          "day"
+        )
+      )
+        result.push(event);
+      return result;
+    });
+    return result;
+  }, []);
+
   return (
     <>
       <div className="grid grid-cols-7 border-t">
@@ -22,7 +71,10 @@ const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, p
             return (
               <div
                 key={index}
-                className="p-2 text-center h-28 grid place-content- text-sm border-t"
+                className="p-2 text-center h-28 grid-col place-content- text-sm border-t cursor-pointer overflow-auto"
+                onClick={() => {
+                  setSelectDate(date);
+                }}
               >
                 <h1
                   className={cn(
@@ -32,14 +84,85 @@ const MonthDays = ({ today, setToday, selectDate, setSelectDate, publicEvents, p
                       date.toDate().toDateString()
                       ? "bg-black text-white"
                       : "",
-                    "h-7 w-7 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+                    "h-7 w-7 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none mb-2"
                   )}
-                  onClick={() => {
-                    setSelectDate(date);
-                  }}
                 >
                   {date.date()}
                 </h1>
+                <div className="flex flex-col items-start justify-start ml-5">
+                  {privateEventsCurrentMonth?.some(
+                    (event) =>
+                      (dayjs(event?.startDate).date() ===
+                        dayjs(event?.endDate).date() &&
+                        dayjs(event?.endDate).date() === date.date()) ||
+                      dayjs(date).isBetween(
+                        dayjs(event.startDate).add(-1, "day"),
+                        dayjs(event.endDate).add(1, "day"),
+                        "day"
+                      )
+                  ) &&
+                    privateEventsCurrentMonth
+                      ?.filter(
+                        (event) =>
+                          (dayjs(event?.startDate).date() ===
+                            dayjs(event?.endDate).date() &&
+                            dayjs(event?.endDate).date() === date.date()) ||
+                          dayjs(date).isBetween(
+                            dayjs(event.startDate).add(-1, "day"),
+                            dayjs(event.endDate).add(1, "day"),
+                            "day"
+                          )
+                      )
+                      .map((event) => {
+                        return (
+                          <div key={event?.id} className="flex gap-3">
+                            <time className="text-xs text-gray-400">
+                              {dayjs(event?.startDate).format("HH:mm a")}
+                            </time>
+                            <h1 className="text-xs text-gray-400">
+                              {event?.title}
+                            </h1>
+                          </div>
+                        );
+                      })}
+                </div>
+                <div className="flex flex-col items-start justify-start ml-5">
+                  {publicEventsCurrentMonth?.some(
+                    (event) =>
+                      (dayjs(event?.startDate).date() ===
+                        dayjs(event?.endDate).date() &&
+                        dayjs(event?.endDate).date() === date.date()) ||
+                      dayjs(date).isBetween(
+                        dayjs(event.startDate).add(-1, "day"),
+                        dayjs(event.endDate).add(1, "day"),
+                        "day"
+                      )
+                  ) &&
+                    publicEventsCurrentMonth
+                      ?.filter(
+                        (event) =>
+                          (dayjs(event?.startDate).date() ===
+                            dayjs(event?.endDate).date() &&
+                            dayjs(event?.endDate).date() === date.date()) ||
+                          dayjs(date).isBetween(
+                            dayjs(event.startDate).add(-1, "day"),
+                            dayjs(event.endDate).add(1, "day"),
+                            "day"
+                          )
+                      )
+                      .map((event) => {
+                        return (
+                          <div key={event.id} className="flex gap-3">
+                            <time className="text-xs text-gray-400">
+                              {dayjs(event?.startDate).format("HH:mm a")}
+                            </time>
+                            <h1 className="text-xs text-gray-400">
+                              {event?.title}
+                            </h1>
+                          </div>
+                        );
+                      })}
+                </div>
               </div>
             );
           }
