@@ -12,7 +12,7 @@ const Home = () => {
       </div>
       <div>
         <AnimatedText /> 
-        <h1>Project by M.D.N. Team</h1>
+        <h1 style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px'}}>Project by M.D.N. Team</h1>
       </div>
     </div>
   );
