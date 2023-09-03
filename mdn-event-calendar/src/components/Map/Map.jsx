@@ -22,8 +22,10 @@ function Map({ address }) {
             const updateMapCenter = async () => {
                 try {
                     const location = await findLocationByAddress(address);
-                    setMapCenter({ lat: location.lat, lng: location.lng, zoom: 15 });
-                    setMarkerPosition({ lat: location.lat, lng: location.lng })
+                    if (isValidLocation(location)) {
+                        setMapCenter({ lat: location.lat, lng: location.lng, zoom: 15 });
+                        setMarkerPosition({ lat: location.lat, lng: location.lng })
+                    }
                 } catch (error) {
                     console.error('Error finding location:', error);
                 }
@@ -49,6 +51,15 @@ function Map({ address }) {
         }
     }, [isLoaded]);
 
+    const isValidLocation = (location) => {
+        return (
+            typeof location === 'object' &&
+            typeof location.lat === 'number' &&
+            typeof location.lng === 'number' &&
+            isFinite(location.lat) &&
+            isFinite(location.lng)
+        );
+    };
     if (!isLoaded) {
         return <div>Loading...</div>
     }
