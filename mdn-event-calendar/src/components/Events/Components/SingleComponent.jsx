@@ -111,7 +111,7 @@ const SingleComponent = () => {
                 <div className="w-full">
                     <div className="flex flex-row">
                         <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden border-r border-gray-400">
-                            <Map address={eventData?.location} />
+                            <Map address={eventData?.location || ''} />
                         </div>
                         <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden">
                             <img
