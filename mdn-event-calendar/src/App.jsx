@@ -10,6 +10,7 @@ import { useData } from './contexts/DataContext';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ListEvents from './components/Events/ListEvents/ListEvents';
 import SingleComponent from './components/Events/Components/SingleComponent';
+import DarkMode from './components/DarkMode/DarkMode'
 
 function App() {
   const { user, userData, isAuthenticated,isAdmin } = useAuth();
@@ -19,6 +20,7 @@ function App() {
       {isAuthenticated ?
         (<>
           <Navbar isAuthenticated={isAuthenticated} />
+          <DarkMode/>
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
