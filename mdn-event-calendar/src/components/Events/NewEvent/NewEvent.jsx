@@ -16,6 +16,7 @@ import { eventReoccurrence } from "../../../common/enums/events.enum";
 import { useAuth } from "../../../contexts/AuthContext";
 import { createEventHandle } from "../../../services/event.service";
 import randomColor from "randomcolor";
+import { useData } from "../../../contexts/DataContext";
 
 
 const customStyles = {
