@@ -3,13 +3,13 @@ import { db } from '../config/firebase'
 import { getUserData } from "./user.service";
 
 
-export const createEventHandle = async (data, startDate, endDate, creatorId, username) => {
+export const createEventHandle = async (data, startDate, endDate, creatorId, username, color) => {
     try {
         const startTimeStamp = startDate ? new Date(startDate).getTime() : null;
         const endTimeStamp = endDate ? new Date(endDate).getTime() : null;
 
         const participants = [creatorId]
-        const dataObj = { ...data, startDate: startTimeStamp, endDate: endTimeStamp, participants, creatorId };
+        const dataObj = { ...data, startDate: startTimeStamp, endDate: endTimeStamp, participants, creatorId, color };
         const eventsRef = ref(db, 'events');
         const newEventRef = push(eventsRef, dataObj);
         const eventId = newEventRef.key;

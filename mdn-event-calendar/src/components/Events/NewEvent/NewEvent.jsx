@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
 import { useAuth } from "../../../contexts/AuthContext";
 import { createEventHandle } from "../../../services/event.service";
+import randomColor from "randomcolor";
+
 
 const customStyles = {
   content: {
@@ -72,12 +74,15 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
 
   const onSubmit = async (data) => {
     try {
+      const color= randomColor()
+
       const newEvent = await createEventHandle(
         data,
         startDate,
         endDate,
         userData?.uid,
-        userData?.username
+        userData?.username,
+        color
       );
 
       toast({
