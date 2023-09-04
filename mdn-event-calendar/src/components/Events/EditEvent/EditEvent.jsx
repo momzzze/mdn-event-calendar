@@ -82,8 +82,7 @@ const EditEvent = ({ eventData, isOpen, onRequestClose, refreshEventData }) => {
             const success = await editEventHandle(eventData?.id, combinedData)
             if (success) {
                 toast({
-                    title: "Event is created successfully!",
-                    description: "Your event is added to the calendar.",
+                    title: "Event edited successfully!",
                     status: "success",
                     duration: 5000,
                     isClosable: true,
@@ -97,7 +96,7 @@ const EditEvent = ({ eventData, isOpen, onRequestClose, refreshEventData }) => {
 
         } catch (error) {
             toast({
-                title: "Error! Event is not created!",
+                title: "Error! The event has not been edited!",
                 description: error.message,
                 status: "error",
                 duration: 5000,
