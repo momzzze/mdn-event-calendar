@@ -105,7 +105,7 @@ const Navbar = () => {
                     </RouterLink>}
                 </div>
                 <Link to="/home" className="absolute top-0 left-1/2 transform -translate-x-1/2 -top-7">
-                    <img src={logoNav} alt="logo here" style={{ height: '150px', width: 'auto' }} />
+                    <img src={logoNav} alt="logo here" style={{ height: '139px', width: 'auto' }} />
                 </Link>
 
                 {/* <div className="text-purple-800 text-lg ml-auto">
