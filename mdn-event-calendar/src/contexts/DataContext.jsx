@@ -126,7 +126,6 @@ export const DataProvider = ({ children }) => {
                     }
                 });
             }
-            console.log(pendingInvitesData);
             setPendingInvites(pendingInvitesData);
         });
         return () => {

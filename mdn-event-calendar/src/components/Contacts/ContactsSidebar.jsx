@@ -6,7 +6,7 @@ import { useData } from "../../contexts/DataContext";
 
 const ContactsSidebar = () => {
     const { userData } = useAuth();
-    const { users,userContacts, setSendingInvitesData,setPendingInvitesData } = useData();
+    const { users,userContacts, setSendingInvitesData,setPendingInvitesData,pendingInvites } = useData();
     const [searchTerm, setSearchTerm] = useState("");
     const [sendingInvites, setSendingInvites] = useState([]);
 
@@ -23,7 +23,7 @@ const ContactsSidebar = () => {
         };
 
         fetchSendingInvites();
-    }, [userData,sendingInvites]);
+    }, [userData,pendingInvites]);
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
