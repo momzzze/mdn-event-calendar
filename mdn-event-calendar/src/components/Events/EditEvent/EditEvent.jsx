@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
 import { useAuth } from "../../../contexts/AuthContext";
 import { createEventHandle, editEventHandle } from "../../../services/event.service";
+import { useData } from "../../../contexts/DataContext";
 
 const customStyles = {
     content: {
@@ -29,7 +30,7 @@ const customStyles = {
         boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
     },
 };
-const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
+const EditEvent = ({ eventData, isOpen, onRequestClose, refreshEventData }) => {
     const currentDate = dayjs();
     const {
         register,
@@ -37,6 +38,7 @@ const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
         reset,
         formState: { errors },
     } = useForm();
+    const { setPublicEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
     const toast = useToast();
     const navigate = useNavigate();
     const repeatEvent = Object.values(eventReoccurrence);
@@ -71,14 +73,14 @@ const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
     const onSubmit = async (data) => {
         try {
             let { startDate, endDate, ...dataWithoutDates } = data;
-            startDate =Date.parse(startDate);
+            startDate = Date.parse(startDate);
             endDate = Date.parse(endDate);
-            const combinedData = { ...eventData, ...dataWithoutDates};
+            const combinedData = { ...eventData, ...dataWithoutDates };
             combinedData.startDate = startDate;
             combinedData.endDate = endDate;
-            
-            const success=await editEventHandle(eventData?.id,combinedData)
-            if(success){
+
+            const success = await editEventHandle(eventData?.id, combinedData)
+            if (success) {
                 toast({
                     title: "Event is created successfully!",
                     description: "Your event is added to the calendar.",
@@ -88,8 +90,11 @@ const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
                 });
                 onRequestClose();
                 refreshEventData();
+                setPublicEventsData();
+                setPublicEventsCurrentUserParticipateData()
+                setPrivateEventsData();
             }
-        
+
         } catch (error) {
             toast({
                 title: "Error! Event is not created!",
@@ -103,7 +108,7 @@ const EditEvent = ({ eventData, isOpen, onRequestClose,refreshEventData  }) => {
 
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center ">
                 <div className="p-4 w-4/5">
                     <h1 className="text-3xl font-bold mb-4 text-purple-800 border-b-2 border-purple-800">
                         Edit Event

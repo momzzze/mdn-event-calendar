@@ -11,6 +11,7 @@ import { userProfileStyles } from '../../common/modal.helper.functions';
 import EditUser from '../Users/EditUser';
 import logoNav from '../../assets/logoNav.png';
 import { Link } from 'react-router-dom';
+import DarkMode from '../DarkMode/DarkMode';
 
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
@@ -103,7 +104,10 @@ const Navbar = () => {
                         Admin Board
                     </RouterLink>}
                 </div>
-                <img src={logoNav} className='absolute top-0 left-1/2 transform -translate-x-1/2 -top-6' alt="logo here" style={{ height: '150px', width: 'auto' }} />
+                <Link to="/home" className="absolute top-0 left-1/2 transform -translate-x-1/2 -top-7">
+                    <img src={logoNav} alt="logo here" style={{ height: '150px', width: 'auto' }} />
+                </Link>
+
                 {/* <div className="text-purple-800 text-lg ml-auto">
                    <span className='custom-font'> MDN<HiCalendar style={{ display: "inline" }} />E.S.E</span>
                 </div> */}
@@ -134,7 +138,9 @@ const Navbar = () => {
                 >
                     Logout
                 </button>
+                <DarkMode/>
             </nav>
+            
 
             <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
             <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} />

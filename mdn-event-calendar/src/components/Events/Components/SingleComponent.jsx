@@ -6,6 +6,7 @@ import { useData } from "../../../contexts/DataContext";
 import { useEffect, useState } from "react";
 import { addParticipantToEvent, deleteEvent, fetchParticipants, getEventById, removeParticipantFromEvent } from "../../../services/event.service";
 import EditEvent from "../EditEvent/EditEvent";
+import Map from "../../Map/Map";
 
 const SingleComponent = () => {
     const location = useLocation();
@@ -36,7 +37,7 @@ const SingleComponent = () => {
     }, [eventDataId]);
 
     const getParticipants = async (eventId) => {
-        const participantsData = await fetchParticipants(eventId); 
+        const participantsData = await fetchParticipants(eventId);
         setParticipants(participantsData);
     };
 
@@ -107,12 +108,19 @@ const SingleComponent = () => {
     return (
         <div className="mx-auto h-10/12 flex flex-col items-center justify-center px-8 mt-10">
             <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
-                <div className="w-full h-64 bg-top rounded-t overflow-hidden">
-                    <img
-                        src={eventData?.imageUrl}
-                        alt="event image"
-                        className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105"
-                    />
+                <div className="w-full">
+                    <div className="flex flex-row">
+                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden border-r border-gray-400">
+                            <Map address={eventData?.location || ''} />
+                        </div>
+                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden">
+                            <img
+                                src={eventData?.imageUrl}
+                                alt="event image"
+                                className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div className="flex flex-col w-full md:flex-row">
                     <div className="flex flex-row justify-around p-4 font-bold leading-none text-white uppercase bg-purple-800 rounded md:flex-col md:items-center md:justify-center md:w-1/4 transition-transform duration-300 transform hover:scale-105">
@@ -176,13 +184,13 @@ const SingleComponent = () => {
                     </div>
                 </div>
             </div>
-            {(eventData?.creatorId === userData?.uid) && <ParticipantsSection eventData={eventData} eventId={eventData.id} eventParticipants={participants} addParticipantHandle={addParticipantHandle} removeParticipantHandle={removeParticipantHandle} refreshEventData={refreshEventData}/>}
+            {(eventData?.creatorId === userData?.uid) && <ParticipantsSection eventData={eventData} eventId={eventData.id} eventParticipants={participants} addParticipantHandle={addParticipantHandle} removeParticipantHandle={removeParticipantHandle} refreshEventData={refreshEventData} />}
             {isOpenEditEventModal && (
                 <EditEvent
                     eventData={eventData}
                     isOpen={isOpenEditEventModal}
                     onRequestClose={closeEditEventModal}
-                    refreshEventData={refreshEventData} 
+                    refreshEventData={refreshEventData}
                 />
             )}
 
