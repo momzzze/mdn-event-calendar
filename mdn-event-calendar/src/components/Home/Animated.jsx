@@ -5,7 +5,7 @@ const AnimatedText = () => {
   useEffect(() => {
     
     const options = {
-      strings: ['Welcome to Europe Sound Events', 'Your home for music events across Europe'],
+      strings: ['𝄞 Welcome to Europe Sound Events ♬', ' ♪ Your home for music events across Europe 📍'],
       typeSpeed: 50, 
       backSpeed: 25, 
       loop: true, 
