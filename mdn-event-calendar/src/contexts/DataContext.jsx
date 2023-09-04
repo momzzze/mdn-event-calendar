@@ -159,7 +159,7 @@ export const DataProvider = ({ children }) => {
 
 
     return (
-        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData, publicEvents, publicEventsCurrentUserParticipate, privateEvents }}>
+        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData, publicEvents, publicEventsCurrentUserParticipate, privateEvents,setPublicEventsData,setPublicEventsCurrentUserParticipateData,setPrivateEventsData }}>
             {children}
         </DataContext.Provider>
     )

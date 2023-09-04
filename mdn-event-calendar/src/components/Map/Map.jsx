@@ -103,7 +103,7 @@ function Map({ address }) {
                         <DirectionsRenderer directions={directions} />
                     )}
                 </GoogleMap>
-                <div className="absolute bottom-4 left-4 z-10">
+                <div className="absolute bottom-4 left-4 z-2">
                     <input
                         type="text"
                         placeholder="Event Address"
