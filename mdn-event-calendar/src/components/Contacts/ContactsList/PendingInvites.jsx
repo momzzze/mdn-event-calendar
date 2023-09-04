@@ -6,12 +6,23 @@ import { getUserContacts } from "../../../services/user.service";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const PendingInvites = () => {
-    const { users, pendingInvites, setPendingInvites, setUserContacts, setUserContactsData, setPendingInvitesData } = useData();
+    const { users, pendingInvites, setPendingInvites, setUserContacts, setUserContactsData, setPendingInvitesData,setSendingInvitesData } = useData();
     const [showInvites, setShowInvites] = useState(false);
     const { userData } = useAuth();
+    const [pendingInvitesForCurrentUser, setPendingInvitesForCurrentUser] = useState([]);
 
-    const pendingInvitesForCurrentUser = pendingInvites?.filter(invite => invite.receiverId === userData?.uid);
+    useEffect(() => {
+        setPendingInvitesData();
+    }, []);
 
+    useEffect(() => {
+        if (userData && pendingInvites) {
+
+            const filteredInvites = pendingInvites.filter(invite => invite?.receiver === userData?.uid);
+            setPendingInvitesForCurrentUser(filteredInvites);
+            setShowInvites(filteredInvites.length > 0);
+        }
+    }, [userData, pendingInvites]);
 
     const rejectInvite = async (invite) => {
         try {
@@ -20,6 +31,8 @@ const PendingInvites = () => {
                 const updatedPendingInvites = pendingInvites?.filter(item => item.uid !== invite.id);
                 setPendingInvites(updatedPendingInvites);
                 await setPendingInvitesData();
+                await setUserContactsData();
+                await setSendingInvitesData();
             }
         } catch (error) {
             console.error('Error rejecting invite:', error);
@@ -27,35 +40,31 @@ const PendingInvites = () => {
     }
     const acceptInvite = async (invite) => {
         try {
-            await acceptContactRequest(invite.id, userData?.uid, invite.senderId);
+            await acceptContactRequest(invite.id, userData?.uid, invite.sender);
             const updatedUserContacts = await getUserContacts(userData?.uid);
             setUserContacts(updatedUserContacts);
             const updatedPendingInvites = pendingInvites.filter(item => item.uid !== invite.id);
             setPendingInvites(updatedPendingInvites);
             await setPendingInvitesData();
             await setUserContactsData();
+            await setSendingInvitesData();
         } catch (error) {
             console.error('Error accepting invite:', error);
         }
     }
 
     useEffect(() => {
-        if (pendingInvites?.length > 0) {
-            setShowInvites(true);
-        } else {
-            setShowInvites(false);
-        }
+        setShowInvites(pendingInvites?.length > 0);        
     }, [pendingInvites]);
 
 
     return (
         <div>
-             {showInvites && (
+            {showInvites && (
                 <div>
                     <h3 className="text-lg font-semibold mb-2">Pending Invites</h3>
-                    {pendingInvitesForCurrentUser.map(invite => {
-                        const senderUser = users.find(user => user.uid === invite.senderId);
-                        console.log(invite);
+                    {pendingInvitesForCurrentUser?.map(invite => {
+                        const senderUser = users.find(user => user.uid === invite.sender);
                         return (
                             <div key={invite.id} className="flex items-center justify-between bg-gray-200 p-2 rounded mb-2">
                                 <div className="flex items-center space-x-2">
@@ -68,7 +77,7 @@ const PendingInvites = () => {
                                     )}
                                     <span className="text-lg font-semibold">{senderUser ? senderUser.username : 'Unknown User'}</span>
                                 </div>
-                                <div>    
+                                <div>
                                     <button className="text-green-500 mr-2" onClick={() => acceptInvite(invite)}>Accept</button>
                                     <button className="text-red-500" onClick={() => rejectInvite(invite)}>Reject</button>
                                 </div>
