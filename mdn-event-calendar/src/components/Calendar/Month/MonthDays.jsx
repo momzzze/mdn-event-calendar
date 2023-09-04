@@ -89,7 +89,7 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                 >
                   {date.date()}
                 </h1>
-                <div className="flex flex-col items-start justify-start ml-5">
+                <div className="flex flex-col items-start justify-start ml-3">
                   {privateEventsCurrentMonth?.some(
                     (event) =>
                       (dayjs(event?.startDate).date() ===
@@ -115,18 +115,18 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                       )
                       .map((event) => {
                         return (
-                          <div key={event?.id} className="flex gap-3">
+                          <div key={event?.id} className="flex gap-2">
                             <time className="text-xs text-gray-400">
-                              {dayjs(event?.startDate).format("HH:mm a")}
+                              {dayjs(event?.startDate).format("h:mm A")}
                             </time>
                             <h1 className="text-xs text-gray-400">
-                              {event?.title}
+                              {event?.title.slice(0, 10)}...
                             </h1>
                           </div>
                         );
                       })}
                 </div>
-                <div className="flex flex-col items-start justify-start ml-5">
+                <div className="flex flex-col items-start justify-start ml-3">
                   {publicEventsCurrentMonth?.some(
                     (event) =>
                       (dayjs(event?.startDate).date() ===
@@ -152,12 +152,12 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                       )
                       .map((event) => {
                         return (
-                          <div key={event.id} className="flex gap-3">
+                          <div key={event.id} className="flex gap-2">
                             <time className="text-xs text-gray-400">
-                              {dayjs(event?.startDate).format("HH:mm a")}
+                              {dayjs(event?.startDate).format("h:mm A")}
                             </time>
                             <h1 className="text-xs text-gray-400">
-                              {event?.title}
+                              {event?.title.slice(0, 10)}...
                             </h1>
                           </div>
                         );

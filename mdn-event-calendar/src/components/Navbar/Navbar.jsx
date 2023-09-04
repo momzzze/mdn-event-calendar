@@ -104,7 +104,7 @@ const Navbar = () => {
                         Admin Board
                     </RouterLink>}
                 </div>
-                <Link to="/home" className="absolute top-0 left-1/2 transform -translate-x-1/2 -top-7">
+                <Link to="/home" className="absolute left-1/2 transform -translate-x-1/2 -top-8">
                     <img src={logoNav} alt="logo here" style={{ height: '150px', width: 'auto' }} />
                 </Link>
 
@@ -130,6 +130,7 @@ const Navbar = () => {
                         <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); toggleEditUserModal(); }}>Edit Profile</a>
                         <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); openUserDetailsModal(); }}>Profile</a>
                     </div>
+                    
                 </div>
                 <button
                     onClick={onLogout}

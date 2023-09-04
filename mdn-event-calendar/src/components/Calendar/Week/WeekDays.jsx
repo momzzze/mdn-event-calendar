@@ -2,6 +2,7 @@ import {
   cn,
   generateDateWeek,
   daysFullName,
+  days,
 } from "../../../utils/calendarUtils";
 import Hours from "./HoursAndDays";
 
@@ -47,7 +48,7 @@ const WeedDays = ({ today, setToday, selectDate, setSelectDate }) => {
                 className="p-2 text-center grid place-content-center text-lg border-l"
               >
                 <h1
-                  key={index}
+                  key={day}
                   className="text-sm text-center h-4 w-14 grid place-content-center text-gray-500 select-none justify-self-center"
                 >
                   {day}

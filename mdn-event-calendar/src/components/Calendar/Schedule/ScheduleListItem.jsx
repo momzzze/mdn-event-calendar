@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const ScheduleListItem = ({ event, selectDate }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const startDate = dayjs(event?.startDate).format("MMM DD, HH:mm a");
-  const endDate = dayjs(event?.endDate).format("MMM DD, HH:mm a");
+  const startDate = dayjs(event?.startDate).format("MMM D, h:mm A");
+  const endDate = dayjs(event?.endDate).format("MMM D, h:mm A");
 
   const handleCardClick = () => {
     navigate(`/event/${event?.id}`,

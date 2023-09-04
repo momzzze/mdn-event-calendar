@@ -91,6 +91,12 @@ export const DataProvider = ({ children }) => {
             setError(error);
         }
     }
+    const resetUserData = () => {
+        setUsers(null);
+        setUserContacts([]);
+        setSendingInvites(null);
+        setPendingInvites(null);
+      };
 
     useEffect(() => {
         setUsersData();
@@ -109,14 +115,13 @@ export const DataProvider = ({ children }) => {
         const contactsListener = onValue(contactsRef, (snapshot) => {
             const contactsData = snapshot.val();
             const pendingInvitesData = [];
-
             if (contactsData) {
                 Object.entries(contactsData).forEach(([contactId, contact]) => {
                     if (contact.status === 'pending') {
                         pendingInvitesData.push({
                             id: contactId,
-                            senderId: contact.senderId,
-                            receiverId: contact.receiverId
+                            sender: contact.senderId,
+                            receiver: contact.receiverId
                         });
                     }
                 });
@@ -159,7 +164,7 @@ export const DataProvider = ({ children }) => {
 
 
     return (
-        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData, publicEvents, publicEventsCurrentUserParticipate, privateEvents,setPublicEventsData,setPublicEventsCurrentUserParticipateData,setPrivateEventsData }}>
+        <DataContext.Provider value={{ users, setUsersData, setUserContactsData, setSendingInvitesData, setPendingInvitesData, setContactListsData, contactLists, pendingInvites, setPendingInvites, userContacts, setUserContacts, sendingInvites, setSendingInvites, setContactLists, error, refreshData, publicEvents, publicEventsCurrentUserParticipate, privateEvents,setPublicEventsData,setPublicEventsCurrentUserParticipateData,setPrivateEventsData,resetUserData }}>
             {children}
         </DataContext.Provider>
     )

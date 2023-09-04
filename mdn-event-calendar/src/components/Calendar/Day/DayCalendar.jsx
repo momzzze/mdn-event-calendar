@@ -1,5 +1,5 @@
   import HeaderDay from "./HeaderDay";
-  import HoursAndDays from "../Week/HoursAndDays";
+  import HoursAndEvents from "./HoursAndEvents";
   // import Day from "./Day";
   
   const DayCalendar = ({
@@ -21,7 +21,7 @@
             />
           </div>
         </div>
-        <HoursAndDays />
+        <HoursAndEvents today={today} selectDate={selectDate} />
       </>
     );
   };

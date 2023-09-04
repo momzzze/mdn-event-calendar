@@ -6,7 +6,7 @@ import { useData } from "../../contexts/DataContext";
 
 const ContactsSidebar = () => {
     const { userData } = useAuth();
-    const { users,userContacts, setSendingInvitesData } = useData();
+    const { users,userContacts, setSendingInvitesData,setPendingInvitesData,pendingInvites } = useData();
     const [searchTerm, setSearchTerm] = useState("");
     const [sendingInvites, setSendingInvites] = useState([]);
 
@@ -23,11 +23,12 @@ const ContactsSidebar = () => {
         };
 
         fetchSendingInvites();
-    }, [userData]);
+    }, [userData,pendingInvites]);
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
     };
+
     const handleAddContactClick = async (receiverId) => {
         const success = await sendContactRequest(userData.uid, receiverId);
         if (success) {
@@ -36,8 +37,10 @@ const ContactsSidebar = () => {
                 { sender: userData.uid, receiver: receiverId, status: 'pending' }
             ]);
             setSendingInvitesData();
+            setPendingInvitesData();
         }
     };
+
     const filteredUsers = users
   ? users.filter((user) =>
       user?.username?.toLowerCase().includes(searchTerm.toLowerCase()) &&
