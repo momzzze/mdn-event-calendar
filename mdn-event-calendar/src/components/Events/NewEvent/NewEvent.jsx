@@ -11,7 +11,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { customStylesSignUp } from "../../../common/modal.helper.functions";
 // import DatePicker from "./DatePicker";
-import MonthCalendarLandingPage from "../../Calendar/Month/MonthCalendarLandingPage";
 import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -47,6 +46,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
   const [publicity, setPublicity] = useState("private");
   const repeatEvent = Object.values(eventReoccurrence);
   const [reoccurrence, setReoccurrence] = useState(repeatEvent[0]);
+  const { setPublicEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -94,6 +94,9 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       });
       reset();
       navigate("/calendar");
+      setPublicEventsData();
+      setPublicEventsCurrentUserParticipateData();
+      setPrivateEventsData();
       onRequestClose();
     } catch (error) {
       toast({
