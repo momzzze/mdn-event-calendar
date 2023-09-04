@@ -117,7 +117,7 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                         return (
                           <div key={event?.id} className="flex gap-3">
                             <time className="text-xs text-gray-400">
-                              {dayjs(event?.startDate).format("HH:mm a")}
+                              {dayjs(event?.startDate).format("h:mm A")}
                             </time>
                             <h1 className="text-xs text-gray-400">
                               {event?.title}
@@ -154,7 +154,7 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                         return (
                           <div key={event.id} className="flex gap-3">
                             <time className="text-xs text-gray-400">
-                              {dayjs(event?.startDate).format("HH:mm a")}
+                              {dayjs(event?.startDate).format("h:mm A")}
                             </time>
                             <h1 className="text-xs text-gray-400">
                               {event?.title}
