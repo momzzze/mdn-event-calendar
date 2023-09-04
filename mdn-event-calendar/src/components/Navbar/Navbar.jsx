@@ -11,6 +11,7 @@ import { userProfileStyles } from '../../common/modal.helper.functions';
 import EditUser from '../Users/EditUser';
 import logoNav from '../../assets/logoNav.png';
 import { Link } from 'react-router-dom';
+import DarkMode from '../DarkMode/DarkMode';
 
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
@@ -137,7 +138,9 @@ const Navbar = () => {
                 >
                     Logout
                 </button>
+                <DarkMode/>
             </nav>
+            
 
             <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
             <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} />
