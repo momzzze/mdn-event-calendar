@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useToast } from "@chakra-ui/react";
-import { set, useForm } from "react-hook-form";
-import { registerUser } from "../../../services/auth.services";
-import {
-    createUserHandle,
-    getUserByHandle,
-    getUserByPhone,
-} from "../../../services/user.service";
-import { Link, useNavigate } from "react-router-dom";
-import { customStylesSignUp } from "../../../common/modal.helper.functions";
-// import DatePicker from "./DatePicker";
-import MonthCalendarLandingPage from "../../Calendar/Month/MonthCalendarLandingPage";
+import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
-import { useAuth } from "../../../contexts/AuthContext";
-import { createEventHandle, editEventHandle } from "../../../services/event.service";
+import { editEventHandle } from "../../../services/event.service";
 import { useData } from "../../../contexts/DataContext";
 
 const customStyles = {
@@ -35,12 +23,10 @@ const EditEvent = ({ eventData, isOpen, onRequestClose, refreshEventData }) => {
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
     } = useForm();
     const { setPublicEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
     const toast = useToast();
-    const navigate = useNavigate();
     const repeatEvent = Object.values(eventReoccurrence);
     const startDate = eventData ? new Date(eventData.startDate) : new Date();
     const endDate = eventData ? new Date(eventData.endDate) : new Date();

@@ -19,8 +19,10 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
         )
       )
         result.push(event);
-    return result;
-    }, []);
+      return result;
+    },
+    []
+  );
   const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
     if (
       dayjs(event.startDate).month() === today.month() ||
@@ -30,7 +32,8 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
         dayjs(event.endDate),
         "month"
       )
-    ) result.push(event);
+    )
+      result.push(event);
     return result;
   }, []);
 
@@ -96,22 +99,23 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                         )
                     )
                     .map((event) => {
-                      return (
-                        <div
-                          key={event?.id}
-                          className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
-                          style={{ backgroundColor: event?.color }}
-                        >
-                          <div className="flex gap-2">
-                            <time className="text-xs text-white font-medium ">
-                              {dayjs(event?.startDate).format("h:mm A")}
-                            </time>
-                            <h1 className="text-xs text-white font-medium ">
-                              {event?.title.slice(0, 7)}...
-                            </h1>
+                      if (currentMonth)
+                        return (
+                          <div
+                            key={event?.id}
+                            className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
+                            style={{ backgroundColor: event?.color }}
+                          >
+                            <div className="flex gap-2">
+                              <time className="text-xs text-white font-medium ">
+                                {dayjs(event?.startDate).format("h:mm A")}
+                              </time>
+                              <h1 className="text-xs text-white font-medium ">
+                                {event?.title.slice(0, 7)}...
+                              </h1>
+                            </div>
                           </div>
-                        </div>
-                      );
+                        );
                     })}
                 {publicEventsCurrentMonth?.some(
                   (event) =>
@@ -138,22 +142,22 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                     )
                     .map((event) => {
                       if (currentMonth)
-                      return (
-                        <div
-                          key={event.id}
-                          className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
-                          style={{ backgroundColor: event?.color }}
-                        >
-                          <div className="flex gap-2">
-                            <time className="text-xs text-white font-medium ">
-                              {dayjs(event?.startDate).format("h:mm A")}
-                            </time>
-                            <h1 className="text-xs text-white font-medium ">
-                              {event?.title.slice(0, 7)}...
-                            </h1>
+                        return (
+                          <div
+                            key={event.id}
+                            className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
+                            style={{ backgroundColor: event?.color }}
+                          >
+                            <div className="flex gap-2">
+                              <time className="text-xs text-white font-medium ">
+                                {dayjs(event?.startDate).format("h:mm A")}
+                              </time>
+                              <h1 className="text-xs text-white font-medium ">
+                                {event?.title.slice(0, 7)}...
+                              </h1>
+                            </div>
                           </div>
-                        </div>
-                      );
+                        );
                     })}
               </div>
             );
