@@ -116,40 +116,40 @@ const SingleComponent = () => {
             <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
                 <div className="w-full">
                     <div className="flex flex-row">
-                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden border-r border-gray-400">
+                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
                             <Map address={eventData?.location || ''} />
                         </div>
-                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden">
+                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden text-gray-700">
                             <img
                                 src={eventData?.imageUrl}
                                 alt="event image"
-                                className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105"
+                                className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105 text-gray-700"
                             />
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col w-full md:flex-row">
-                    <div className="flex flex-row justify-around p-4 font-bold leading-none text-white uppercase bg-purple-800 rounded md:flex-col md:items-center md:justify-center md:w-1/4 transition-transform duration-300 transform hover:scale-105">
+                <div className="flex flex-col w-full md:flex-row text-gray-700">
+                    <div className="flex flex-row justify-around p-4 font-bold leading-none text-white uppercase bg-purple-800 rounded md:flex-col md:items-center md:justify-center md:w-1/4 transition-transform duration-300 transform hover:scale-105 text-gray-700">
                         <div className="md:text-3xl">{month}</div>
                         <div className="md:text-6xl">{day}</div>
                         <div className="md:text-xl">{startHour}</div>
                     </div>
-                    <div className="p-4 font-normal md:w-3/4">
+                    <div className="p-4 font-normal md:w-3/4 text-gray-700">
                         <h1 className="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{eventData?.title}</h1>
                         <p className="leading-normal">{eventData?.description}</p>
-                        <div className="w-full flex justify-between mb-3 mt-3">
-                            <div className="flex items-center ml-6">
+                        <div className="w-full flex justify-between mb-3 mt-3 text-gray-700">
+                            <div className="flex items-center ml-6 text-gray-700">
                                 <FaLock className='mr-6' /> {eventData?.publicity}
                             </div>
-                            <div className="flex items-center ml-6">
-                                <FaMapMarkerAlt className="mr-2" />{eventData?.location}
+                            <div className="flex items-center ml-6 text-gray-700">
+                                <FaMapMarkerAlt className="mr-2 text-gray-700" />{eventData?.location}
                             </div>
                         </div>
-                        <div className="w-full flex justify-between mb-3 mt-3">
-                            <div className="flex items-center ml-6">
+                        <div className="w-full flex justify-between mb-3 mt-3 text-gray-700">
+                            <div className="flex items-center ml-6 text-gray-700">
                                 <FaUser className="mr-4" />{users?.find(user => user.uid === eventData?.creatorId)?.username || "Unknown User"}
                             </div>
-                            <div className="flex items-center mr-6">
+                            <div className="flex items-center mr-6 text-gray-700">
                                 <FaUsers className="mr-2" />
                                 {participants.length}
                             </div>
@@ -178,7 +178,7 @@ const SingleComponent = () => {
                             )}
 
 
-                            {(eventData?.creatorId === userData?.uid) && (<div className="w-2/12 flex justify-end">
+                            {(eventData?.creatorId === userData?.uid) && (<div className="w-2/12 flex justify-end text-gray-700">
                                 <button className="mr-3" onClick={editHandler}>
                                     <FaEdit />
                                 </button>
