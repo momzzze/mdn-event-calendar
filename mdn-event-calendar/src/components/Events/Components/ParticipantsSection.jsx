@@ -30,12 +30,12 @@ const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandl
     };
 
     return (
-        <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5 mt-4 mb-6">
+        <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5 mt-4 mb-6 text-gray-700">
             <h1 className="p-2 bg-purple-800 text-white text-2xl font-semibold rounded-t mb-6">
                 Invite Participants</h1>
             <input
                 type="search"
-                placeholder="Search participants..."
+                placeholder="Search participants...🔍"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="w-10/12 px-3 py-2 mb-4 text-gray-700 placeholder-gray-500 border rounded mx-auto"

@@ -48,7 +48,7 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="flex h-4/5 gap-1 justify-between px-3 py-2">
+      <div className="flex h-4/5 gap-1 justify-between px-3 py-2 text-gray-700">
         <div className="flex-1 border-radius">
           <div className="flex justify-between px-2 pb-2">
             <button
