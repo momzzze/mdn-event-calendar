@@ -53,13 +53,14 @@ const ContactsSidebar = () => {
         <div className="w-2/3 bg-white p-4 shadow-md">
             <input
                 type="text"
-                placeholder="Search users..."
+                placeholder="Search users...🔍"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="w-full px-3 py-2 mb-4 border rounded"
+                className="w-full px-3 py-2 mb-4 border rounded bg-gray-100"
+                
             />
-            <h2 className="text-xl font-semibold mb-2">Users</h2>
-            <div className="grid place-items-center w-70% max-h-96 overflow-y-auto border-2 bg-gray-100">
+            <h2 className="text-xl font-semibold mb-2 text-purple-800">Users</h2>
+            <div className="grid place-items-center w-70% max-h-96 overflow-y-auto border-2 bg-gray-100 text-purple-800">
                 <ul className="w-3/4 ">
                     {filteredUsers?.map(user => (
                         <li key={user.id} className="bg-white rounded-lg p-4 flex bg-purple-50 items-center justify-between mb-4">

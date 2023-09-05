@@ -16,7 +16,7 @@ const YourContacts = () => {
 
     return (
         <div>
-            <h3 className="text-lg font-semibold mb-2">Your Contacts</h3>
+            <h3 className="text-lg font-semibold mb-2 text-purple-800">Your Contacts</h3>
             {userContacts ? (
                 Object.values(userContacts).map((contactId) => {
                     const contactData = users?.find((user) => user.uid === contactId);
@@ -31,7 +31,7 @@ const YourContacts = () => {
                                             <FaUser size={20} color="white" />
                                         </div>
                                     )}
-                                    <span className="text-lg font-semibold mr-6">{contactData.username}</span>
+                                    <span className="text-lg font-semibold mr-6 text-purple-800">{contactData.username}</span>
                                     <button
                                         className="text-red-500 hover:text-red-700 mr-6"
                                         onClick={() => removeContactHandle(contactId)}

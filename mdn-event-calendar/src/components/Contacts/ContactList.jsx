@@ -10,7 +10,7 @@ const ContactsList = () => {
 
     return (
         <div className="w-1/3 bg-white p-4 shadow-md bg-purple-50">
-            <h3 className="text-lg font-semibold mb-2">Your Contact Lists</h3>
+            <h3 className="text-lg font-semibold mb-2 text-purple-800">Your Contact Lists</h3>
             <ul className="space-y-2 mb-6 mt-6">
                 {contactLists && contactLists.map((contactList, index) => (
                     <ContactListItem key={contactList.id} contactList={contactList} index={index} />
