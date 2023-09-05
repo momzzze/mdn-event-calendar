@@ -11,7 +11,7 @@ import Map from "../../Map/Map";
 const SingleComponent = () => {
     const location = useLocation();
     const { userData } = useAuth();
-    const { users } = useData();
+    const { users, setPublicEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
     const { eventDataId } = location.state || {};
     const [eventData, setEventData] = useState({});
     const [participants, setParticipants] = useState([]);
@@ -89,6 +89,9 @@ const SingleComponent = () => {
                 const updatedParticipants = participants.filter(id => id !== participantId);
                 updateParticipants(updatedParticipants);
                 refreshEventData();
+                setPublicEventsData();
+                setPublicEventsCurrentUserParticipateData();
+                setPrivateEventsData();
             }
         }
         if (publicity === 'private' && userData?.uid !== eventData?.creatorId) {
@@ -101,6 +104,9 @@ const SingleComponent = () => {
             if (success) {
                 updateParticipants([...participants, participantId]);
                 refreshEventData();
+                setPublicEventsData();
+                setPublicEventsCurrentUserParticipateData();
+                setPrivateEventsData();
             }
         }
     }
