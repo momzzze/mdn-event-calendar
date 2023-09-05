@@ -11,43 +11,26 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
     (result, event) => {
       if (
         dayjs(event.startDate).month() === today.month() ||
-        dayjs(event.endDate).month() === today.month()
-      ) {
-        result.push(event);
-      }
-      generateDate(today.month(), today.year()).forEach((date) => {
-        if (
-          dayjs(date).isBetween(
-            dayjs(event.startDate).add(-1, "day"),
-            dayjs(event.endDate).add(1, "day"),
-            "day"
-          )
-        )
-          result.push(event);
-        return result;
-      });
-      return result;
-    },
-    []
-  );
-  const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
-    if (
-      dayjs(event.startDate).month() === today.month() ||
-      dayjs(event.endDate).month() === today.month()
-    ) {
-      result.push(event);
-    }
-    generateDate(today.month(), today.year()).forEach((date) => {
-      if (
-        dayjs(date).isBetween(
-          dayjs(event.startDate).add(-1, "day"),
-          dayjs(event.endDate).add(1, "day"),
-          "day"
+        dayjs(event.endDate).month() === today.month() ||
+        dayjs(today).isBetween(
+          dayjs(event.startDate),
+          dayjs(event.endDate),
+          "month"
         )
       )
         result.push(event);
-      return result;
-    });
+    return result;
+    }, []);
+  const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
+    if (
+      dayjs(event.startDate).month() === today.month() ||
+      dayjs(event.endDate).month() === today.month() ||
+      dayjs(today).isBetween(
+        dayjs(event.startDate),
+        dayjs(event.endDate),
+        "month"
+      )
+    ) result.push(event);
     return result;
   }, []);
 
@@ -154,13 +137,13 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                         )
                     )
                     .map((event) => {
+                      if (currentMonth)
                       return (
                         <div
                           key={event.id}
                           className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
                           style={{ backgroundColor: event?.color }}
                         >
-                          {console.log(event?.color)}
                           <div className="flex gap-2">
                             <time className="text-xs text-white font-medium ">
                               {dayjs(event?.startDate).format("h:mm A")}
