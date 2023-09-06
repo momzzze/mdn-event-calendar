@@ -6,14 +6,12 @@ import LandingPage from './components/LandingPage/LandingPage'
 import Calendar from './components/Calendar/Calendar'
 import Contacts from './components/Contacts/Contacts'
 import { useAuth } from './contexts/AuthContext'
-import { useData } from './contexts/DataContext';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ListEvents from './components/Events/ListEvents/ListEvents';
 import SingleComponent from './components/Events/Components/SingleComponent';
 
 function App() {
-  const { user, userData, isAuthenticated,isAdmin } = useAuth();
-  const { users } = useData()
+  const {  isAuthenticated,isAdmin } = useAuth();
   return (
     <>
       {isAuthenticated ?
