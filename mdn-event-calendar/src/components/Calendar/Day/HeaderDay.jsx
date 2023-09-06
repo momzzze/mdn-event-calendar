@@ -11,7 +11,7 @@ const HeaderDay = ({ currentDate, today, setToday, setSelectDate }) => {
             setSelectDate(today.add(-1, "day"));
           }}
         />
-        <h1 className="select-none font-semibold px-3">
+        <h1 className="w-[270px] select-none font-semibold px-3">
         {today.format("dddd, MMMM DD, YYYY")}
         </h1>
         <GrFormNext
