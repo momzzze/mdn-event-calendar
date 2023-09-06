@@ -9,7 +9,6 @@ import Modal from "react-modal";
 import { customStylesSignUp } from '../../../common/modal.helper.functions';
 import { useData } from '../../../contexts/DataContext';
 
-
 const SignUp = ({ isOpen, onClose, switchModals }) => {
     const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
     const toast = useToast();
@@ -83,7 +82,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose} style={customStylesSignUp} >
             <div className="h-full flex justify-center items-center">
-                <div className="p-4 w-4/5">
+                <div className="p-4 w-full max-w-md"> {/* Adjust the max-width */}
                     <h1 className="text-3xl font-bold mb-4 text-white border-b-2 border-purple-800">Sign up</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>                        
                         <div className="flex-grow">
@@ -233,7 +232,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
                             <p>Already have an account? <Link className="text-purple-800" onClick={switchModals}>Sign in here</Link></p>
                         </div>
                         <div className="flex justify-center">
-                            <button className="bg-purple-800 hover:bg-purple-500 text-white py-2 px-4 mt-5 rounded w-4/5 mx-auto" type="submit">
+                            <button className="bg-purple-800 hover:bg-purple-500 text-white py-2 px-4 mt-5 rounded w-full"> {/* Adjust the width */}
                                 Sign Up
                             </button>
                         </div>

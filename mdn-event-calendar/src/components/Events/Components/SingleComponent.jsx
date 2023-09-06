@@ -8,6 +8,7 @@ import { addParticipantToEvent, deleteEvent, fetchParticipants, getEventById, re
 import EditEvent from "../EditEvent/EditEvent";
 import Map from "../../Map/Map";
 
+
 const SingleComponent = () => {
     const location = useLocation();
     const { userData } = useAuth();
