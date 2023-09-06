@@ -6,6 +6,9 @@ import SignUp from '../Auth/Register/Signup';
 import { closeSignInModal, closeSignUpModal } from '../../common/auth.helper.functions';
 import Calendar from '../Calendar/Calendar';
 import MonthCalendarLandingPage from './Calendar/MonthCalendarLandingPage';
+import logoNav from '../../assets/logoNav.png';
+import { Link } from 'react-router-dom';
+
 
 
 const LandingPage = () => {
@@ -27,9 +30,10 @@ const LandingPage = () => {
                 data-te-navbar-ref>
                 <div className="flex w-full flex-wrap items-center justify-between px-6">
                     <div className="flex items-center">
-                        <span className="[&>svg]:ml-2 [&>svg]:mr-3 [&>svg]:h-6 [&>svg]:w-6 [&>svg]:lg:ml-0">
-                            LOGO HERE
-                        </span>
+                    <Link to="/home" className="absolute left-4 top--2">
+                        <img src={logoNav} alt="logo here" style={{ height: '129px', width: 'auto' }} />
+                    </Link>
+
                     </div>
                     <RouterLink
                         className="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover-nav"

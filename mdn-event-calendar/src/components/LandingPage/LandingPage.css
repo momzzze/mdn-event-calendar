@@ -44,3 +44,11 @@
     backdrop-filter: blur(10px); 
     background: rgb(207, 206, 206);
 }
+
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start !important; /* Add !important */
+    align-items: center;
+    margin-right: 200px !important; /* Add !important */
+  }
