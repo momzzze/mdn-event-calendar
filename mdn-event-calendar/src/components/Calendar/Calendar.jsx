@@ -10,7 +10,6 @@ import DayCalendar from "./Day/DayCalendar";
 import ScheduleList from "./Schedule/ScheduleList";
 import NewEvent from "../Events/NewEvent/NewEvent";
 import { useData } from "../../contexts/DataContext";
-import Footer from "../Footer/Footer";
 
 const Calendar = () => {
   const [view, setView] = useState(calendarViews.MONTH.view);
@@ -100,7 +99,6 @@ const Calendar = () => {
           selectDatePrivateEvents={selectDatePrivateEvents}
         />
       </div>
-      <Footer />
     </div>
   );
 };

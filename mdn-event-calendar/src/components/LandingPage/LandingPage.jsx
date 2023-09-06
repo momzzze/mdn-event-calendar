@@ -48,7 +48,6 @@ const LandingPage = () => {
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
             <MonthCalendarLandingPage />
-            <Footer/>
         </div>
     );
 };

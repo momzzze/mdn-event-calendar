@@ -10,7 +10,6 @@ const Contacts = () => {
                 <ContactsSidebar />
                 <ContactsList />
             </div>
-            <Footer />
         </div>
     );
 }

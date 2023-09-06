@@ -1,9 +1,5 @@
-.footer {
+.bg-gray-800 {
     position: fixed;
-    bottom: 10px; /* Add some space between the bottom of the page and the footer */
+    bottom: 0;
     width: 100%;
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
+  }

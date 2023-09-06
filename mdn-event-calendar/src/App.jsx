@@ -9,9 +9,10 @@ import { useAuth } from './contexts/AuthContext'
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ListEvents from './components/Events/ListEvents/ListEvents';
 import SingleComponent from './components/Events/Components/SingleComponent';
+import Footer from './components/Footer/Footer'
 
 function App() {
-  const {  isAuthenticated,isAdmin } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth();
   return (
     <>
       {isAuthenticated ?
@@ -26,6 +27,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             {isAdmin && <Route path="/admin" element={<AdminDashboard />} />}
           </Routes>
+          <Footer />
         </>) :
         (
           <Routes>

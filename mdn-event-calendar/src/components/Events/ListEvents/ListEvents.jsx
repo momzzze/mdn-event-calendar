@@ -39,7 +39,7 @@ const ListEvents = () => {
         }
         fetchPrivateEvents();
     }, [userData]);
-    
+
     const renderTabContent = () => {
         if (activeTab === "myEvents") {
             return events.map((event) => (
@@ -50,7 +50,7 @@ const ListEvents = () => {
         }
         if (activeTab === "public") {
             return publicEvents.map((event) => (
-                <div key={event.id} className="w-full p-4">
+                <div key={event.id} className="w-full p-4 ">
                     <EventCard eventId={event.id} eventData={event} username={userData?.username} />
                 </div>
             ));
@@ -96,22 +96,22 @@ const ListEvents = () => {
                 </li>
             </ul>
             <div className='w-full mt-3'>
-                <div className={`tab-content   ${activeTab === "myEvents" ? "active" : ""}`}>
-                    <div className="bg-white mx-auto w-10/12 shadow-xl rounded-lg border mt-2 ">
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4 ">
+                <div className={`tab-content   ${activeTab === "myEvents" ? "active" : ""} mb-[5rem]`}>
+                    <div className="bg-white mx-auto w-10/12 shadow-xl rounded-lg border mt-2 mb-[5rem]">
+                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
                             {renderTabContent("myEvents")}
                         </div>
                     </div>
                 </div>
-                <div className={`tab-content ${activeTab === "public" ? "active" : ""}`}>
-                    <div className="bg-white  mx-auto w-10/12 shadow-xl rounded-lg border mt-2">
+                <div className={`tab-content ${activeTab === "public" ? "active" : ""} mb-[5rem]`}>
+                    <div className="bg-white  mx-auto w-10/12 shadow-xl rounded-lg border mt-2 mb-[5rem]">
                         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
                             {renderTabContent("public")}
                         </div>
                     </div>
                 </div>
-                <div className={`tab-content ${activeTab === "private" ? "active" : ""}`}>
-                    <div className="bg-white  mx-auto w-10/12 shadow-xl rounded-lg border mt-2">
+                <div className={`tab-content ${activeTab === "private" ? "active" : ""} mb-[5rem]`}>
+                    <div className="bg-white  mx-auto w-10/12 shadow-xl rounded-lg border mt-2 mb-[5rem]">
                         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-4">
                             {renderTabContent("private")}
                         </div>
