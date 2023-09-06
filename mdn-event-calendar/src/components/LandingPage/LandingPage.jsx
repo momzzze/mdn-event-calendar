@@ -30,7 +30,7 @@ const LandingPage = () => {
                 data-te-navbar-ref>
                 <div className="flex w-full flex-wrap items-center justify-between px-6">
                     <div className="flex items-center">
-                    <Link to="/home" className="absolute left-4 top--2">
+                    <Link onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button" className="absolute left-4 top--2">
                         <img src={logoNav} alt="logo here" style={{ height: '129px', width: 'auto' }} />
                     </Link>
 
