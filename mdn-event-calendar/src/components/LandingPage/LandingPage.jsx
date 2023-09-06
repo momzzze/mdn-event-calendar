@@ -1,15 +1,13 @@
 import { useState } from 'react';
-import './LandingPage.css'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import './LandingPage.css';
+import { Link as RouterLink } from 'react-router-dom';
 import SignIn from '../Auth/Login/Signin';
 import SignUp from '../Auth/Register/Signup';
 import { closeSignInModal, closeSignUpModal } from '../../common/auth.helper.functions';
 import Calendar from '../Calendar/Calendar';
 import MonthCalendarLandingPage from './Calendar/MonthCalendarLandingPage';
 import logoNav from '../../assets/logoNav.png';
-import { Link } from 'react-router-dom';
-
-
+import Footer from '../Footer/Footer';
 
 const LandingPage = () => {
     const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -19,26 +17,22 @@ const LandingPage = () => {
         setIsSignInModalOpen(true);
         setIsSignUpModalOpen(false);
     };
+
     const openSignUpModal = () => {
         setIsSignInModalOpen(false);
         setIsSignUpModalOpen(true);
     };
+
     return (
-        <section className="mb-40">
-            <nav
-                className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-start"
-                data-te-navbar-ref>
+        <div className="min-h-screen">
+            <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-start" data-te-navbar-ref>
                 <div className="flex w-full flex-wrap items-center justify-between px-6">
                     <div className="flex items-center">
-                    <Link onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button" className="absolute left-4 top--2">
-                        <img src={logoNav} alt="logo here" style={{ height: '129px', width: 'auto' }} />
-                    </Link>
-
+                        <RouterLink role="button" className="absolute left-4 top--2">
+                            <img src={logoNav} alt="logo here" style={{ height: '129px', width: 'auto' }} />
+                        </RouterLink>
                     </div>
-                    <RouterLink
-                        className="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover-nav"
-                        data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignInModal(setIsSignInModalOpen)} role="button"
-                        style={{ color: 'black' }}>
+                    <RouterLink className="mb-2 inline-block rounded bg-primary px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover-nav" data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignInModal(setIsSignInModalOpen)} role="button" style={{ color: 'black' }}>
                         Sign In
                     </RouterLink>
                 </div>
@@ -47,16 +41,16 @@ const LandingPage = () => {
                 <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight text-whiteh1 md:text-6xl xl:text-7xl">
                     The best calendar app <br /><span className="text-primary">for music events in the web</span>
                 </h1>
-                <RouterLink
-                    className="mb-2 inline-block rounded bg-white px-16 py-4 text-sm font-extrabold uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover"
-                    data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button">
+                <RouterLink className="mb-2 inline-block rounded bg-white px-16 py-4 text-sm font-extrabold uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover" data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button">
                     Get started
                 </RouterLink>
             </div>
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
             <MonthCalendarLandingPage />
-        </section >
-    )
-}
+            <Footer/>
+        </div>
+    );
+};
+
 export default LandingPage;
