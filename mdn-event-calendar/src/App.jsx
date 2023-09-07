@@ -27,7 +27,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             {isAdmin && <Route path="/admin" element={<AdminDashboard />} />}
           </Routes>
-          <Footer />
+          <Footer/>
         </>) :
         (
           <Routes>

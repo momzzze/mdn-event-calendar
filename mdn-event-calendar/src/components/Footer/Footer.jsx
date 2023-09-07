@@ -4,7 +4,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4">
+    <footer className="bg-gray-800 text-white p-4 fixed bottom-0 w-full">
       <div className="container mx-auto flex justify-between items-center">
         <div>
           <p>&copy; M.D.N. Project 2023 - All rights reserved</p>
