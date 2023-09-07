@@ -21,7 +21,7 @@
             />
           </div>
         </div>
-        <HoursAndEvents today={today} selectDate={selectDate} />
+        <HoursAndEvents selectDate={selectDate} />
       </>
     );
   };
