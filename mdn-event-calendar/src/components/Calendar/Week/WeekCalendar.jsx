@@ -1,14 +1,7 @@
-import {
-  hours,
-  months,
-  daysFullName,
-  cn,
-  generateDateWeek,
-} from "../../../utils/calendarUtils";
-import { GrFormPrevious, GrFormNext } from "react-icons/gr";
-import WeedDays from "./WeekDays";
+import WeekDays from "./WeekDays";
 import HeaderWeek from "./HeaderWeek";
-import HoursAndDays from "./HoursAndDays";
+import Hours from "../Day/Hours";
+import WeekEvents from "./WeekEvents";
 
 const WeekCalendar = ({
   currentDate,
@@ -27,7 +20,7 @@ const WeekCalendar = ({
             setToday={setToday}
             setSelectDate={setSelectDate}
           />
-          <WeedDays
+          <WeekDays
             today={today}
             setToday={setToday}
             selectDate={selectDate}
@@ -35,7 +28,14 @@ const WeekCalendar = ({
           />
         </div>
       </div>
-      <HoursAndDays />
+      <div className="w-116 h-96 flex flex-row overflow-y-auto">
+        <div className="w-[80px] grid grid-rows-48">
+          <Hours />
+        </div>
+        <div className={`flex-1 grid grid-cols-7`} >
+          <WeekEvents today={today} setSelectDate={setSelectDate} />
+        </div>
+      </div>
     </>
   );
 };
