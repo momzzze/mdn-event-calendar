@@ -72,14 +72,17 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="flex items-center justify-between flex-wrap p-6">
+            <nav className="flex items-center justify-between flex-wrap pl-3 pr-6">
                 <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-72">
-                    <img
-                        src={logoNav}
-                        className="w-20 h-12 mr-2"
-                        style={{ width: '120px', height: '80px' }}
-                        alt="Logo"
-                    />
+                    <a href="/home" className="block">
+                        <div style={{ width: '80px', height: '80px' }}>
+                            <img
+                                src={logoNav}
+                                className="w-full h-full"
+                                alt="Logo"
+                            />
+                        </div>
+                    </a>
                 </div>
                 <div className="block lg:hidden">
                     <button
