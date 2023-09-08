@@ -10,7 +10,7 @@ import { customStylesSignUp } from '../../../common/modal.helper.functions';
 import { useData } from '../../../contexts/DataContext';
 
 const SignUp = ({ isOpen, onClose, switchModals }) => {
-    const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
     const toast = useToast();
     const { setUsersData } = useData();
     const navigate = useNavigate();
@@ -18,6 +18,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
         const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/;
         return passwordPattern.test(password);
     };
+    
     const onSubmit = async (data) => {
         try {
             const existingUsernameSnapshot = await getUserByHandle(data.username);
@@ -84,7 +85,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
             <div className="h-full flex justify-center items-center">
                 <div className="p-4 w-full max-w-md"> {/* Adjust the max-width */}
                     <h1 className="text-3xl font-bold mb-4 text-white border-b-2 border-purple-800">Sign up</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>                        
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex-grow">
                             <label className="block font-bold mb-1">First name</label>
                             <input
