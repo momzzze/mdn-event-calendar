@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ScheduleListItem = ({ event, selectDate }) => {
+const ScheduleListItem = ({ event }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const startDate = dayjs(event?.startDate).format("MMM D, HH:mm");
@@ -12,7 +12,7 @@ const ScheduleListItem = ({ event, selectDate }) => {
     navigate(`/event/${event?.id}`,
     {
         state: {
-            eventDataId: event.id,
+            eventDataId: event?.id,
             username: event?.username
         }
     });

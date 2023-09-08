@@ -2,15 +2,13 @@ import {
   cn,
   generateDateWeek,
   daysFullName,
-  days,
 } from "../../../utils/calendarUtils";
-import Hours from "./HoursAndDays";
 
-const WeedDays = ({ today, setToday, selectDate, setSelectDate }) => {
+const WeekDays = ({ today, selectDate, setSelectDate }) => {
   return (
     <div className="flex">
-      <div className="w-20 border-t"></div>
-      <div className="flex-1 grid grid-cols-7 ">
+      <div className="w-20 border-2"></div>
+      <div className="flex-1 grid grid-cols-7 border-2">
         {generateDateWeek(
           today.day(),
           today.week(),
@@ -20,7 +18,7 @@ const WeedDays = ({ today, setToday, selectDate, setSelectDate }) => {
           return (
             <div
               key={index}
-              className="p-2 text-center h-10 grid place-content-center text-lg border-t border-l"
+              className="p-2 text-center h-10 grid place-content-center text-lg border-t border-r-4"
             >
               <h1
                 className={cn(
@@ -40,15 +38,14 @@ const WeedDays = ({ today, setToday, selectDate, setSelectDate }) => {
             </div>
           );
         })}
-        {daysFullName.map((day, index) => {
+        {daysFullName.map((day) => {
           return (
             <>
               <div
-                key={index}
-                className="p-2 text-center grid place-content-center text-lg border-l"
+                key={day}
+                className="p-2 text-center grid place-content-center text-lg border-r-4"
               >
                 <h1
-                  key={day}
                   className="text-sm text-center h-4 w-14 grid place-content-center text-gray-500 select-none justify-self-center"
                 >
                   {day}
@@ -62,4 +59,4 @@ const WeedDays = ({ today, setToday, selectDate, setSelectDate }) => {
   );
 };
 
-export default WeedDays;
+export default WeekDays;

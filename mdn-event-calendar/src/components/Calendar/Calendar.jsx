@@ -25,26 +25,19 @@ const Calendar = () => {
   const closeNewEventModal = () => {
     setOpenNewEventModal(false);
   };
-  const selectDatePublicEvents = publicEventsCurrentUserParticipate?.filter(
+  const allEvents = [
+    ...publicEventsCurrentUserParticipate,
+    ...privateEvents,
+  ]?.filter(
     (event) =>
-      (dayjs(event.startDate).isSame(event.endDate, "day") &&
-        dayjs(event.startDate).isSame(selectDate, "day")) ||
+      (dayjs(event?.startDate).isSame(event?.endDate, "day") &&
+        dayjs(event?.startDate).isSame(selectDate, "day")) ||
       dayjs(selectDate).isBetween(
-        dayjs(event.startDate).add(-1, "day"),
-        dayjs(event.endDate).add(1, "day"),
+        dayjs(event?.startDate).add(-1, "day"),
+        dayjs(event?.endDate).add(1, "day"),
         "day"
       )
-  );
-  const selectDatePrivateEvents = privateEvents?.filter(
-    (event) =>
-      (dayjs(event.startDate).isSame(event.endDate, "day") &&
-        dayjs(event.startDate).isSame(selectDate, "day")) ||
-      dayjs(selectDate).isBetween(
-        dayjs(event.startDate).add(-1, "day"),
-        dayjs(event.endDate).add(1, "day"),
-        "day"
-      )
-  );
+  )?.sort((a, b) => dayjs(a?.startDate).hour() - dayjs(b?.startDate).hour());
 
   return (
     <div className="calendar-container">
@@ -80,6 +73,8 @@ const Calendar = () => {
                 setToday={setToday}
                 selectDate={selectDate}
                 setSelectDate={setSelectDate}
+                allEvents={allEvents}
+
               />
             )}
             {view === calendarViews.DAY.view && (
@@ -89,14 +84,14 @@ const Calendar = () => {
                 setToday={setToday}
                 selectDate={selectDate}
                 setSelectDate={setSelectDate}
+                allEvents={allEvents}
               />
             )}
           </div>
         </div>
         <ScheduleList
           selectDate={selectDate}
-          selectDatePublicEvents={selectDatePublicEvents}
-          selectDatePrivateEvents={selectDatePrivateEvents}
+          allEvents={allEvents}
         />
       </div>
     </div>
