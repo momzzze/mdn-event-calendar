@@ -74,7 +74,7 @@ const Navbar = () => {
         <>
             <nav className="flex items-center justify-between flex-wrap pl-3 pr-6">
                 <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-72">
-                    <a href="/home" className="block">
+                    <RouterLink to="/home">
                         <div style={{ width: '80px', height: '80px' }}>
                             <img
                                 src={logoNav}
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 alt="Logo"
                             />
                         </div>
-                    </a>
+                    </RouterLink>
                 </div>
                 <div className="block lg:hidden">
                     <button
@@ -193,7 +193,7 @@ const Navbar = () => {
                 </div>
                 <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
                 <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} />
-            </nav>
+            </nav >
 
         </>
     )
