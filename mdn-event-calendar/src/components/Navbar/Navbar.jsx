@@ -12,11 +12,13 @@ import EditUser from '../Users/EditUser';
 import logoNav from '../../assets/logoNav.png';
 import { Link } from 'react-router-dom';
 import DarkMode from '../DarkMode/DarkMode';
+import { useData } from '../../contexts/DataContext';
 
 const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
     const [isEditUserModalOpen, setEditUserModalOpen] = useState(false);
     const { setUser, userData, isAdmin } = useAuth();
+    const {pendingInvites}=useData();
     const toast = useToast();
     const navigate = useNavigate();
     const location = useLocation();
@@ -132,6 +134,9 @@ const Navbar = () => {
                             className={`nav-link block ml-5 mt-2 lg:inline-block lg:mt-0 text-lg text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
                         >
                             Contacts
+                            {pendingInvites.length > 0 && (
+                                <span className="ml-1 text-red-500">*</span> // Add a red dot indicator
+                            )}
                         </RouterLink>
                         {isAdmin && <RouterLink
                             to="/admin"
@@ -199,80 +204,3 @@ const Navbar = () => {
     )
 }
 export default Navbar;
-
-
-{/* <nav className="relative flex w-full items-center justify-between bg-white py-2 shadow-none lg:flex-wrap lg:justify-center mb-11">
-                <div className="flex items-center">
-                    <RouterLink
-                        to="/"
-                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/' ? 'active' : ''}`}
-                    >
-                        Home
-                    </RouterLink>
-                    <RouterLink
-                        to="/calendar"
-                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/calendar' ? 'active' : ''}`}
-                    >
-                        Calendar
-                    </RouterLink>
-                    <RouterLink
-                        to="/events"
-                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/events' ? 'active' : ''}`}
-                    >
-                        Events
-                    </RouterLink>
-                    <RouterLink
-                        to="/contacts"
-                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
-                    >
-                        Contacts
-                    </RouterLink>
-                    {isAdmin && <RouterLink
-                        to="/admin"
-                        className={`nav-link p-4 text-lg p-4 text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/admin' ? 'active' : ''}`}
-                    >
-                        Admin Board
-                    </RouterLink>}
-                </div>
-                <Link to="/home" className="absolute left-1/2 transform -translate-x-1/2 -top-8">
-                    <img src={logoNav} alt="logo here" style={{ height: '139px', width: 'auto' }} />
-                </Link>
-
-                <div className="relative ml-auto">
-                    <button
-                        onClick={toggleDropdown}
-                        className="p-1 rounded-full focus:outline-none mr-4"
-                    >
-                        {userData?.photo ? (
-                            <img
-                                src={userData?.photo}
-                                alt="Avatar"
-                                className="h-8 w-8 rounded-full"
-                            />
-                        ) : (
-                            <FiUser className="h-8 w-8 text-purple-800 hover:text-purple-300" />
-                        )}
-                    </button>
-                    <div ref={dropdownRef} className={`absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg ${isDropdownOpen ? 'block' : 'hidden'}`}>
-                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); toggleEditUserModal(); }}>Edit Profile</a>
-                        <a href="#" className="block px-4 py-2 text-purple-800 font-bold text-lg hover:text-purple-300 hover:border-purple-300 duration-200" onClick={event => { event.preventDefault(); openUserDetailsModal(); }}>Profile</a>
-                    </div>
-
-                </div>
-                <button
-                    onClick={onLogout}
-                    data-te-ripple-init data-te-ripple-color="light"
-                    className="p-4 text-purple-800 font-bold text-lg border-b-2 hover:text-purple-300 border-transparent hover:border-purple-300 duration-200 active"
-                >
-                    Logout
-                </button>
-                <DarkMode />
-            </nav>
-
-
-            <UserDetails isOpen={isUserDetailsModalOpen} onClose={closeUserDetailsModal} data={userData} />
-            <EditUser isOpen={isEditUserModalOpen} onClose={toggleEditUserModal} data={userData} /> */}
-
-{/* <div className="text-purple-800 text-lg ml-auto">
-                   <span className='custom-font'> MDN<HiCalendar style={{ display: "inline" }} />E.S.E</span>
-                </div> */}
