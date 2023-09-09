@@ -240,9 +240,15 @@ export const getAllEvents = async () => {
     try {
         const eventsRef = ref(db, 'events');
         const snapshot = await get(eventsRef);
-        if (snapshot.exists()) {
+        if (snapshot.exists()) {            
             const eventData = snapshot.val();
-            return eventData
+            
+            const eventsWithId = Object.keys(eventData).map((eventId) => {
+                const event = eventData[eventId];
+                return { id: eventId, ...event };
+            });
+            
+            return eventsWithId;
         } else {
             return [];
         }

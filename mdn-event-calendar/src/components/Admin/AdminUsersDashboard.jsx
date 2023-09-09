@@ -31,9 +31,11 @@ const AdminUsersDashboard = () => {
     return (
         <div className="grid grid-cols-3 gap-4 ">
             <div className="col-span-2 pr-4 overflow-hidden">
+                <div className="bg-purple-800 text-white py-2 px-4 rounded-md mb-4 mt-4 ml-4">
+                    <h1 className="text-3xl font-semibold">Users</h1>
+                </div>
                 <div className="max-h-1/2-screen overflow-y-auto">
                     <div className="col-span-2 pr-4 overflow-hidden">
-                        <h1 className="mt-6 text-2xl font-bold mb-4">Admin Dashboard</h1>
                         <div className="mb-4">
                             <input
                                 type="text"
@@ -44,7 +46,6 @@ const AdminUsersDashboard = () => {
                             />
                         </div>
                     </div>
-                    <h2 className="text-lg font-bold mb-2">Users List</h2>
                     {users ? (
                         <ul className="flex flex-col items-center h-1/3 mb-6 max-h-96 overflow-y-auto">
                             {filteredUsers.length > 0 ? (
