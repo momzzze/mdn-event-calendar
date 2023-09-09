@@ -3,23 +3,38 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import europe2 from '../../assets/europe2.jpg';
 import AnimatedText from "./Animated";
-import Footer from '../Footer/Footer';
+import WeatherApp from '../Weather/WeatherApp';
+import { useAuth } from '../../contexts/AuthContext';
+import MonthCalendarLandingPage from '../LandingPage/Calendar/MonthCalendarLandingPage';
 
 const Home = () => {
+  const { userData } = useAuth();
   return (
-    <div className="home-main-container">
-      <div className="home-container"> 
-         <div className="background-image">
-          <img src={europe2} alt="Europe Background" />
-        </div>
-        <div>
-          <AnimatedText /> 
-          <h1 style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px'}}>Project by M.D.N. Team</h1>
+    <div className="home-container  bg-gray-100 p-4 rounded-lg shadow-md ">
+      <div className="welcome-section mb-6 bg-purple-800 rounded-full">
+        <h2 className="text-2xl  font-semibold text-white">Welcome back, {userData?.username}!</h2>
+        <p className="text-white">
+          <AnimatedText />
+        </p>
+      </div>
+      <div className="w-1/2 pr-4">
+        <div className="content-section bg-white p-4 rounded-lg shadow-md mb-6">
+          <WeatherApp city={userData?.city} />
+          <MonthCalendarLandingPage />
         </div>
       </div>
-      {/* <Footer /> */}
+      <div className="w-1/2">
+
+      </div>
     </div>
   );
 };
 
 export default Home;
+
+{/* <div className="background-image">
+          <img src={europe2} alt="Europe Background" />
+           <p style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px' }}>
+            Project by M.D.N. Team
+          </p>
+        </div> */}
