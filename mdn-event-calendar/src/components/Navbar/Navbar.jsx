@@ -18,7 +18,7 @@ const Navbar = () => {
     const [isUserDetailsModalOpen, setUserDetailsModalOpen] = useState(false);
     const [isEditUserModalOpen, setEditUserModalOpen] = useState(false);
     const { setUser, userData, isAdmin } = useAuth();
-    const {pendingInvites}=useData();
+    const { pendingInvites } = useData();
     const toast = useToast();
     const navigate = useNavigate();
     const location = useLocation();
@@ -134,8 +134,8 @@ const Navbar = () => {
                             className={`nav-link block ml-5 mt-2 lg:inline-block lg:mt-0 text-lg text-purple-800 font-bold text-lg border-b-2 border-transparent hover:text-purple-300 hover:border-purple-300 duration-200 ${location.pathname === '/contacts' ? 'active' : ''}`}
                         >
                             Contacts
-                            {pendingInvites.length > 0 && (
-                                <span className="ml-1 text-red-500">*</span> // Add a red dot indicator
+                            {pendingInvites && pendingInvites.some(invite => invite.receiver === userData?.uid) && (
+                                <span className="ml-1 text-red-500">*</span>
                             )}
                         </RouterLink>
                         {isAdmin && <RouterLink
