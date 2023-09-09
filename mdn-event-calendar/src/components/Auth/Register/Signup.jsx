@@ -10,7 +10,7 @@ import { customStylesSignUp } from '../../../common/modal.helper.functions';
 import { useData } from '../../../contexts/DataContext';
 
 const SignUp = ({ isOpen, onClose, switchModals }) => {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const toast = useToast();
     const { setUsersData } = useData();
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
         const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$/;
         return passwordPattern.test(password);
     };
-    
+
     const onSubmit = async (data) => {
         try {
             const existingUsernameSnapshot = await getUserByHandle(data.username.toLowerCase());

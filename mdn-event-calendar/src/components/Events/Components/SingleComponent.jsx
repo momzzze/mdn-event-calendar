@@ -27,7 +27,7 @@ const SingleComponent = () => {
     const month = startDate.toLocaleString('en-US', { month: 'short', ...timeZoneOption });
     const day = startDate.toLocaleString('en-US', { day: 'numeric', ...timeZoneOption });
     const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
-    const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
+    // const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
 
     useEffect(() => {
         if (location.state && location.state.eventDataId) {
@@ -113,7 +113,7 @@ const SingleComponent = () => {
     }
 
     return (
-        <div className="mx-auto h-10/12 flex flex-col items-center justify-center px-8 mt-10">
+        <div className="mx-auto h-10/12 flex flex-col items-center justify-center px-8 mt-10 mb-16">
             <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
                 <div className="w-full">
                     <div className="flex flex-row">

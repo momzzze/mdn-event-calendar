@@ -44,16 +44,16 @@ const ListEvents = () => {
         const currentDate = new Date();
 
         if (activeTab === "myEvents") {
+            {console.log(events)}
             return events
                 .filter((event) => new Date(event?.endDate) >= currentDate)
                 .map((event) => (
-                    <div key={event.id} className="w-full p-4">
+                    <div key={event.id} className="w-full p-4">                        
                         <EventCard eventData={event} username={event?.creatorId} />
                     </div>
                 ));
         }
         if (activeTab === "public") {
-            console.log(publicEvents);
             return publicEvents
                 .filter((event) => new Date(event.endDate) >= currentDate)
                 .map((event) => (

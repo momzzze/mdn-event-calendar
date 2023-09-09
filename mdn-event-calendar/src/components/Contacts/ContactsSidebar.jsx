@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { getSendingInvitesFromUser, sendContactRequest } from "../../services/contacts.service";
 import { useAuth } from "../../contexts/AuthContext";
