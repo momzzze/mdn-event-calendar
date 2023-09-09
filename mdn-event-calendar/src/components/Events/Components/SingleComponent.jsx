@@ -117,14 +117,14 @@ const SingleComponent = () => {
             <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
                 <div className="w-full">
                     <div className="flex flex-row">
-                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
+                        <div className="w-1/2 h-96 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
                             <Map address={eventData?.location || ''} />
                         </div>
-                        <div className="w-1/2 h-64 bg-top rounded-t overflow-hidden text-gray-700">
+                        <div className="w-1/2 h-96 rounded-t ">
                             <img
                                 src={eventData?.imageUrl}
                                 alt="event image"
-                                className="object-cover h-full w-full transition-transform duration-300 transform hover:scale-105 text-gray-700"
+                                className="w-full h-full transition-transform duration-300 transform hover:scale-105"
                             />
                         </div>
                     </div>
