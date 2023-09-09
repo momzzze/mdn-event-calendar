@@ -22,7 +22,7 @@ const UserDetails = ({ isOpen, onClose, username }) => {
         return null;
     }
     
-    const contacts = Object.keys(userData?.contacts).length;
+    const contacts = (userData?.contacts && Object.keys(userData.contacts).length) || 0;
    
     return (
         <>

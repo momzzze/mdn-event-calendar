@@ -21,7 +21,7 @@ const SignUp = ({ isOpen, onClose, switchModals }) => {
     
     const onSubmit = async (data) => {
         try {
-            const existingUsernameSnapshot = await getUserByHandle(data.username);
+            const existingUsernameSnapshot = await getUserByHandle(data.username.toLowerCase());
             if (existingUsernameSnapshot.exists()) {
                 toast({
                     title: "Registration Error",

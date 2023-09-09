@@ -21,6 +21,7 @@ export const DataProvider = ({ children }) => {
     const [publicEvents, setPublicEvents] = useState(null);
     const [publicEventsCurrentUserParticipate, setPublicEventsCurrentUserParticipate] = useState(null);
     const [privateEvents, setPrivateEvents] = useState(null);
+    
 
     const [refresh, setRefresh] = useState(false);
     const refreshData = () => {

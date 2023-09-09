@@ -8,8 +8,8 @@ import Footer from '../Footer/Footer';
 const Home = () => {
   return (
     <div className="home-main-container">
-      <div className="home-container">
-        <div className="background-image">
+      <div className="home-container"> 
+         <div className="background-image">
           <img src={europe2} alt="Europe Background" />
         </div>
         <div>
@@ -17,7 +17,7 @@ const Home = () => {
           <h1 style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px'}}>Project by M.D.N. Team</h1>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
