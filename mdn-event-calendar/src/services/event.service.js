@@ -235,3 +235,19 @@ export const editEventHandle = async (eventId, data) => {
         return false
     }
 }
+
+export const getAllEvents = async () => {
+    try {
+        const eventsRef = ref(db, 'events');
+        const snapshot = await get(eventsRef);
+        if (snapshot.exists()) {
+            const eventData = snapshot.val();
+            return eventData
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.log('Error getting events', error);
+        return error
+    }
+}

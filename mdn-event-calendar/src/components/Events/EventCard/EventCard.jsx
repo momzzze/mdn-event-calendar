@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUsernameForCreator } from "../../../services/user.service";
 
 const EventCard = ({eventId, eventData, username }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [creatorData, setCreatorData] = useState(null); 
+
     const navigate = useNavigate();
     const startDate = new Date(eventData.startDate);
     const dayOfMonth = startDate.getDate();
@@ -15,7 +18,15 @@ const EventCard = ({eventId, eventData, username }) => {
         minute: '2-digit'
     }) + " - " + endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const formattedMonth = startDate.toLocaleString('default', { month: 'short' });
-    
+
+    const fetchCreatorData = async () => {
+        try {
+            const creatorName = await getUsernameForCreator(username);
+            setCreatorData(creatorName);
+        } catch (error) {
+            console.error('Error fetching creator data:', error);
+        }
+    };
     const handleCardClick = () => {
         navigate(`/event/${eventData?.id}`,
         {
@@ -25,6 +36,11 @@ const EventCard = ({eventId, eventData, username }) => {
             }
         });
     };
+    useEffect(() => {
+        if (username) {
+            fetchCreatorData();
+        }
+    }, []);
 
     return (
 
@@ -44,7 +60,7 @@ const EventCard = ({eventId, eventData, username }) => {
                             <i className="far fa-clock"></i> {formattedStartDate}
                         </div>
                         <div className="flex items-center ml-4">
-                            Organiser: {username}
+                            Organiser: {creatorData}
                         </div>
                     </div>
                     <div className="font-semibold text-gray-800 text-xl text-center lg:text-left px-2">

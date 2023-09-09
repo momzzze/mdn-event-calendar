@@ -41,26 +41,35 @@ const ListEvents = () => {
     }, [userData]);
 
     const renderTabContent = () => {
+        const currentDate = new Date();
+
         if (activeTab === "myEvents") {
-            return events.map((event) => (
-                <div key={event.id} className="w-full p-4">
-                    <EventCard eventData={event} username={userData?.username} />
-                </div>
-            ));
+            return events
+                .filter((event) => new Date(event?.endDate) >= currentDate)
+                .map((event) => (
+                    <div key={event.id} className="w-full p-4">
+                        <EventCard eventData={event} username={event?.creatorId} />
+                    </div>
+                ));
         }
         if (activeTab === "public") {
-            return publicEvents.map((event) => (
-                <div key={event.id} className="w-full p-4 ">
-                    <EventCard eventId={event.id} eventData={event} username={userData?.username} />
-                </div>
-            ));
+            console.log(publicEvents);
+            return publicEvents
+                .filter((event) => new Date(event.endDate) >= currentDate)
+                .map((event) => (
+                    <div key={event.id} className="w-full p-4 ">
+                        <EventCard eventId={event.id} eventData={event} username={event?.creatorId} />
+                    </div>
+                ));
         }
         if (activeTab === "private") {
-            return privateEvents.map((event) => (
-                <div key={event.id} className="w-full p-4">
-                    <EventCard eventData={event} username={userData?.username} />
-                </div>
-            ));
+            return privateEvents
+                .filter((event) => new Date(event.endDate) >= currentDate)
+                .map((event) => (
+                    <div key={event.id} className="w-full p-4">
+                        <EventCard eventData={event} username={event?.creatorId} />
+                    </div>
+                ));
         }
     };
 
