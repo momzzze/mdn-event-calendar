@@ -28,6 +28,11 @@ const AdminEventsDashboard = () => {
         }
     }, [allEvents, searchTerm]);
 
+    const formatDate = (timestamp) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(timestamp).toLocaleDateString(undefined, options);
+    };
+
     const handleViewEvent = (event) => {
         navigate(`/event/${event.id}`, {
             state: {
@@ -36,7 +41,7 @@ const AdminEventsDashboard = () => {
             }
         });
     }
-    const handleDeleteEvent =async (eventId,creatorId) => {
+    const handleDeleteEvent = async (eventId, creatorId) => {
         const deleted = await deleteEvent(eventId, creatorId);
         if (deleted) {
             setAllEventsData();
@@ -82,25 +87,25 @@ const AdminEventsDashboard = () => {
                         return (
                             <li
                                 key={event?.id}
-                                className="bg-white p-4 shadow-md flex justify-between items-center"
+                                className="bg-white p-4 shadow-md flex flex-col md:flex-row justify-between items-center"
                             >
-                                <div>
+                                <div className="flex flex-col items-start mb-2 md:mb-0">
                                     <h2 className="text-lg font-semibold">
                                         {event.title}
                                     </h2>
                                     <p className="text-gray-600">
-                                        Date: {event.startDate}
+                                        Date: {formatDate(event.startDate)}
                                     </p>
                                 </div>
-                                <div className="space-x-2">
+                                <div className="space-y-2 md:space-y-0 md:space-x-2 md:flex md:flex-row gap-2">
                                     <button
                                         onClick={() => handleViewEvent(event)}
-                                        className="bg-purple-800 hover:bg-purple-400 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                                        className="bg-purple-800 hover:bg-purple-400 text-white py-2 px-4 rounded-md"
                                     >
                                         View
                                     </button>
                                     <button
-                                        onClick={() => handleDeleteEvent(event.id,event.creatorId)}
+                                        onClick={() => handleDeleteEvent(event.id, event.creatorId)}
                                         className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
                                     >
                                         Delete
