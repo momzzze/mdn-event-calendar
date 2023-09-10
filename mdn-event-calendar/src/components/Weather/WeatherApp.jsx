@@ -29,7 +29,13 @@ const WeatherApp = ({ city }) => {
         'light rain': <FaCloudRain />,
         'light showers': <FaCloudShowersHeavy />,
     };
-
+    if (weatherData === null) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500 border-opacity-50"></div>
+            </div>
+        );
+    }
     return (
         <div className="flex justify-center">
             <div className="card min-w-md max-w-4xl border border-gray-100 bg-gray-50 transition-shadow test shadow-lg hover:shadow-shadow-xl w-full bg-purple-700 text-purple-50 rounded-md p-6">
@@ -37,11 +43,11 @@ const WeatherApp = ({ city }) => {
                     <div className="flex justify-between">
                         <div className="badge relative top-0">
                             <span className="text-lg font-semibold">
-                                {weatherData.location.name}
+                                {weatherData?.location?.name}
                             </span>
                         </div>
                         <span className="text-xl font-bold">
-                            {weatherData.current.last_updated}
+                            {weatherData?.current.last_updated}
                         </span>
                     </div>
                 </h2>

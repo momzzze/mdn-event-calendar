@@ -1,7 +1,5 @@
 import './Home.css';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import europe2 from '../../assets/europe2.jpg';
 import AnimatedText from "./Animated";
 import WeatherApp from '../Weather/WeatherApp';
 import { useAuth } from '../../contexts/AuthContext';
@@ -10,7 +8,7 @@ import MonthCalendarLandingPage from '../LandingPage/Calendar/MonthCalendarLandi
 const Home = () => {
   const { userData } = useAuth();
   return (
-    <div className="home-container  bg-gray-100 p-4 rounded-lg shadow-md ">
+    <div className="home-container  bg-gray-100 p-4 rounded-lg shadow-md mb-16">
       <div className="welcome-section mb-6 bg-purple-800 rounded-full">
         <h2 className="text-2xl  font-semibold text-white">Welcome back, {userData?.username}!</h2>
         <p className="text-white">
@@ -24,7 +22,6 @@ const Home = () => {
         </div>
       </div>
       <div className="w-1/2">
-
       </div>
     </div>
   );
