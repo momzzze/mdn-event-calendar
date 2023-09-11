@@ -46,7 +46,7 @@ const LandingPage = () => {
                     Get started
                 </RouterLink>
             </div>
-            <section id='features' className='w-10/12 p-6 my-12 lg:ml-40 sm:ml-20 ml-10'>
+            <section id='features' className='w-10/12 p-6 m-12 lg:ml-40 sm:ml-20 ml-10'>
                 <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl">Our Features</h2>
                 <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2' />
                 <ul className="list-none mx-auto my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -87,8 +87,8 @@ const LandingPage = () => {
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
             {/* <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2'/> */}
-            <section id='mock-calendar' className='p-6 my-12'>
-                <MonthCalendarLandingPage />
+            <section id='mock-calendar' className='mb-20 pb-20'>
+                <MonthCalendarLandingPage openSignInModal={openSignInModal} setIsSignInModalOpen={setIsSignInModalOpen} />
             </section>
 
         </div>

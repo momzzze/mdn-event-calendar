@@ -5,8 +5,12 @@ import { useState } from "react";
 import { generateDate, months, days, cn } from "../../../utils/calendarUtils";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { useData } from "../../../contexts/DataContext";
+import { Link as RouterLink } from "react-router-dom";
 
-const MonthCalendarLandingPage = () => {
+const MonthCalendarLandingPage = ({
+  openSignInModal,
+  setIsSignInModalOpen,
+}) => {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
@@ -38,7 +42,7 @@ const MonthCalendarLandingPage = () => {
   }, []);
 
   return (
-    <div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto h-screen items-center sm:flex-row flex-col">
+    <div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto h-full items-center sm:flex-row flex-col">
       <div className="w-96 h-96">
         <div className="flex justify-between items-center">
           <h1 className="select-none font-semibold">
@@ -135,47 +139,51 @@ const MonthCalendarLandingPage = () => {
           </time>
         </h1>
         {selectDatePublicEvents?.length > 0 ? (
-          <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-            {selectDatePublicEvents.map((event, index) => (
-              <li
-                key={index}
-                className={`flex items-center px-4 py-2 space-x-4 group border-2 bg-white rounded-xl
+          <RouterLink onClick={() => openSignInModal(setIsSignInModalOpen)}>
+            <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+              {selectDatePublicEvents.map((event, index) => (
+                <li
+                  key={index}
+                  className={`flex items-center px-4 py-2 space-x-4 group border-2 bg-white rounded-xl
 			  ${isHovered ? "scale-105 cursor-pointer" : ""}`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <div className="flex flex-col items-center">
-                  <img
-                    src={
-                      event?.imageUrl
-                        ? event?.imageUrl
-                        : "https://png.pngtree.com/png-clipart/20190916/original/pngtree-flat-calendar-png-image_4590004.jpg"
-                    }
-                    alt="event image"
-                    className="object-cover flex-none w-12 h-12 rounded-full"
-                  />
-                  <p className="mt-0.5">{event?.publicity}</p>
-                </div>
-                <div className="flex-auto">
-                  <p className="text-lg font-bold">{event.title}</p>
-                  <p className="mt-0.5">
-                    <span className="mt-0.5 mr-3 font-bold">Start</span>
-                    <time dateTime={event?.startDate}>
-                      {dayjs(event?.startDate).format("MMM D, HH:mm")}
-                    </time>
-                  </p>
-                  <p className="mt-0.5">
-                    <span className="mt-0.5 mr-4 font-bold">End</span>
-                    <time dateTime={event.endDate}>
-                      {dayjs(event?.endDate).format("MMM D, HH:mm")}
-                    </time>
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={
+                        event?.imageUrl
+                          ? event?.imageUrl
+                          : "https://png.pngtree.com/png-clipart/20190916/original/pngtree-flat-calendar-png-image_4590004.jpg"
+                      }
+                      alt="event image"
+                      className="object-cover flex-none w-12 h-12 rounded-full"
+                    />
+                    <p className="mt-0.5">{event?.publicity}</p>
+                  </div>
+                  <div className="flex-auto">
+                    <p className="text-lg font-bold">{event.title}</p>
+                    <p className="mt-0.5">
+                      <span className="mt-0.5 mr-3 font-bold">Start</span>
+                      <time dateTime={event?.startDate}>
+                        {dayjs(event?.startDate).format("MMM D, HH:mm")}
+                      </time>
+                    </p>
+                    <p className="mt-0.5">
+                      <span className="mt-0.5 mr-4 font-bold">End</span>
+                      <time dateTime={event.endDate}>
+                        {dayjs(event?.endDate).format("MMM D, HH:mm")}
+                      </time>
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </RouterLink>
         ) : (
-          <p className="text-gray-400 my-5">No meetings for today.</p>
+          <p className="text-gray-400 my-5 hover:none">
+            No meetings for today.
+          </p>
         )}
       </div>
     </div>
