@@ -18,6 +18,7 @@ const WeekCalendar = ({
             currentDate={currentDate}
             today={today}
             setToday={setToday}
+            selectDate={selectDate}
             setSelectDate={setSelectDate}
           />
           <WeekDays
@@ -32,8 +33,12 @@ const WeekCalendar = ({
         <div className="w-[80px] grid grid-rows-48">
           <Hours />
         </div>
-        <div className={`flex-1 grid grid-cols-7`} >
-          <WeekEvents today={today} setSelectDate={setSelectDate} />
+        <div className={`flex-1 grid grid-cols-7`}>
+          <WeekEvents
+            today={today}
+            selectDate={selectDate}
+            setSelectDate={setSelectDate}
+          />
         </div>
       </div>
     </>

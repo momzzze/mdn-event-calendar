@@ -33,10 +33,11 @@ const WeekEvents = ({ today }) => {
         today.year()
       ).map(({ date }, index) => {
         const allEvents = allEventsWeekDay(date);
+        const allEventsLength = allEvents?.length.toString();
         return (
           <div
             key={index}
-            className={`grid grid-cols-${allEvents?.length} border-2`}
+            className={`grid grid-cols-${allEventsLength} border-2`}
           >
             <Events allEvents={allEvents} selectDate={date} />
           </div>

@@ -42,7 +42,7 @@ const Events = ({ allEvents, selectDate }) => {
                 eventStartMinute === currMinute ? (
                 <div
                   key={eventIndex}
-                  className={`h-[26px] text-white text-lg font-semibold border-l-2 border-r-2`}
+                  className={`h-[26px] text-white font-semibold border-l-2 border-r-2 ${allEvents?.length > 1 ? 'text-base' : 'text-lg'}`}
                   style={{ backgroundColor: event?.color }}
                 >
                   {event?.title}

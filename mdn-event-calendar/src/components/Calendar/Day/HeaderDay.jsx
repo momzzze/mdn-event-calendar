@@ -13,7 +13,6 @@ const HeaderDay = ({ currentDate, today, setToday, selectDate, setSelectDate }) 
         />
         <h1 className="w-[270px] select-none font-semibold px-3">
         {selectDate.format("dddd, MMMM DD, YYYY")}
-        {/* {today.format("dddd, MMMM DD, YYYY")} */}
         </h1>
         <GrFormNext
           className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
