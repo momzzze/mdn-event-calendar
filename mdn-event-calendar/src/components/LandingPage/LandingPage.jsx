@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './LandingPage.css';
 import { Link as RouterLink } from 'react-router-dom';
+import { FaCalendarAlt, FaCalendar, FaUser, FaRoute } from 'react-icons/fa';
 import SignIn from '../Auth/Login/Signin';
 import SignUp from '../Auth/Register/Signup';
 import { closeSignInModal, closeSignUpModal } from '../../common/auth.helper.functions';
@@ -45,9 +46,51 @@ const LandingPage = () => {
                     Get started
                 </RouterLink>
             </div>
+            <section id='features' className='w-10/12 p-6 my-12 lg:ml-40 sm:ml-20 ml-10'>
+                <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl">Our Features</h2>
+                <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2' />
+                <ul className="list-none mx-auto my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                    <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105 relative">
+                        <div className="absolute top-0 left-0 w-full h-4 bg-purple-800 dark:bg-white rounded-t-lg"></div>
+                        <div className="relative mb-4 text-purple-800 dark:text-white">
+                            <FaCalendarAlt className="text-5xl" />
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Personal Calendar</h2>
+                        <p className="text-gray-600 dark:text-gray-300">Plan your party day with precision using our Personal Calendar.</p>
+                    </li>
+                    <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
+                        <div className="absolute top-0 left-0 w-full h-4 bg-purple-800 dark:bg-white rounded-t-lg"></div>
+                        <div className="relative mb-4 text-purple-800 dark:text-white">
+                            <FaCalendar className="text-5xl" />
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Events</h2>
+                        <p className="text-gray-600 dark:text-gray-300">Coordinate party events seamlessly with our Events feature.</p>
+                    </li>
+                    <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
+                        <div className="absolute top-0 left-0 w-full h-4 bg-purple-800 dark:bg-white rounded-t-lg"></div>
+                        <div className="mb-4 text-purple-800 dark:text-white">
+                            <FaRoute className="text-5xl" />
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Route</h2>
+                        <p className="text-gray-600 dark:text-gray-300">Guide your guests to the party hassle-free with our Route planner.</p>
+                    </li>
+                    <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
+                        <div className="absolute top-0 left-0 w-full h-4 bg-purple-800 dark:bg-white rounded-t-lg"></div>
+                        <div className="mb-4 text-purple-800 dark:text-white">
+                            <FaUser className="text-5xl" />
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Contacts</h2>
+                        <p className="text-gray-600 dark:text-gray-300">Stay connected with your party crew using our Contacts organizer.</p>
+                    </li>
+                </ul>
+            </section>
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
-            <MonthCalendarLandingPage />
+            {/* <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2'/> */}
+            <section id='mock-calendar' className='p-6 my-12'>
+                <MonthCalendarLandingPage />
+            </section>
+
         </div>
     );
 };

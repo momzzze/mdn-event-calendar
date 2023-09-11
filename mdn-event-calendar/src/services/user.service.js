@@ -108,3 +108,19 @@ export const getUserByEmail = async (email) => {
         console.error('Error getting user by email:', error);
     }
 }
+
+export const getUsernameForCreator = async (creatorId) => {
+    try {
+        const userDataQuery = query(ref(db, "users"), orderByChild("uid"), equalTo(creatorId));        
+        const userSnap=await get(userDataQuery);
+        if (userSnap.exists()) {
+            const userData = userSnap.val();
+            const username = Object.keys(userData)[0];
+            return username;
+        }
+        return null; 
+    } catch (error) {
+        console.error('Error getting creator username:', error);
+        return null;
+    }
+};

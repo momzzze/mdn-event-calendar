@@ -10,7 +10,7 @@ import AdminDashboard from './components/Admin/AdminDashboard';
 import ListEvents from './components/Events/ListEvents/ListEvents';
 import SingleComponent from './components/Events/Components/SingleComponent';
 import Footer from './components/Footer/Footer'
-import About from './components/AboutPage/About'; 
+import About from './components/AboutPage/About';
 
 function App() {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -27,14 +27,18 @@ function App() {
             <Route path="/event/:eventId" element={<SingleComponent />} />
             <Route path="/calendar" element={<Calendar />} />
             {isAdmin && <Route path="/admin" element={<AdminDashboard />} />}
-            <Route path="/about" element={<About />} /> 
+            <Route path="/about" element={<About />} />
           </Routes>
-          <Footer/>
+          <Footer />
         </>) :
         (
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-          </Routes>
+          <>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+            <Footer />
+          </>
         )}
     </>
   )
