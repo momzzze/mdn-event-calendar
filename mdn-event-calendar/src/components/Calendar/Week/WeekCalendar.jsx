@@ -36,7 +36,6 @@ const WeekCalendar = ({
         <div className={`flex-1 grid grid-cols-7`}>
           <WeekEvents
             today={today}
-            selectDate={selectDate}
             setSelectDate={setSelectDate}
           />
         </div>

@@ -5,7 +5,7 @@ dayjs.extend(isBetween);
 import { useData } from "../../../contexts/DataContext";
 import Events from "../Day/Events";
 
-const WeekEvents = ({ today }) => {
+const WeekEvents = ({ today, setSelectDate }) => {
   const { publicEventsCurrentUserParticipate, privateEvents } = useData();
 
   const allEventsWeekDay = (date) => {
@@ -38,6 +38,9 @@ const WeekEvents = ({ today }) => {
           <div
             key={index}
             className={`grid grid-cols-${allEventsLength} border-2`}
+            onClick={() => {
+              setSelectDate(date);
+            }}
           >
             <Events allEvents={allEvents} selectDate={date} />
           </div>

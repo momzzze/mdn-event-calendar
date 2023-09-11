@@ -6,7 +6,7 @@ const Hours = () => {
         {hours.map((hour, index) => (
           <div
             key={index}
-            className="bg-slate-50 h-[26px] flex items-center justify-center border-2 border-gray-200"
+            className="bg-slate-50 h-[1.625rem] flex items-center justify-center border-2 border-gray-200"
           >
             {hour}
           </div>

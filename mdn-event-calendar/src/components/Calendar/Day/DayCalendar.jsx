@@ -10,7 +10,7 @@ const DayCalendar = ({
   setSelectDate,
   allEvents,
 }) => {
-  const allEventsLength = allEvents?.length;
+  const allEventsLength = allEvents?.length.toString();
 
   return (
     <>

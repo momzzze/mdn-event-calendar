@@ -1,6 +1,5 @@
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import { months } from "../../../utils/calendarUtils";
-import { set } from "firebase/database";
 
 const HeaderWeek = ({ currentDate, today, setToday, setSelectDate }) => {
   return (

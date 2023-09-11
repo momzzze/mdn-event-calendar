@@ -42,7 +42,11 @@ const Events = ({ allEvents, selectDate }) => {
                 eventStartMinute === currMinute ? (
                 <div
                   key={eventIndex}
-                  className={`h-[26px] text-white font-semibold border-l-2 border-r-2 ${allEvents?.length > 1 ? 'text-base' : 'text-lg'}`}
+                  className={`col-start-${
+                    eventIndex + 1
+                  } h-[1.625rem] text-white font-semibold border-l-2 border-r-2 ${
+                    allEvents?.length > 1 ? "text-base" : "text-lg"
+                  }`}
                   style={{ backgroundColor: event?.color }}
                 >
                   {event?.title}
@@ -50,7 +54,9 @@ const Events = ({ allEvents, selectDate }) => {
               ) : (
                 <div
                   key={eventIndex}
-                  className="h-[26px] border-l-2 border-r-2"
+                  className={`col-start-${
+                    eventIndex + 1
+                  } h-[1.625rem] border-l-2 border-r-2`}
                   style={{ backgroundColor: event?.color }}
                 ></div>
               );
@@ -58,7 +64,9 @@ const Events = ({ allEvents, selectDate }) => {
               return (
                 <div
                   key={eventIndex}
-                  className="bg-slate-50 border border-solid border-grey-100 h-[26px] border-l-2 border-r-2"
+                  className={`col-start-${
+                    eventIndex + 1
+                  } bg-slate-50 border border-solid border-grey-100 h-[1.625rem] border-l-2 border-r-2`}
                 >
                   {""}
                 </div>
@@ -68,7 +76,7 @@ const Events = ({ allEvents, selectDate }) => {
         ) : (
           <div
             key={index}
-            className="bg-slate-50 border border-solid border-grey-100 h-[26px] border-l-2 border-r-2"
+            className="bg-slate-50 border border-solid border-grey-100 h-[1.625rem] border-l-2 border-r-2"
           >
             {""}
           </div>
