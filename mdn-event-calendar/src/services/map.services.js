@@ -18,3 +18,23 @@ export async function findLocationByAddress(address) {
         return null;
     }
 }
+
+
+export async function findLocationByLatitudeAndLongitude(latitude, longitude) {
+    try {
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${REACT_APP_GOOGLE_MAPS_API_KEY}`);
+        const data = await response.json();
+        if (data.status === 'OK' && data.results && data.results.length > 0) {
+            const result = data.results[0];
+            for (const component of result.address_components) {
+                if (component.types.includes('locality')) {
+                    return component.long_name;
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error in reverse geocoding:', error);
+    }
+
+    return null; 
+}

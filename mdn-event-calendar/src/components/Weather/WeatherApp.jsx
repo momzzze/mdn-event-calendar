@@ -2,9 +2,24 @@ import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../../services/weather.service';
 import { FaSun, FaCloud, FaCloudSun, FaCloudRain, FaCloudShowersHeavy } from 'react-icons/fa';
 import { IoMdSunny } from 'react-icons/io';
+import { log } from 'react-modal/lib/helpers/ariaAppHider';
+import { findLocationByLatitudeAndLongitude } from '../../services/map.services';
 
 const WeatherApp = ({ city }) => {
     const [weatherData, setWeatherData] = useState(null);
+    const [userLocation, setUserLocation] = useState(null);
+    const [generatedCity, setGeneratedCity] = useState(null);
+
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                setUserLocation({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                });
+            });
+        }
+    }, []);
 
     useEffect(() => {
         async function getWeather() {
@@ -12,13 +27,28 @@ const WeatherApp = ({ city }) => {
                 if (city) {
                     const data = await fetchWeatherData(city);
                     setWeatherData(data);
+                } else if (userLocation && generatedCity) {
+                    const data = await fetchWeatherData(generatedCity); 
+                    setWeatherData(data);
+                } else {
+                    const defaultCity = 'Sofia';
+                    const data = await fetchWeatherData(defaultCity);
+                    setWeatherData(data);
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
         }
         getWeather();
-    }, [city]);
+    }, [city, userLocation, generatedCity]);
+
+    useEffect(() => {
+        if (userLocation) {
+            findLocationByLatitudeAndLongitude(userLocation.latitude, userLocation.longitude)
+                .then((city) => setGeneratedCity(city))
+                .catch((error) => console.error('Error fetching generated city:', error));
+        }
+    }, [userLocation]);
 
     const weatherIcons = {
         'sunny': <FaSun />,
