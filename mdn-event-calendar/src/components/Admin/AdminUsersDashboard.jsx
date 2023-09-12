@@ -39,7 +39,7 @@ const AdminUsersDashboard = () => {
                         <div className="mb-4">
                             <input
                                 type="text"
-                                placeholder="Search users..."
+                                placeholder="Search users...🔍"
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                                 className="border border-gray-300 w-4/5 min-w-0 max-w-full px-3 py-2 rounded focus:outline-none focus:border-purple-500"
@@ -59,7 +59,7 @@ const AdminUsersDashboard = () => {
                                                     <FaUser size={20} color="white" />
                                                 </div>
                                             )}
-                                            <span className="text-lg font-semibold">{user.username}</span>
+                                            <span className="text-lg font-semibold text-purple-800">{user.username}</span>
                                         </div>
                                         <button
                                             onClick={() => handleToggle(user?.id, user?.role)}
@@ -87,7 +87,7 @@ const AdminUsersDashboard = () => {
                             <li key={user?.id} className="bg-white rounded-lg p-4 flex items-center justify-between mb-4">
                                 <div className="flex items-center space-x-2">
                                     <img src={user?.photo} alt={`${user?.username} Avatar`} className="w-10 h-10 rounded-full mr-10" />
-                                    <span className="text-lg font-semibold">{user.username}</span>
+                                    <span className="text-lg font-semibold text-purple-800">{user.username}</span>
                                 </div>
                                 <button
                                     onClick={() => handleToggle(user?.id, user?.role)}

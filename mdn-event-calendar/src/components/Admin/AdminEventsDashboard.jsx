@@ -101,7 +101,7 @@ const AdminEventsDashboard = () => {
             </div>
             <input
                 type="text"
-                placeholder="Search by title..."
+                placeholder="Search by title...🔍"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full p-2 border rounded-md mb-4"
@@ -115,7 +115,7 @@ const AdminEventsDashboard = () => {
                                 className="bg-white p-4 shadow-md flex flex-col md:flex-row justify-between items-center"
                             >
                                 <div className="flex flex-col items-start mb-2 md:mb-0">
-                                    <h2 className="text-lg font-semibold">
+                                    <h2 className="text-lg font-semibold text-purple-800">
                                         {event.title}
                                     </h2>
                                     <p className="text-gray-600">
