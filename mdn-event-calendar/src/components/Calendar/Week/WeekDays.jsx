@@ -8,7 +8,7 @@ const WeekDays = ({ today, selectDate, setSelectDate }) => {
   return (
     <div className="flex">
       <div className="w-20 border-2"></div>
-      <div className="flex-1 grid grid-cols-7 border-2">
+      <div className="flex-1 grid grid-cols-7 border-2 border-l-4 border-r-8">
         {generateDateWeek(
           today.day(),
           today.week(),

@@ -21,12 +21,12 @@ const Home = () => {
           <AnimatedText />
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-3 mx-3">
-        <div className="grid gap-10 content-section bg-white p-4 rounded-lg shadow-md mb-6">
+      <div className="grid grid-cols-5 gap-3 mx-3">
+        <div className="start-col-1 col-span-2 grid gap-10 content-section bg-white p-4 rounded-lg shadow-md mb-6 p-12">
           <WeatherApp city={userData?.city} />
           <CalendarHome />
         </div>
-        <div className="content-section bg-white p-4 rounded-lg shadow-md mb-6">
+        <div className="start-col-3 col-span-3 content-section bg-white p-4 rounded-lg shadow-md mb-6">
           <h1 className="text-4xl font-bold text-purple-800 mb-10">
             Upcoming Events For This Week
           </h1>

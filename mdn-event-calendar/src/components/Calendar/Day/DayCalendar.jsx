@@ -25,7 +25,7 @@ const DayCalendar = ({
           />
         </div>
       </div>
-      <div className="w-116 h-96 grid grid-cols-10 overflow-y-auto">
+      <div className="w-116 h-[45rem] grid grid-cols-10 overflow-y-auto">
         <div className="col-start-1 grid grid-rows-48 border-2">
           <Hours />
         </div>

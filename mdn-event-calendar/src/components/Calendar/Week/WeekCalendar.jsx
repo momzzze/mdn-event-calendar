@@ -29,7 +29,7 @@ const WeekCalendar = ({
           />
         </div>
       </div>
-      <div className="w-116 h-96 flex flex-row overflow-y-auto">
+      <div className="w-116 h-[41rem] flex flex-row overflow-y-auto">
         <div className="w-[80px] grid grid-rows-48">
           <Hours />
         </div>

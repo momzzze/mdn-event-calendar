@@ -33,7 +33,7 @@ const CalendarHome = () => {
   };
 
   return (
-    <div className="flex gap-10 mb-10 sm:divide-x justify-center sm:w-1/2 mx-auto h-full items-center sm:flex-row flex-col">
+    <div className="flex gap-10 mb-10 sm:divide-x justify-center w-full h-full items-center sm:flex-row flex-col">
       <div
         className="w-full h-11/12 p-3 sm:px-5 border-2 rounded-lg bg-slate-100"
         onClick={handleCalendarClick}
