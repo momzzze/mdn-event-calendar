@@ -48,6 +48,8 @@ const SingleComponent = () => {
 
     const confirmDelete = async () => {
         const success = await deleteEvent(eventData.id, eventData.creatorId);
+        setPublicEventsCurrentUserParticipateData();
+        setPrivateEventsData();
         if (success) {
             redirect('/events');
         }
@@ -62,7 +64,7 @@ const SingleComponent = () => {
         openConfirmationModal();
     }
 
-    
+
 
 
     const getEventData = async (eventId) => {

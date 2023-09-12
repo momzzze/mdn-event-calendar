@@ -6,10 +6,14 @@ import { deleteEvent } from "../../services/event.service";
 
 
 const AdminEventsDashboard = () => {
-    const { allEvents, setAllEventsData } = useData();
+    const { allEvents, setAllEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [eventToDelete, setEventToDelete] = useState(null);
+
     const [itemsPerPage] = useState(5);
     const navigate = useNavigate();
 
@@ -41,13 +45,34 @@ const AdminEventsDashboard = () => {
             }
         });
     }
-    const handleDeleteEvent = async (eventId, creatorId) => {
-        const deleted = await deleteEvent(eventId, creatorId);
-        if (deleted) {
-            setAllEventsData();
-        } else {
-            console.error("Failed to delete event.");
+    // delete logic;
+    const openConfirmationModal = (eventId, creatorId) => {
+        setEventToDelete({ eventId, creatorId });
+        setShowConfirmationModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (eventToDelete) {
+            const { eventId, creatorId } = eventToDelete;
+            const deleted = await deleteEvent(eventId, creatorId);
+            setPublicEventsCurrentUserParticipateData();
+            setPrivateEventsData();
+            if (deleted) {
+                setAllEventsData();
+                setShowConfirmationModal(false);
+            } else {
+                console.error("Failed to delete event.");
+            }
         }
+    };
+
+    const cancelDelete = () => {
+        setShowConfirmationModal(false);
+    };
+
+
+    const handleDeleteEvent = async (eventId, creatorId) => {
+        openConfirmationModal(eventId, creatorId);
     };
 
     const maxPageButtons = 5;
@@ -110,6 +135,28 @@ const AdminEventsDashboard = () => {
                                     >
                                         Delete
                                     </button>
+                                    {showConfirmationModal && (
+                                        <div className="fixed inset-0 flex items-center justify-center z-50">
+                                            <div className="bg-black opacity-10"></div>
+                                            <div className="z-10 bg-white p-4 rounded-md shadow-lg">
+                                                <p className="text-xl font-bold mb-4">Are you sure you want to delete this event?</p>
+                                                <div className="flex justify-end">
+                                                    <button
+                                                        className="px-4 py-2 bg-red-500 text-white rounded-md mr-2"
+                                                        onClick={confirmDelete}
+                                                    >
+                                                        OK
+                                                    </button>
+                                                    <button
+                                                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+                                                        onClick={cancelDelete}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </li>
                         );
