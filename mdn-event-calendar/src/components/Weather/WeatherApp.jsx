@@ -9,8 +9,10 @@ const WeatherApp = ({ city }) => {
     useEffect(() => {
         async function getWeather() {
             try {
-                const data = await fetchWeatherData(city);
-                setWeatherData(data);
+                if (city) {
+                    const data = await fetchWeatherData(city);
+                    setWeatherData(data);
+                }
             } catch (error) {
                 console.error('Error:', error);
             }

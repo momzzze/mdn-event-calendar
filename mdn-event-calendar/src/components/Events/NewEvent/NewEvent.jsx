@@ -118,7 +118,6 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
             New Event
           </h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Title */}
             <div className="mb-4">
               <label className="block font-bold mb-1">Title</label>
               <input
@@ -143,8 +142,6 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                 <span className="text-red-500">{errors.title.message}</span>
               )}
             </div>
-
-            {/* Publicity */}
             <div className="flex gap-4 mb-4">
               <label className="block font-bold mb-1">Event is:</label>
               <input

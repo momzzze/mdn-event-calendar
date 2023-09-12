@@ -44,7 +44,6 @@ const ListEvents = () => {
         const currentDate = new Date();
 
         if (activeTab === "myEvents") {
-            {console.log(events)}
             return events
                 .filter((event) => new Date(event?.endDate) >= currentDate)
                 .map((event) => (
