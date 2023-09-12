@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { AuthContext, useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/toast";
 import { useForm } from "react-hook-form";
