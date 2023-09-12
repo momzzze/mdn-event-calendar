@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { useData } from '../../../contexts/DataContext';
-import { addParticipantToEvent } from '../../../services/event.service';
 
-const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandle, removeParticipantHandle,refreshEventData }) => {
+const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandle, removeParticipantHandle }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const { userContacts, users } = useData();
     const [filteredParticipants, setFilteredParticipants] = useState([]);
@@ -25,9 +24,9 @@ const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandl
         participant.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const isParticipant = (user) => {
-        return eventParticipants.some((participant) => participant === user.uid);
-    };
+    // const isParticipant = (user) => {
+    //     return eventParticipants.some((participant) => participant === user.uid);
+    // };
 
     return (
         <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5 mt-4 mb-6 text-gray-700">
@@ -63,16 +62,7 @@ const ParticipantsSection = ({ eventData, eventParticipants, addParticipantHandl
                                 {participant.firstName} {participant.lastName}
                             </span>
                         </div>
-                        {/* <button
-                            onClick={() => addParticipantHandle(eventId, participant.uid)}
-                            className={`px-4 py-2 rounded ${isParticipant(participant)
-                                ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                                : 'bg-purple-800 text-white'
-                                }`}
-
-                        >
-                            {isParticipant(participant) ? 'Attending' : 'Add participant'}
-                        </button> */}
+                       
                         {eventParticipants?.includes(participant?.uid) ? (
                             <button onClick={() => removeParticipantHandle(eventData.id, participant.uid, eventData.publicity)} className="w-2/12 bg-red-800 text-white rounded-lg p-2">
                                 Remove

@@ -27,7 +27,6 @@ const SingleComponent = () => {
     const month = startDate.toLocaleString('en-US', { month: 'short', ...timeZoneOption });
     const day = startDate.toLocaleString('en-US', { day: 'numeric', ...timeZoneOption });
     const startHour = startDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
-    // const endHour = endDate.toLocaleString('en-US', { hour: 'numeric', hour12: true, ...timeZoneOption });
 
     useEffect(() => {
         if (location.state && location.state.eventDataId) {
@@ -41,6 +40,7 @@ const SingleComponent = () => {
         const participantsData = await fetchParticipants(eventId);
         setParticipants(participantsData);
     };
+
     // Delete modal logic
     const openConfirmationModal = () => {
         setShowConfirmationModal(true);

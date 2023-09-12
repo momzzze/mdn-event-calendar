@@ -1,6 +1,5 @@
 import { get, set, push, ref, query, orderByChild, equalTo, update, remove } from "firebase/database";
 import { db } from '../config/firebase'
-import { getUserData } from "./user.service";
 
 
 export const createEventHandle = async (data, startDate, endDate, creatorId, username, color) => {

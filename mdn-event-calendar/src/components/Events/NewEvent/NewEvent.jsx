@@ -1,16 +1,8 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import Modal from "react-modal";
 import { useToast } from "@chakra-ui/react";
-import { set, useForm } from "react-hook-form";
-import { registerUser } from "../../../services/auth.services";
-import {
-  createUserHandle,
-  getUserByHandle,
-  getUserByPhone,
-} from "../../../services/user.service";
-import { Link, useNavigate } from "react-router-dom";
-import { customStylesSignUp } from "../../../common/modal.helper.functions";
-// import DatePicker from "./DatePicker";
+import {  useForm } from "react-hook-form";
+import {  useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import { eventReoccurrence } from "../../../common/enums/events.enum";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -44,9 +36,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
 
   const toast = useToast();
   const navigate = useNavigate();
-  const [publicity, setPublicity] = useState("private");
   const repeatEvent = Object.values(eventReoccurrence);
-  const [reoccurrence, setReoccurrence] = useState(repeatEvent[0]);
   const { setPublicEventsData, setPublicEventsCurrentUserParticipateData, setPrivateEventsData } = useData();
 
   const [startDate, setStartDate] = useState();
@@ -77,7 +67,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
     try {
       const color = randomColor()
 
-      const newEvent = await createEventHandle(
+       await createEventHandle(
         data,
         startDate,
         endDate,

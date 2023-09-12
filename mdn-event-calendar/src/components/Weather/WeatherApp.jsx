@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { fetchWeatherData } from '../../services/weather.service';
 import { FaSun, FaCloud, FaCloudSun, FaCloudRain, FaCloudShowersHeavy } from 'react-icons/fa';
 import { IoMdSunny } from 'react-icons/io';
-import { log } from 'react-modal/lib/helpers/ariaAppHider';
 import { findLocationByLatitudeAndLongitude } from '../../services/map.services';
 
 const WeatherApp = ({ city }) => {
@@ -72,7 +71,7 @@ const WeatherApp = ({ city }) => {
         <div className="flex justify-center">
             <div className="card min-w-md max-w-4xl border border-gray-100 bg-gray-50 transition-shadow test shadow-lg hover:shadow-shadow-xl w-full bg-purple-700 text-purple-50 rounded-md p-6">
                 <h2 className="text-lg mb-4">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between"> 
                         <div className="badge relative top-0">
                             <span className="text-lg font-semibold">
                                 {weatherData?.location?.name}

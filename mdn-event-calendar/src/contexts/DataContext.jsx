@@ -4,7 +4,7 @@ import { getAllContactListsForUser, getPendingInvitesForUser, getSendingInvitesF
 import { getPublicEvents, getPrivateEvents, getPublicEventsCurrentUserParticipate, getAllEvents } from '../services/event.service';
 import { useAuth } from './AuthContext';
 import { db } from '../config/firebase';
-import { off, onValue, ref, set } from 'firebase/database';
+import { off, onValue, ref } from 'firebase/database';
 
 const DataContext = createContext();
 
