@@ -18,12 +18,10 @@ const WeekCalendar = ({
             currentDate={currentDate}
             today={today}
             setToday={setToday}
-            selectDate={selectDate}
             setSelectDate={setSelectDate}
           />
           <WeekDays
             today={today}
-            setToday={setToday}
             selectDate={selectDate}
             setSelectDate={setSelectDate}
           />

@@ -7,35 +7,21 @@ import { useData } from "../../../contexts/DataContext";
 const MonthDays = ({ today, selectDate, setSelectDate }) => {
   const { publicEventsCurrentUserParticipate, privateEvents } = useData();
 
-  const publicEventsCurrentMonth = publicEventsCurrentUserParticipate?.reduce(
-    (result, event) => {
-      if (
-        dayjs(event.startDate).month() === today.month() ||
-        dayjs(event.endDate).month() === today.month() ||
-        dayjs(today).isBetween(
-          dayjs(event.startDate),
-          dayjs(event.endDate),
-          "month"
-        )
+  const allEventsMonth = (date) => {
+    const allEvents = [...publicEventsCurrentUserParticipate, ...privateEvents]
+      ?.filter(
+        (event) =>
+          (dayjs(event?.startDate).isSame(event?.endDate, "day") &&
+            dayjs(event?.startDate).isSame(date, "day")) ||
+          dayjs(date).isBetween(
+            dayjs(event?.startDate).add(-1, "day"),
+            dayjs(event?.endDate).add(1, "day"),
+            "day"
+          )
       )
-        result.push(event);
-      return result;
-    },
-    []
-  );
-  const privateEventsCurrentMonth = privateEvents?.reduce((result, event) => {
-    if (
-      dayjs(event.startDate).month() === today.month() ||
-      dayjs(event.endDate).month() === today.month() ||
-      dayjs(today).isBetween(
-        dayjs(event.startDate),
-        dayjs(event.endDate),
-        "month"
-      )
-    )
-      result.push(event);
-    return result;
-  }, []);
+      ?.sort((a, b) => dayjs(a?.startDate).hour() - dayjs(b?.startDate).hour());
+    return allEvents;
+  };
 
   return (
     <>
@@ -54,6 +40,7 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
       <div className=" grid grid-cols-7 ">
         {generateDate(today.month(), today.year()).map(
           ({ date, currentMonth, today }, index) => {
+            const allEvents = allEventsMonth(date);
             return (
               <div
                 key={index}
@@ -75,90 +62,25 @@ const MonthDays = ({ today, selectDate, setSelectDate }) => {
                 >
                   {date.date()}
                 </h1>
-                {privateEventsCurrentMonth?.some(
-                  (event) =>
-                    (dayjs(event?.startDate).date() ===
-                      dayjs(event?.endDate).date() &&
-                      dayjs(event?.endDate).date() === date.date()) ||
-                    dayjs(date).isBetween(
-                      dayjs(event.startDate).add(-1, "day"),
-                      dayjs(event.endDate).add(1, "day"),
-                      "day"
-                    )
-                ) &&
-                  privateEventsCurrentMonth
-                    ?.filter(
-                      (event) =>
-                        (dayjs(event?.startDate).date() ===
-                          dayjs(event?.endDate).date() &&
-                          dayjs(event?.endDate).date() === date.date()) ||
-                        dayjs(date).isBetween(
-                          dayjs(event.startDate).add(-1, "day"),
-                          dayjs(event.endDate).add(1, "day"),
-                          "day"
-                        )
-                    )
-                    .map((event) => {
-                      if (currentMonth)
-                        return (
-                          <div
-                            key={event?.id}
-                            className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
-                            style={{ backgroundColor: event?.color }}
-                          >
-                            <div className="flex gap-2">
-                              <time className="text-xs text-white font-medium ">
-                                {dayjs(event?.startDate).format("h:mm A")}
-                              </time>
-                              <h1 className="text-xs text-white font-medium ">
-                                {event?.title.slice(0, 7)}...
-                              </h1>
-                            </div>
-                          </div>
-                        );
-                    })}
-                {publicEventsCurrentMonth?.some(
-                  (event) =>
-                    (dayjs(event?.startDate).date() ===
-                      dayjs(event?.endDate).date() &&
-                      dayjs(event?.endDate).date() === date.date()) ||
-                    dayjs(date).isBetween(
-                      dayjs(event.startDate).add(-1, "day"),
-                      dayjs(event.endDate).add(1, "day"),
-                      "day"
-                    )
-                ) &&
-                  publicEventsCurrentMonth
-                    ?.filter(
-                      (event) =>
-                        (dayjs(event?.startDate).date() ===
-                          dayjs(event?.endDate).date() &&
-                          dayjs(event?.endDate).date() === date.date()) ||
-                        dayjs(date).isBetween(
-                          dayjs(event.startDate).add(-1, "day"),
-                          dayjs(event.endDate).add(1, "day"),
-                          "day"
-                        )
-                    )
-                    .map((event) => {
-                      if (currentMonth)
-                        return (
-                          <div
-                            key={event.id}
-                            className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
-                            style={{ backgroundColor: event?.color }}
-                          >
-                            <div className="flex gap-2">
-                              <time className="text-xs text-white font-medium ">
-                                {dayjs(event?.startDate).format("h:mm A")}
-                              </time>
-                              <h1 className="text-xs text-white font-medium ">
-                                {event?.title.slice(0, 7)}...
-                              </h1>
-                            </div>
-                          </div>
-                        );
-                    })}
+                {allEvents?.map((event) => {
+                  if (currentMonth)
+                    return (
+                      <div
+                        key={event?.id}
+                        className={`flex flex-col border rounded-lg overflow-hidden items-center justify-start ml-3`}
+                        style={{ backgroundColor: event?.color }}
+                      >
+                        <div className="flex gap-2">
+                          <time className="text-xs text-white font-medium ">
+                            {dayjs(event?.startDate).format("h:mm A")}
+                          </time>
+                          <h1 className="text-xs text-white font-medium ">
+                            {event?.title.slice(0, 7)}...
+                          </h1>
+                        </div>
+                      </div>
+                    );
+                })}
               </div>
             );
           }
