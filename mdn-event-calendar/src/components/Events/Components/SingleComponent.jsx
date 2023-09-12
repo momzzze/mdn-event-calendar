@@ -18,7 +18,7 @@ const SingleComponent = () => {
     const [participants, setParticipants] = useState([]);
     const redirect = useNavigate();
     const [isOpenEditEventModal, setOpenEditEventModal] = useState(false);
-
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
 
     const startDate = new Date(eventData?.startDate);
@@ -41,6 +41,29 @@ const SingleComponent = () => {
         const participantsData = await fetchParticipants(eventId);
         setParticipants(participantsData);
     };
+    // Delete modal logic
+    const openConfirmationModal = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const confirmDelete = async () => {
+        const success = await deleteEvent(eventData.id, eventData.creatorId);
+        if (success) {
+            redirect('/events');
+        }
+        setShowConfirmationModal(false);
+    };
+
+    const cancelDelete = () => {
+        setShowConfirmationModal(false);
+    };
+
+    const deleteHandler = async () => {
+        openConfirmationModal();
+    }
+
+    
+
 
     const getEventData = async (eventId) => {
         const event = await getEventById(eventId);
@@ -71,12 +94,7 @@ const SingleComponent = () => {
         setParticipants(data)
     }
 
-    const deleteHandler = async () => {
-        const success = await deleteEvent(eventData.id, eventData.creatorId)
-        if (success) {
-            redirect('/events');
-        }
-    }
+
 
     const editHandler = () => {
         openEditEventModal();
@@ -116,18 +134,27 @@ const SingleComponent = () => {
         <div className="mx-auto h-10/12 flex flex-col items-center justify-center px-8 mt-10 mb-16">
             <div className="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
                 <div className="w-full">
-                    <div className="flex flex-row">
-                        <div className="w-1/2 h-96 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
-                            <Map address={eventData?.location || ''} />
+                    {eventData?.imageUrl ? (
+                        <div className="flex flex-row">
+                            <div className="w-1/2 h-96 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
+                                <Map address={eventData?.location || ''} />
+                            </div>
+                            <div className="w-1/2 h-96 rounded-t ">
+                                <img
+                                    src={eventData?.imageUrl}
+                                    alt="event image"
+                                    className="w-full h-full transition-transform duration-300 transform hover:scale-105"
+                                />
+                            </div>
                         </div>
-                        <div className="w-1/2 h-96 rounded-t ">
-                            <img
-                                src={eventData?.imageUrl}
-                                alt="event image"
-                                className="w-full h-full transition-transform duration-300 transform hover:scale-105"
-                            />
+                    ) : (
+                        <div className="flex flex-row">
+                            <div className="w-full h-96 bg-top rounded-t overflow-hidden border-r border-gray-400 text-gray-700">
+                                <Map address={eventData?.location || ''} />
+                            </div>
                         </div>
-                    </div>
+                    )}
+
                 </div>
                 <div className="flex flex-col w-full md:flex-row text-gray-700">
                     <div className="flex flex-row justify-around p-4 font-bold leading-none text-white uppercase bg-purple-800 rounded md:flex-col md:items-center md:justify-center md:w-1/4 transition-transform duration-300 transform hover:scale-105 text-gray-700">
@@ -186,6 +213,28 @@ const SingleComponent = () => {
                                 <button className="mr-3" onClick={deleteHandler}>
                                     <FaTrash />
                                 </button>
+                                {showConfirmationModal && (
+                                    <div className="fixed inset-0 flex items-center justify-center z-50">
+                                        <div className="absolute inset-0 bg-black opacity-70"></div>
+                                        <div className="z-10 bg-white p-4 rounded-md shadow-lg">
+                                            <p className="text-xl font-bold mb-4">Are you sure you want to delete this event?</p>
+                                            <div className="flex justify-end">
+                                                <button
+                                                    className="px-4 py-2 bg-red-500 text-white rounded-md mr-2"
+                                                    onClick={confirmDelete}
+                                                >
+                                                    OK
+                                                </button>
+                                                <button
+                                                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+                                                    onClick={cancelDelete}
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>)}
                         </div>
                     </div>
