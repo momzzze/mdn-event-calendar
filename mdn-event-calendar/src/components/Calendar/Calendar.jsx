@@ -18,7 +18,13 @@ const Calendar = () => {
   const [selectDate, setSelectDate] = useState(currentDate);
   const [isOpenNewEventModal, setOpenNewEventModal] = useState(false);
   const { publicEventsCurrentUserParticipate, privateEvents } = useData();
-
+  if (!publicEventsCurrentUserParticipate || !privateEvents) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500 border-opacity-50"></div>
+      </div>
+    );
+  }
   const openNewEventModal = () => {
     setOpenNewEventModal(true);
   };
