@@ -56,7 +56,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
     const [dateString, timeString] = event.target.value.split("T");
     const [year, month, day] = dateString.split("-").map(Number);
     const [hours, minutes] = timeString.split(":").map(Number);
-    const inputDate = new Date(Date.UTC(year, month - 1, day, hours, minutes)); // Convert to UTC
+    const inputDate = new Date(Date.UTC(year, month - 1, day, hours, minutes));
     const roundedDate = new Date(inputDate);
 
     if (minutes < 15) {
@@ -68,14 +68,14 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
       roundedDate.setUTCHours(hours % 24);
     }
 
-    const localRoundedDate = new Date(roundedDate); // Convert back to local time
+    const localRoundedDate = new Date(roundedDate);
     const formattedDate = localRoundedDate.toISOString().slice(0, -8);
     return formattedDate;
   };
 
   const onSubmit = async (data) => {
     try {
-      const color= randomColor()
+      const color = randomColor()
 
       const newEvent = await createEventHandle(
         data,
@@ -123,9 +123,8 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
               <input
                 type="text"
                 name="title"
-                className={`border p-2 w-full ${
-                  errors.title ? "border-red-500" : ""
-                }`}
+                className={`border p-2 w-full ${errors.title ? "border-red-500" : ""
+                  }`}
                 {...register("title", {
                   required: "Title is required",
                   minLength: {
@@ -175,6 +174,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                     type="datetime-local"
                     name="startDate"
                     min={currentDate.format("YYYY-MM-DDTHH:mm")}
+                    required
                     onChange={(e) => {
                       const date = handleDateTimeChange(e);
                       setStartDate(date);
@@ -192,6 +192,7 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   <input
                     type="datetime-local"
                     name="endDate"
+                    required
                     min={startDate}
                     onChange={(e) => {
                       const date = handleDateTimeChange(e);
@@ -240,8 +241,17 @@ const NewEvent = ({ isOpen, onRequestClose }) => {
                   type="text"
                   name="location"
                   className="border p-1 w-full"
-                  {...register("location")}
+                  {...register("location", {
+                    required: "Location is required",
+                    minLength: {
+                      value: 10,
+                      message: "Location must be at least 10 characters",
+                    },                    
+                  })}
                 />
+                 {errors.location && (
+                <span className="text-red-500">{errors.location.message}</span>
+              )}
               </div>
             </div>
 
