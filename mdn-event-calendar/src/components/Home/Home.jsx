@@ -1,37 +1,52 @@
-import './Home.css';
-import 'leaflet/dist/leaflet.css';
+import "./Home.css";
+import "leaflet/dist/leaflet.css";
 import AnimatedText from "./Animated";
-import WeatherApp from '../Weather/WeatherApp';
-import { useAuth } from '../../contexts/AuthContext';
-import MonthCalendarLandingPage from '../LandingPage/Calendar/MonthCalendarLandingPage';
+import WeatherApp from "../Weather/WeatherApp";
+import CalendarHome from "./CalendarHome/CalendarHome";
+import { useAuth } from "../../contexts/AuthContext";
+import dayjs from "dayjs";
+import ScheduleHome from "./ScheduleHome/ScheduleHome";
 
 const Home = () => {
   const { userData } = useAuth();
+  const currentDate = dayjs();
+
   return (
     <div className="home-container  bg-gray-100 p-4 rounded-lg shadow-md mb-16">
       <div className="welcome-section mb-6 bg-purple-800 rounded-full">
-        <h2 className="text-2xl  font-semibold text-white">Welcome back, {userData?.username}!</h2>
+        <h2 className="text-2xl  font-semibold text-white">
+          Welcome back, {userData?.username}!
+        </h2>
         <p className="text-white">
           <AnimatedText />
         </p>
       </div>
-      <div className="w-1/2 pr-4">
-        <div className="content-section bg-white p-4 rounded-lg shadow-md mb-6">
+      <div className="grid grid-cols-2 gap-3 mx-3">
+        <div className="grid gap-10 content-section bg-white p-4 rounded-lg shadow-md mb-6">
           <WeatherApp city={userData?.city} />
-          <MonthCalendarLandingPage />
+          <CalendarHome />
+        </div>
+        <div className="content-section bg-white p-4 rounded-lg shadow-md mb-6">
+          <h1 className="text-4xl font-bold text-purple-800 mb-10">
+            Upcoming Events For This Week
+          </h1>
+          <div className="h-4/5 w-full">
+            <ScheduleHome today={currentDate} />
+          </div>
         </div>
       </div>
-      <div className="w-1/2">
-      </div>
+      <div className="w-1/2"></div>
     </div>
   );
 };
 
 export default Home;
 
-{/* <div className="background-image">
+{
+  /* <div className="background-image">
           <img src={europe2} alt="Europe Background" />
            <p style={{ fontWeight: 'bolder', fontStyle: 'italic', fontSize: '25px' }}>
             Project by M.D.N. Team
           </p>
-        </div> */}
+        </div> */
+}
