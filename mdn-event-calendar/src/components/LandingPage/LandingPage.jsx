@@ -39,9 +39,11 @@ const LandingPage = () => {
                 </div>
             </nav>
             <div className="bg-gradient-iridescent py-24 px-6 text-center dark:bg-neutral-900">
-                <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight text-whiteh1 md:text-6xl xl:text-7xl">
-                    Wanna party? <br /><span className="text-primary">Welcome to our music event calendar and join the rave!</span>
-                </h1>
+            <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight text-whiteh1 md:text-6xl xl:text-7xl heartbeat">
+  Wanna party? <br />
+  <span className="text-primary">Welcome to our music event calendar and join the rave!🎊</span>
+</h1>
+
                 <RouterLink className="mb-2 inline-block rounded bg-white px-16 py-4 text-sm font-extrabold uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover" data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button">
                     Get started
                 </RouterLink>

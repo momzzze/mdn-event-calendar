@@ -71,8 +71,11 @@
   }
   
   .heartbeat {
-    animation: heartbeat 3s infinite;
+    animation: heartbeat 2s 2;
     transform-origin: center;
     display: inline-block;
   }
+  
+ 
+ 
   
