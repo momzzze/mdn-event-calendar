@@ -50,7 +50,7 @@ const ContactsSidebar = () => {
         )
         : [];
     return (
-        <div className="w-2/3 bg-white p-4 shadow-md">
+        <div className="w-2/3 bg-white p-4 shadow-md ">
             <input
                 type="text"
                 placeholder="Search users...🔍"
