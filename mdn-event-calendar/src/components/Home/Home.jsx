@@ -22,7 +22,7 @@ const Home = () => {
         </p>
       </div>
       <div className="grid grid-cols-5 gap-3 mx-3">
-        <div className="start-col-1 col-span-2 grid gap-10 content-section bg-white p-4 rounded-lg shadow-md mb-6 p-12">
+        <div className="start-col-1 col-span-2 grid gap-10 content-section place-items-center bg-white p-4 rounded-lg shadow-md mb-6 p-12 md:p-6">
           <WeatherApp city={userData?.city} />
           <CalendarHome />
         </div>

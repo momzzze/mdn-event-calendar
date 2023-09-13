@@ -68,7 +68,7 @@ const WeatherApp = ({ city }) => {
         );
     }
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center xl:w-4/5 2xl:w-full">
             <div className="card min-w-md max-w-4xl border border-gray-100 bg-gray-50 transition-shadow test shadow-lg hover:shadow-shadow-xl w-full bg-purple-700 text-purple-50 rounded-md p-6">
                 <h2 className="text-lg mb-4">
                     <div className="flex justify-between"> 
@@ -119,12 +119,12 @@ const WeatherApp = ({ city }) => {
                         const weatherIcon = weatherIcons[day.day.condition.text.toLowerCase()] || <span><FaCloud /></span>;
 
                         return (
-                            <div key={index} className="flex items-center space-x-2 mb-2 md:mb-0">
-                                <div className="text-4xl text-white">
+                            <div key={index} className="flex items-center space-x-2 mb-2 md:mb-0 ">
+                                <div className="2xl:text-4xl xl:text-3x1 text-white">
                                     {weatherIcon}
                                 </div>
                                 <div>
-                                    <div className="text-2xl text-white">
+                                    <div className="2xl:text-2xl xl:text-2x1 text-white">
                                         {day.day.avgtemp_c}°C
                                     </div>
                                     <div className="text-lg text-white">
