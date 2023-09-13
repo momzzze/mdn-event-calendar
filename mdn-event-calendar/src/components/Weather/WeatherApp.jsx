@@ -73,7 +73,7 @@ const WeatherApp = ({ city }) => {
                 <h2 className="text-lg mb-4">
                     <div className="flex justify-between"> 
                         <div className="badge relative top-0">
-                            <span className="text-lg font-semibold">
+                            <span className="font-semibold text-5xl">
                                 {weatherData?.location?.name}
                             </span>
                         </div>
