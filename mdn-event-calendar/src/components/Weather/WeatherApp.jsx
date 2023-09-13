@@ -119,7 +119,7 @@ const WeatherApp = ({ city }) => {
                         const weatherIcon = weatherIcons[day.day.condition.text.toLowerCase()] || <span><FaCloud /></span>;
 
                         return (
-                            <div key={index} className="flex items-center space-x-2 mb-2 md:mb-0 ">
+                            <div key={index} className="flex items-center 2xl:space-x-2 mb-2 md:mb-0 ">
                                 <div className="2xl:text-4xl xl:text-3x1 text-white">
                                     {weatherIcon}
                                 </div>
@@ -127,7 +127,7 @@ const WeatherApp = ({ city }) => {
                                     <div className="2xl:text-2xl xl:text-2x1 text-white">
                                         {day.day.avgtemp_c}°C
                                     </div>
-                                    <div className="text-lg text-white">
+                                    <div className="2xl:text-2xl xl:text-1 text-white">
                                         {dayOfWeek}
                                     </div>
                                 </div>
