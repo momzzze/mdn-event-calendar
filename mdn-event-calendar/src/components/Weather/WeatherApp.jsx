@@ -49,6 +49,7 @@ const WeatherApp = ({ city }) => {
         }
     }, [userLocation]);
 
+
     const weatherIcons = {
         'sunny': <FaSun />,
         'partly cloudy': <FaCloudSun />,

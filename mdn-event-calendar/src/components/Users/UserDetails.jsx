@@ -62,7 +62,7 @@ const UserDetails = ({ isOpen, onClose, username }) => {
             </div>
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">country:</span>
-              <span className="dark:text-gray-400">{userData?.country}</span>
+              <span className="dark:text-gray-400 text-black">{userData?.country}</span>
             </div>
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">city:</span>
