@@ -97,7 +97,7 @@ const LandingPage = () => {
                 <MonthCalendarLandingPage openSignInModal={openSignInModal} setIsSignInModalOpen={setIsSignInModalOpen} />
             </section>
             <section id='made-by' className="bg-gradient-iridescent py-20 px-6 text-center dark:bg-neutral-900">
-                <h2 className="text-4xl font-bold mb-6 text-white">Made by:</h2>
+                <h2 className="text-4xl font-bold mb-6 text-white">Our Team:</h2>
                 <div className="flex justify-center items-center">
                     <div className="mr-10">
                         <img src={Miroslav} alt="Miroslav Dimitrov" className="w-32 h-32 rounded-full mb-2" />
