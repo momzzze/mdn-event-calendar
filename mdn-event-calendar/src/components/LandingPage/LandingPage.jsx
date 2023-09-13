@@ -9,6 +9,9 @@ import Calendar from '../Calendar/Calendar';
 import MonthCalendarLandingPage from './Calendar/MonthCalendarLandingPage';
 import logoNav from '../../assets/logoNav.png';
 import Footer from '../Footer/Footer';
+import Miroslav from '../../assets/Miroslav.jpg';
+import Denitsa from '../../assets/Denitsa.jpg';
+import Nikola from '../../assets/Nikola.jpg';
 
 const LandingPage = () => {
     const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -39,17 +42,17 @@ const LandingPage = () => {
                 </div>
             </nav>
             <div className="bg-gradient-iridescent py-24 px-6 text-center dark:bg-neutral-900">
-            <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight text-whiteh1 md:text-6xl xl:text-7xl heartbeat">
-  Wanna party? <br />
-  <span className="text-primary">Welcome to our music event calendar and join the rave!🎊</span>
-</h1>
+                <h1 className="mt-2 mb-16 text-5xl font-bold tracking-tight text-whiteh1 md:text-6xl xl:text-7xl heartbeat">
+                    Wanna party? <br />
+                    <span className="text-primary">Welcome to our music event calendar and join the rave!🎊</span>
+                </h1>
 
                 <RouterLink className="mb-2 inline-block rounded bg-white px-16 py-4 text-sm font-extrabold uppercase leading-normal transition duration-150 ease-in-out hover:bg-gradient-iridescent focus:outline-none focus:ring-0 active:bg-primary-700 dark:hover:shadow-none md:mr-2 md:mb-0 custom-link-hover" data-te-ripple-init data-te-ripple-color="light" onClick={() => openSignUpModal(setIsSignUpModalOpen)} role="button">
                     Get started
                 </RouterLink>
             </div>
             <section id='features' className='w-10/12 p-6 m-12 lg:ml-40 sm:ml-20 ml-10'>
-            <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl text-gradient bg-gradient-to-r from-purple-300 to-purple-800 inline-block p-3 rounded-lg shadow-lg animate-pulse">Our Features🔊📅</h2>
+                <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl text-gradient bg-gradient-to-r from-purple-300 to-purple-800 inline-block p-3 rounded-lg shadow-lg animate-pulse">Our Features🔊📅</h2>
 
                 <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2' />
                 <ul className="list-none mx-auto my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
@@ -89,11 +92,27 @@ const LandingPage = () => {
             </section>
             <SignIn isOpen={isSignInModalOpen} onClose={() => closeSignInModal(setIsSignInModalOpen)} switchModals={openSignUpModal} />
             <SignUp isOpen={isSignUpModalOpen} onClose={() => closeSignUpModal(setIsSignUpModalOpen)} switchModals={openSignInModal} />
-            {/* <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2'/> */}
+            
             <section id='mock-calendar' className='mb-20 pb-20'>
                 <MonthCalendarLandingPage openSignInModal={openSignInModal} setIsSignInModalOpen={setIsSignInModalOpen} />
             </section>
-
+            <section id='made-by' className="bg-gradient-iridescent py-20 px-6 text-center dark:bg-neutral-900">
+                <h2 className="text-4xl font-bold mb-6 text-white">Made by:</h2>
+                <div className="flex justify-center items-center">
+                    <div className="mr-10">
+                        <img src={Miroslav} alt="Miroslav Dimitrov" className="w-32 h-32 rounded-full mb-2" />
+                        <p className="text-white">Miroslav Dimitrov</p>
+                    </div>
+                    <div className="mx-10">
+                        <img src={Denitsa} alt="Denitsa Georgieva" className="w-32 h-32 rounded-full mb-2" />
+                        <p className="text-white">Denitsa Georgieva</p>
+                    </div>
+                    <div className="ml-10">
+                        <img src={Nikola} alt="Nikola Ninov" className="w-32 h-32 rounded-full mb-2" />
+                        <p className="text-white">Nikola Ninov</p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };
