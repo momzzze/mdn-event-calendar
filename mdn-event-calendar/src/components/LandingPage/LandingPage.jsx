@@ -56,7 +56,7 @@ const LandingPage = () => {
                         <div className="relative mb-4 text-purple-800 dark:text-white">
                             <FaCalendarAlt className="text-5xl" />
                         </div>
-                        <h2 className="text-xl font-bold mb-4 text-purple-800">Personal Calendar</h2>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Personal Calendar📅</h2>
                         <p className="text-gray-600 dark:text-black-300 font-bold">Plan your party day with precision using our Personal Calendar.</p>
                     </li>
                     <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
@@ -64,7 +64,7 @@ const LandingPage = () => {
                         <div className="relative mb-4 text-purple-800 dark:text-white">
                             <FaCalendar className="text-5xl" />
                         </div>
-                        <h2 className="text-xl font-bold mb-4 text-purple-800">Events</h2>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Events🎉</h2>
                         <p className="text-gray-600 dark:text-black-300 font-bold">Coordinate party events seamlessly with our Events feature.</p>
                     </li>
                     <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
@@ -72,7 +72,7 @@ const LandingPage = () => {
                         <div className="mb-4 text-purple-800 dark:text-white">
                             <FaRoute className="text-5xl" />
                         </div>
-                        <h2 className="text-xl font-bold mb-4 text-purple-800">Route</h2>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Route🗺️</h2>
                         <p className="text-gray-600 dark:text-black-300 font-bold">Guide your guests to the party hassle-free with our Route planner.</p>
                     </li>
                     <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105">
@@ -80,7 +80,7 @@ const LandingPage = () => {
                         <div className="mb-4 text-purple-800 dark:text-white">
                             <FaUser className="text-5xl" />
                         </div>
-                        <h2 className="text-xl font-bold mb-4 text-purple-800">Contacts</h2>
+                        <h2 className="text-xl font-bold mb-4 text-purple-800">Contacts👫</h2>
                         <p className="text-gray-600 dark:text-black-300 font-bold">Stay connected with your party crew using our Contacts organizer.</p>
                     </li>
                 </ul>
