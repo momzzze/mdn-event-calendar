@@ -54,25 +54,25 @@ const UserDetails = ({ isOpen, onClose, username }) => {
           <div className="flex flex-col items-center justify-center border-2 border-white rounded-sm w-full py-4 px-10 mb-2 font-semibold">
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">email:</span>
-              <span className="dark:text-gray-400">{userData?.email}</span>
+              <span className="text-black">{userData?.email}</span>
             </div>
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">phone:</span>
-              <span className="dark:text-gray-400">{userData?.phone}</span>
+              <span className="text-black">{userData?.phone}</span>
             </div>
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">country:</span>
-              <span className="dark:text-gray-400">{userData?.country}</span>
+              <span className="text-black">{userData?.country}</span>
             </div>
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">city:</span>
-              <span className="dark:text-gray-400">{userData?.city}</span>
+              <span className="text-black">{userData?.city}</span>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center border-2 border-white rounded-sm w-full py-4 px-10 mb-4 font-semibold">
             <div className="flex flex-row justify-around w-full mb-2 border-b border-purple-800">
               <span className="flex-1">contacts:</span>
-              <span className="dark:text-gray-400">{contacts}</span>
+              <span className="text-black">{contacts}</span>
             </div>
           </div>
         </div>
