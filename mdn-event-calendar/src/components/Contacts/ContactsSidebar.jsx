@@ -6,7 +6,7 @@ import { useData } from "../../contexts/DataContext";
 
 const ContactsSidebar = () => {
     const { userData } = useAuth();
-    const { users,userContacts, setSendingInvitesData,setPendingInvitesData,pendingInvites } = useData();
+    const { users, userContacts, setSendingInvitesData, setPendingInvitesData, pendingInvites } = useData();
     const [searchTerm, setSearchTerm] = useState("");
     const [sendingInvites, setSendingInvites] = useState([]);
 
@@ -23,7 +23,7 @@ const ContactsSidebar = () => {
         };
 
         fetchSendingInvites();
-    }, [userData,pendingInvites]);
+    }, [userData, pendingInvites]);
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
@@ -42,13 +42,13 @@ const ContactsSidebar = () => {
     };
 
     const filteredUsers = users
-  ? users.filter((user) =>
-      user?.username?.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      userData &&
-      user.uid !== userData?.uid 
-      && (!userContacts || !userContacts.includes(user.uid))
-    )
-  : [];
+        ? users.filter((user) =>
+            user?.username?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            userData &&
+            user.uid !== userData?.uid
+            && (!userContacts || !userContacts.includes(user.uid))
+        )
+        : [];
     return (
         <div className="w-2/3 bg-white p-4 shadow-md">
             <input
@@ -57,7 +57,7 @@ const ContactsSidebar = () => {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="w-full px-3 py-2 mb-4 border rounded bg-gray-100"
-                
+
             />
             <h2 className="text-xl font-semibold mb-2 text-purple-800">Users</h2>
             <div className="grid place-items-center w-70% max-h-96 overflow-y-auto border-2 bg-gray-100 text-purple-800">
@@ -72,8 +72,12 @@ const ContactsSidebar = () => {
                                         <FaUser size={20} color="white" />
                                     </div>
                                 )}
-                                <span className="text-lg font-semibold">{user.firstName} {user.lastName}</span>
+                                <div className="flex flex-col justify-start">
+                                    <span className="text-lg font-semibold">{user.firstName} {user.lastName}</span>
+                                    <span className="text-lg font-semibold">@{user.username}</span>
+                                </div>
                             </div>
+
                             <button
                                 onClick={() => handleAddContactClick(user.uid)}
                                 className={`px-4 py-2 bg-purple-800 text-white rounded ${sendingInvites && sendingInvites.some(
