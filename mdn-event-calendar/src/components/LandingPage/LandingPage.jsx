@@ -47,7 +47,8 @@ const LandingPage = () => {
                 </RouterLink>
             </div>
             <section id='features' className='w-10/12 p-6 m-12 lg:ml-40 sm:ml-20 ml-10'>
-                <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl">Our Features</h2>
+            <h2 className="mt-2 mb-8 text-4xl font-bold tracking-tight text-whiteh1 h1 md:text-4xl xl:text-5xl text-gradient bg-gradient-to-r from-purple-300 to-purple-800 inline-block p-3 rounded-lg shadow-lg animate-pulse">Our Features🔊📅</h2>
+
                 <hr className='mx-auto bg-purple-800 dark:bg-white w-1/2' />
                 <ul className="list-none mx-auto my-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                     <li className="bg-white border border-solid border-purple-800 dark:border-white rounded-lg shadow-xl p-6 transition-transform transform hover:scale-105 relative">
