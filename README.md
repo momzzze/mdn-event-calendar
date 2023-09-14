@@ -1,6 +1,6 @@
 ## mdn-event-calendar
-
-    React single page application that allows users to create events and invite others to them. The application is using Firebase as a backend.
+ React single page application that allows users to create events and invite others to them. 
+ The application is using Firebase as a backend.
 
 ## Main features
 
