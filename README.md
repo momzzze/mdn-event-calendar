@@ -45,6 +45,53 @@
     run npm install to install the project dependencies
     run npm run dev in order to start the app in development mode and open.
 
+### Screenshots
+
+![Screenshot 1](/projectPictures/HomePage.png)
+*Home page*
+
+![Screenshot 2](/projectPictures/calendar.png)
+*Calendar*
+
+![Screenshot 1](/projectPictures/createEvent.png)
+*Create event*
+
+![Screenshot 1](/projectPictures/viewMontlyEvents.png)
+*View monthly events*
+
+![Screenshot 2](/projectPictures/viewWeeklyEvents.png)
+*View Weekly events*
+
+![Screenshot 1](/projectPictures/viewDailyEvents.png)
+*View daily events*
+
+![Screenshot 2](/projectPictures/EventPage.png)
+*Event details*
+
+![Screenshot 2](/projectPictures/AllEvents.png)
+*All event page*
+
+![Screenshot 2](/projectPictures/PublicEvents.png)
+*Public event page*
+
+![Screenshot 2](/projectPictures/PrivateEvents.png)
+*Private event page*
+
+![Screenshot 1](/projectPictures/userContactList.png)
+*Contact list*
+
+![Screenshot 2](/projectPictures/AdminDashboard.png)
+*Admin dashboard*
+
+![Screenshot 2](/projectPictures/AdminPanelAllEvents.png)
+*Admin panel for all events*
+
+![Screenshot 2](/projectPictures/ViewProfile.png)
+*Profile*
+
+![Screenshot 2](/projectPictures/EditProfile.png)
+*Edit Profile*
+
 
 
 ## Authors and acknowledgment
